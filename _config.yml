@@ -1,0 +1,10 @@
+title: PARAMETR-Bench
+description: "PARAMETR-Bench: A Framework for Procedural Scientific Tasks with Auto-Populated Rubrics for Agentic LLM Evaluation"
+baseurl: ""
+url: ""
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+minima:
+  skin: classic
