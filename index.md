@@ -4,9 +4,7 @@ title: "PARAMETR-Bench"
 description: "PARAMETR-Bench: A Framework for Procedural Scientific Tasks with Auto-Populated Rubrics for Agentic LLM Evaluation"
 ---
 
-![PARAMETR-Bench heading](/assets/images/PARAMETR-Bench/heading.png)
-
-*This article is different from my typical blog posts here, but I wanted to use this platform to write about a personal project in artificial intelligence, I have been working on lately. If you are a reader who came here for the mountains and outdoor adventures, hold tight and future articles will be about that again (or you can keep reading and maybe learn something new).*                  
+![PARAMETR-Bench heading](/assets/images/PARAMETR-Bench/heading.png)              
 
 <div class="intro-note" markdown="1">
 **Quick introduction:** I'm a particle physicist with a PhD from the University of Geneva during which I conducted reserch at CERN. There I searched for new elementary particles, contributed to the Athena software framework (the 5M+ line C++/Python codebase used across the ATLAS experiment, one of the largest scientific collaborations in the world) and to the FASER experiment's trigger and data acquisition system.  More recently, I've been working on reinforcement learning from human feedback (RLHF) platforms, designing physics evaluation tasks for frontier large language models.
@@ -156,7 +154,10 @@ Currently, there are four complex physics tasks and two minimal working example 
 
 - [`cepheid_calibration`](https://github.com/otheiner/PARAMETR-Bench/blob/main/tasks/cepheid_calibration/prompt.md): This analysis focuses on the well-known relation between luminosity of Cepheids (type of variable stars) and their period, recreating (though not exactly) the discovery by Henrietta Swan Leavitt, whose foundational contribution to observational cosmology was never recognized with a Nobel Prize. The task requires combining Hubble's law, spectroscopic data of galaxies, and photometric data about Cepheid variables. Beyond basic concepts from astrophysics, it tests methods of physical data analysis such as template cross-correlation in log-λ space.
 
-![Procedurally generated spectrum in the Cepheid calibration task.](/assets/images/PARAMETR-Bench/spectrum.png)
+ {% include gallery.html 
+  type="justified" 
+  images="/assets/images/PARAMETR-Bench/spectrum.png > Procedurally generated spectrum in the Cepheid calibration task;"
+%}
 
 - [`invariant_mass_reconstruction`](https://github.com/otheiner/PARAMETR-Bench/blob/main/tasks/invariant_mass_reconstruction/prompt.md): A simplified version of an analysis performed by particle physicists at accelerators like the Large Hadron Collider at CERN. The model receives a description of the detector geometry and the simulated detector data - simplified readouts from a silicon tracker and an electromagnetic calorimeter. The data contain events in which an unknown particle decays into an electron-positron pair. For each event, the model must reconstruct the tracks of both particles (fitting a helix to the tracker hits) and combine them to compute the invariant mass of the parent particle. It then plots a histogram of these reconstructed masses across all events, identifies a peak on top of an exponentially decaying background, and extracts the mass and decay width of the unknown particle. Both quantities are drawn fresh from a probability distribution each run, so the model cannot succeed by guessing a memorized particle - it has to perform the full analysis to recover the values.
 
@@ -164,11 +165,12 @@ Currently, there are four complex physics tasks and two minimal working example 
 
 - [`lissajous_figures`](https://github.com/otheiner/PARAMETR-Bench/blob/main/tasks/lissajous_figures/prompt.md): The model is placed in the role of a physicist performing quality assurance at a company manufacturing AC power supplies. The key analytical step is reading Lissajous figures (see the image bellow) - spatially complex plots produced by combining two oscillating signals - to determine the frequency of the power supply under test. The estimation requires counting the ratio of lobes touching the vertical and horizontal axes of the figure. This is a simple task for human visual inspection but deceptively difficult even for capable vision models, and remains non-trivial even with agentic tool use.
 
-![Mass spectrum that model has to reconstruct from the data and then fit the peak in the invariant mass reconstruction task.](/assets/images/PARAMETR-Bench/invariant_mass.png)
-
-![Visualisation of the solution of the Hubble constant estimation.](/assets/images/PARAMETR-Bench/hubble.png)
-
-![Lissajous figure generated in one of the tasks. Here the ratio of lobes is 3:5.](/assets/images/PARAMETR-Bench/lissajous.png)
+ {% include gallery.html 
+  type="justified" 
+  images="/assets/images/PARAMETR-Bench/invariant_mass.png > Mass spectrum that model has to reconstruct from the data and then fit the peak in the invariant mass reconstruction task.;
+          /assets/images/PARAMETR-Bench/hubble.png > Visualisation of the solution of the Hubble constant estimation.;
+          /assets/images/PARAMETR-Bench/lissajous.png > Lissajous figure generated in one of the tasks. Here the ratio of lobes is 3:5.;"
+%}
 
 Two minimal working examples follow. These tasks are simple and require no physics knowledge, so a potential contributor from a different field can examine the framework without having to understand the physics tasks. Both tasks have names prefixed with an underscore - by convention, tasks in PARAMETR-Bench whose names start with `_` are minimal working examples and are not included in the default benchmark evaluation, but they remain in the repository for demonstration and debugging. Even though both tasks are deliberately simple, they reveal interesting LLM failure modes. They're useful both as framework demonstrations and as small empirical probes of what current models still struggle with.
 

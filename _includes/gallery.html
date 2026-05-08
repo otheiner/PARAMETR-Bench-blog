@@ -1,7 +1,8 @@
 
 {% assign images = include.images | split: ';' %}
 {% assign type = include.type | default: "simple" %}
-{% assign gallery = images[0] %}
+{% assign first_image = images[0] | split: '>' | first | strip %}
+{% assign gallery = first_image | split: '/' | last | split: '.' | first %}
 
 {% if type == "grid" %}
   <div class="gallery-grid">
