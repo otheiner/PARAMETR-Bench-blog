@@ -4,16 +4,18 @@ title: "PARAMETR-Bench: A Framework for Procedural Scientific Tasks with Auto-Po
 description: "PARAMETR-Bench: A Framework for Procedural Scientific Tasks with Auto-Populated Rubrics for Agentic LLM Evaluation"
 image_heading: /assets/images/PARAMETR-Bench/heading.png
 ---
-
 <div class="intro-note" markdown="1">
 **Quick introduction:** I'm a particle physicist with a PhD from the University of Geneva during which I conducted reserch at CERN. There I searched for new elementary particles, contributed to the Athena software framework (the 5M+ line C++/Python codebase used across the ATLAS experiment, one of the largest scientific collaborations in the world) and to the FASER experiment's trigger and data acquisition system.  More recently, I've been working on reinforcement learning from human feedback (RLHF) platforms, designing physics evaluation tasks for frontier large language models.
 
 Problem design is a long thread in my background. As a high school student, I twice represented the Czech Republic at the International Olympiad on Astronomy and Astrophysics (IOAA), winning bronze medals in 2013 and 2014. Since starting university, I've been an organizer of the Czech Astronomy Olympiad, writing competition problems for students.
 
 PARAMETR-Bench, presented in this article, connects these three threads. It started as a curiosity project but grew into something I think is worth sharing. Despite the "Bench" in the name, my aim is not to build yet-another-benchmark, but to show my work and present a few interesting ideas I came across along the way. I welcome any comments and I'm open to discussion - just [reach out](https://otheiner.github.io/#contact).
+</div>
 
 [![DOI](https://github.com/user-attachments/assets/799b8ec5-cc08-4e1b-a182-4e784fa78244)](https://doi.org/10.5281/zenodo.20076421)
-</div>
+[![DOI](https://img.shields.io/badge/%F0%9F%A4%97-Hugging%20Face-yellow?style=flat)](https://huggingface.co/spaces/otheiner/PARAMETR-Bench_demo)
+[![DOI](https://img.shields.io/badge/GitHub-otheiner/PARAMETR--Bench-black?style=flat&logo=github)](https://github.com/otheiner/PARAMETR-Bench)
+
 
 ## Table of Contents
 {:.no_toc}
