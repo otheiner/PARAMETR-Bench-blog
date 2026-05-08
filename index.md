@@ -15,8 +15,6 @@ PARAMETR-Bench, presented in this article, connects these three threads. It star
 [![DOI](https://github.com/user-attachments/assets/799b8ec5-cc08-4e1b-a182-4e784fa78244)](https://doi.org/10.5281/zenodo.20076421)
 </div>
 
-#TODO Add this link to GH spaces and link it correctly in README - also add github link and HF Space directly here on the page.
-
 ## Table of Contents
 {:.no_toc}
 
