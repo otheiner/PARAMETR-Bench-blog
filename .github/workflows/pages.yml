@@ -1,5 +1,8 @@
 name: Build and deploy Jekyll site
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
