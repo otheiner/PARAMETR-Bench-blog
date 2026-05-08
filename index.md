@@ -12,8 +12,10 @@ Problem design is a long thread in my background. As a high school student, I tw
 
 PARAMETR-Bench, presented in this article, connects these three threads. It started as a curiosity project but grew into something I think is worth sharing. Despite the "Bench" in the name, my aim is not to build yet-another-benchmark, but to show my work and present a few interesting ideas I came across along the way. I welcome any comments and I'm open to discussion - just [reach out](https://otheiner.github.io/#contact).
 
-[![DOI](https://zenodo.org/badge/1197193977.svg)](https://doi.org/10.5281/zenodo.20076421)
+[![DOI](https://private-user-images.githubusercontent.com/44167540/589451511-799b8ec5-cc08-4e1b-a182-4e784fa78244.svg?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzgyNDc0NjksIm5iZiI6MTc3ODI0NzE2OSwicGF0aCI6Ii80NDE2NzU0MC81ODk0NTE1MTEtNzk5YjhlYzUtY2MwOC00ZTFiLWExODItNGU3ODRmYTc4MjQ0LnN2Zz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA1MDglMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNTA4VDEzMzI0OVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWM0ZDdmZWQxOTkwOWIzYTM2MDUxOWZhMTUxZDc1MTE0ZWVmY2MzNzQyOTUxODkzZDliOGNlOWQ3OGNjZDJlZGMmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JnJlc3BvbnNlLWNvbnRlbnQtdHlwZT1pbWFnZSUyRnN2ZyUyQnhtbCJ9.MHPEDKaI3P5t2FDtOyzcELtxm7wDfiJjwJdxmkkQUJw)](https://doi.org/10.5281/zenodo.20076421)
 </div>
+
+#TODO Add this link to GH spaces and link it correctly in README - also add github link and HF Space directly here on the page.
 
 ## Table of Contents
 {:.no_toc}
@@ -111,7 +113,7 @@ The sequence begins with the task generator, which takes the seed and difficulty
 
 PARAMETR-Bench supports two evaluation modes. In non-agentic mode, the input data is embedded directly in the prompt sent to the model, which can cause context overflow on larger datasets. In this mode, model has only "one shot" to return the answer, which is extremely difficult. In agentic mode, the model receives only a description of the input files and an environment to explore them — avoiding the context problem entirely.
 
-In agentic mode, the model enters the agentic loop, where it receives the task definition, the multimodal input data, and an agentic prompt. Inside the loop, the model interacts with a Docker sandbox — an isolated, network-blocked execution environment — through a set of available tools:
+In agentic mode, the model enters the agentic loop, where it receives the task definition, the multimodal input data, and an [agentic prompt](https://github.com/otheiner/PARAMETR-Bench/blob/main/src/agentic_prompt.md). Inside the loop, the model interacts with a Docker sandbox — an isolated, network-blocked execution environment — through a set of available tools:
 
 - **Running python scripts** - executed inside the Docker sandbox, memory-capped at 512 MB, no network access, restricted to a single mounted folder with input data. Only standard Python libraries plus a small task-relevant set of libraries are available.
 - **Viewing images** - the framework converts the requested image to base64 and embeds it in the next message.
@@ -121,7 +123,7 @@ In agentic mode, the model enters the agentic loop, where it receives the task d
 
 The loop continues until the model produces a final response or the maximum number of turns is reached. If the model has not converged by the final turn, it is prompted to report its best result so far.
 
-The LLM judge then receives the model's response alongside the populated rubrics and a judge prompt. It grades the response against each rubric criterion, producing a binary pass or fail for each. These grades feed into statistical evaluation, which aggregates them into a weighted score for this sequence — the sequence's contribution to the final benchmark result.
+The LLM judge then receives the model's response alongside the populated rubrics and a [judge prompt](https://github.com/otheiner/PARAMETR-Bench/blob/main/src/judge_prompt.md). It grades the response against each rubric criterion, producing a binary pass or fail for each. These grades feed into statistical evaluation, which aggregates them into a weighted score for this sequence — the sequence's contribution to the final benchmark result.
 
 ### Seeded Task Generation with Tunable Difficulty
 
@@ -283,11 +285,29 @@ This is a slow experiment by design. The first contamination signal cannot arriv
 
 ## Related work
 
-(TODO: This section is still being worked on)
+Several benchmarks address contamination through dynamic test sets rather than fixed ones, falling into two broad families.
+
+The first family relies on procedural generation. DyVal[^dyval] uses directed acyclic graphs to generate reasoning tasks in mathematics, logic, and algorithms. BALROG[^balrog] evaluates agents in procedurally generated game environments. PhysGym[^physgym] uses procedurally generated physics simulations, but targets physics discovery (probing unknown laws through experimentation) rather than multi-step data analysis. These benchmarks share PARAMETR-Bench's contamination-resistance motivation but target abstract reasoning, game-playing, or physics discovery rather than scientific analysis.
+
+The second family relies on expert-curated tasks that are periodically refreshed. LiveBench[^livebench] releases new questions monthly, drawn from recent math competitions, arXiv papers, and news articles. This mitigates contamination in practice but depends on continuous human authoring effort and on newly released sources not yet having been crawled.
+
+A third group targets scientific analysis directly but uses static, expert-curated tasks. ScienceAgentBench[^scienceagentbench] evaluates agents on 102 data-driven scientific tasks extracted from peer-reviewed publications, and BixBench[^bixbench] evaluates agents on real-world bioinformatics scenarios in Dockerized environments, both structurally similar to PARAMETR-Bench in their agentic setup. SciCode[^scicode] covers scientific coding across 16 sub-fields of natural science. These are the closest in scientific scope to PARAMETR-Bench, but their static nature leaves them vulnerable to contamination over time.
+
+PARAMETR-Bench sits at the intersection of the first and third families: procedural generation applied to multi-step scientific analysis. This combination introduces a challenge that neither family faces in isolationl, which is keeping detailed grading criteria aligned with ground truth that varies across runs. Static scientific benchmarks can ship hand-written rubrics because answers never change, while procedural reasoning or game benchmarks typically grade on a single objective outcome that needs no rubric. Multi-step scientific analysis needs both: fresh instances every run and fine-grained rubrics. The metarubric mechanism addresses this by auto-populating rubrics from the same generator that produces the task, preventing rubric drift by construction. I am not aware of prior work that combines procedural generation with scientific analysis tasks, nor of a direct equivalent of the metarubric mechanism, though I cannot rule out related efforts I may have missed.
 
 ## Limitations and What's Next
 
-(TODO: This section is still being worked on)
+PARAMETR-Bench is presented as a methodology and proof of concept rather than a finished benchmark — nor is becoming one its goal. The framework demonstrates that procedural generation and auto-populated rubrics can be combined for multi-step scientific analysis, but I would like to use this section to acknowledge several limitations.
+
+**Metarubrics inherit generator behavior.** Rubric criteria are auto-populated from the same generator that produces the task data, so any bug or systematic bias in the generator propagates into every derived rubric instance. Static benchmarks catch such errors per task during human review; here, validation has to happen at the generator level instead.
+
+**LLM-as-judge limitations apply.** The framework currently relies on an LLM judge to grade responses against populated rubrics, inheriting the known failure modes of LLM-as-judge evaluation: sensitivity to verbosity, possible same-family bias, and unreliability on borderline cases. Reported results are entangled with the choice of judge model, which is why the proposed reporting format includes it alongside the evaluated model.
+
+**Contamination detection is currently theoretical.** The leak-detection mechanism works in principle. A statistically significant gap between public and private seeds would indicate contamination, but whether such a gap is detectable in practice has yet to be demonstrated. Until the long-running experiment produces results, contamination resistance should be read as a design property rather than a demonstrated capability.
+
+**Procedural generation suits some scientific tasks better than others.** The framework works naturally for tasks with parametric structure — number of events, noise levels, true values of physical constants, dataset size. Many forms of scientific reasoning, such as deciding which experiment to run next or recognizing that a model assumption is wrong, do not factorize this way. PARAMETR-Bench measures a specific slice of scientific competence — multi-step quantitative analysis with well-defined ground truth — and is not intended as a general measure of scientific reasoning.
+
+**Scope of this work.** This post presents methodology and a working implementation, not a benchmark broad enough to rank frontier models. Doing the latter would require more tasks, more domains, multiple contributors, and the contamination experiment running to completion. The goal here is to put the methodological ideas — seeded scientific task generation, metarubrics, and the leak-detection design — on the table for discussion before possibly scaling further.
 
 ## Conclusion
 
@@ -295,4 +315,16 @@ This is a slow experiment by design. The first contamination signal cannot arriv
 
 ## References
 
-[^scicode]: Tian et al., *SciCode: A Research Coding Benchmark Curated by Scientists* [arXiv:2407.13168](https://arxiv.org/abs/2407.13168).
+[^dyval]: Zhu, K., et al. (2023). *DyVal: Dynamic Evaluation of Large Language Models for Reasoning Tasks*. [arXiv:2309.17167](https://arxiv.org/abs/2309.17167).
+
+[^balrog]: Paglieri, D., et al. (2024). *BALROG: Benchmarking Agentic LLM and VLM Reasoning On Games*. ICLR 2025. [arXiv:2411.13543](https://arxiv.org/abs/2411.13543).
+
+[^physgym]: Chen, Y., et al. (2025). *PhysGym: Benchmarking LLMs in Interactive Physics Discovery with Controlled Priors*. NeurIPS 2025 Datasets and Benchmarks Track. [arXiv:2507.15550](https://arxiv.org/abs/2507.15550).
+
+[^livebench]: White, C., et al. (2024). *LiveBench: A Challenging, Contamination-Limited LLM Benchmark*. [arXiv:2406.19314](https://arxiv.org/abs/2406.19314).
+
+[^scienceagentbench]: Chen, Z., et al. (2024). *ScienceAgentBench: Toward Rigorous Assessment of Language Agents for Data-Driven Scientific Discovery*. ICLR 2025. [arXiv:2410.05080](https://arxiv.org/abs/2410.05080).
+
+[^bixbench]: Mitchener, L., et al. (2025). *BixBench: A Comprehensive Benchmark for LLM-based Agents in Computational Biology*. [arXiv:2503.00096](https://arxiv.org/abs/2503.00096).
+
+[^scicode]: Tian, M., et al. (2024). *SciCode: A Research Coding Benchmark Curated by Scientists*. NeurIPS 2024. [arXiv:2407.13168](https://arxiv.org/abs/2407.13168).
