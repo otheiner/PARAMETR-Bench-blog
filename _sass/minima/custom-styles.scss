@@ -1,0 +1,316 @@
+// Placeholder to allow defining custom styles that override everything else.
+// (Use `_sass/minima/custom-variables.scss` to override variable defaults)
+
+.featured-image-post {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.blog-roll-image {
+  width: 150px;
+  height: 7 * $spacing-unit;
+  object-fit: cover;
+  float: left;
+  margin-right: 20px; 
+}
+
+/* Image: shrink + center */
+p > img {
+  display: block;
+  margin: 0 auto;    /* center horizontally */
+  width: 40%;        /* shrink image */
+}
+
+/* Caption: just center text */
+p > img + em {
+  display: block;
+  text-align: center;
+  margin-top: 0.5em;
+  color: grey;
+}
+
+.post-list li {
+  overflow: auto; /* contain floated children */
+  margin-bottom: 1rem; /* spacing between posts */
+}
+
+.post-list li hr {
+  clear: both;  /* force <hr> below image */
+}
+
+.post-list li img.blog-roll-image {
+  display: block;      /* prevents weird inline gaps */
+  margin-bottom: 0.5rem; /* space between image and whatever follows */
+}
+
+.gallery-image {
+  text-align: center;         /* center image + caption */
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* two equal columns */
+  column-gap: 0.5em; /* spacing between columns */
+  row-gap: 0.5em;  /* spacing between rows */
+  margin-top: 20em;            /* spacing between image and caption */
+}
+
+.gallery-grid .gallery-image img {
+  max-width: 100%;
+}
+
+.gallery-simple {
+  display: flex;
+  flex-wrap: wrap;       /* allow images to wrap to next line */
+  justify-content: center; /* center images horizontally */
+}
+
+.gallery-simple .gallery-image img {
+  max-width: 80%;
+  margin-top: 1em;
+}
+
+.gallery-caption {
+  font-style: italic;
+  color: #adadad;
+}
+
+/* ------------------ General Header ------------------ */
+.site-header .wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+/* ------------------ Hidden checkbox ------------------ */
+.nav-trigger {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  z-index: -1;
+}
+
+/* ------------------ Hamburger button ------------------ */
+.nav-toggle {
+  display: none; /* hidden by default */
+  cursor: pointer;
+  position: relative;
+  z-index: 1000;
+}
+
+/* ------------------ Desktop layout ------------------ */
+.site-nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex: 1;
+}
+
+.nav-menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  margin: 0;
+  position: static;
+  background: transparent;
+  box-shadow: none;
+}
+
+.nav-menu a {
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  display: inline-block;
+}
+
+/* ------------------ Mobile dropdown ------------------ */
+@media (max-width: 600px) {
+  .nav-toggle {
+    display: block; /* show hamburger */
+    align-items: center;
+  }
+
+  .nav-menu {
+    display: none; /* hide inline menu */
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 200px;
+    background: #fff;
+    border-radius: 0.25rem;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    z-index: 999;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  /* Show dropdown only when checkbox is checked */
+  .nav-trigger:checked ~ .nav-menu {
+    display: flex;
+    max-height: 500px;
+  }
+
+  .nav-menu a {
+    display: block;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  .nav-menu a:last-child {
+    border-bottom: none;
+  }
+
+}
+
+.tag-description {
+  margin-bottom: 4rem; /* adds space below the description */
+}
+
+.tag-header {
+  background-color: #f0f0f0;   /* light grey */
+  border-radius: 12px;         /* rounded corners */
+  padding: 1rem 1.5rem;        /* space inside the rectangle */
+  margin-bottom: 2rem;         /* space below the rectangle */
+}
+
+.tag-header h2,
+.tag-header .tag-description {
+  margin: 0;                   /* reset default margins */
+}
+
+.tag-header .tag-description {
+  margin-top: 0.5rem;          /* small space below h2 */
+  font-size: 1rem;
+  color: #333;
+}
+
+/***** Bootstrap alerts *****************/
+
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert h4 {
+  margin-top: 0;
+  color: inherit;
+}
+
+.alert .alert-link {
+  font-weight: bold;
+}
+
+.alert > p,
+.alert > ul {
+  margin-bottom: 0;
+}
+
+.alert > p + p {
+  margin-top: 5px;
+}
+
+.alert-dismissable,
+.alert-dismissible {
+  padding-right: 35px;
+}
+
+.alert-dismissable .close,
+.alert-dismissible .close {
+  position: relative;
+  top: -2px;
+  right: -21px;
+  color: inherit;
+}
+
+.alert-success {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #3c763d;
+}
+
+.alert-success hr {
+  border-top-color: #c9e2b3;
+}
+
+.alert-success .alert-link {
+  color: #2b542c;
+}
+
+.alert-info {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #31708f;
+}
+
+.alert-info hr {
+  border-top-color: #a6e1ec;
+}
+
+.alert-info .alert-link {
+  color: #245269;
+}
+
+.alert-warning {
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  color: #8a6d3b;
+}
+
+.alert-warning hr {
+  border-top-color: #f7e1b5;
+}
+
+.alert-warning .alert-link {
+  color: #66512c;
+}
+
+.alert-danger {
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #a94442;
+}
+
+.alert-danger hr {
+  border-top-color: #e4b9c0;
+}
+
+.alert-danger .alert-link {
+  color: #843534;
+}
+/***********************************/
+
+.intro-note {
+  background-color: #f6f8fa;
+  border-left: 4px solid #6c757d;
+  padding: 1em 1.25em;
+  margin: 1.5em 0;
+  font-size: 0.9em;
+  color: #444;
+  border-radius: 4px;
+}
+
+.intro-note p {
+  margin: 0.5em 0;
+}
+
+.intro-note p:first-child {
+  margin-top: 0;
+}
+
+.intro-note p:last-child {
+  margin-bottom: 0;
+}

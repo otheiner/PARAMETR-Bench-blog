@@ -35,6 +35,7 @@ Procedural generation is a third approach that solves leakage by creating fresh 
 
 PARAMETR-Bench runs multiple evaluation sequences and aggregates their results into a final benchmark score. Each evaluation sequence represents one task at one difficulty level evaluated with one seed. The first diagram shows this high-level structure. The framework executes all sequences and aggregates the results.
 
+<div style="text-align: center; max-width: 400px; margin: 0 auto;" markdown="1">
 ```mermaid
 graph TD
   subgraph PARAMETR-Bench
@@ -57,10 +58,13 @@ graph TD
   class E1,E2,E3,E4,S yellow
   class RT output
   class PARAMETR-Bench white
-``` 
+  
+```
+</div>
 
 When running the benchmark, user specifies two inputs at the start of a run: a set of seeds and a difficulty level. Each seed produces a distinct task instance and the difficulty level is shared across all sequences in the run. The following diagram shows what happens inside a single evaluation sequence.
 
+<div style="text-align: center; max-width: 900px; margin: 0 auto;" markdown="1">
 ```mermaid
 graph TD
     A1[Seed] --> B(Task Generator)
@@ -95,7 +99,8 @@ graph TD
     class J,F red
     class B,E,G,RG,S yellow
     class Do orange
-``` 
+```
+</div>
 
 The sequence begins with the task generator, which takes the seed and difficulty level as inputs and produces two outputs: the multimodal input data (images, tables, text files, or a combination) and the ground truth (the correct answers, stored internally and never shown to the model). In parallel, the ground truth is used alongside the user-defined metarubrics to instantiate the rubrics — the specific grading criteria for this exact task instance.
 
