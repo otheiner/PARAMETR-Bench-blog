@@ -1,6 +1,6 @@
 title: PARAMETR-Bench
 description: "PARAMETR-Bench: A Framework for Procedural Scientific Tasks with Auto-Populated Rubrics for Agentic LLM Evaluation"
-baseurl: "/PARAMETR-Bench"
+baseurl: "/PARAMETR-Bench-blog"
 url: "https://otheiner.github.io"
 theme: minima
 plugins:
