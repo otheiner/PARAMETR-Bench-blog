@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: "PARAMETR-Bench"
 description: "PARAMETR-Bench: A Framework for Procedural Scientific Tasks with Auto-Populated Rubrics for Agentic LLM Evaluation"
 ---
