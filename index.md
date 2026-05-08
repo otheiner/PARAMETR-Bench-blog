@@ -1,10 +1,9 @@
 ---
 layout: post
-title: "PARAMETR-Bench"
+title: "PARAMETR-Bench: A Framework for Procedural Scientific Tasks with Auto-Populated Rubrics for Agentic LLM Evaluation"
 description: "PARAMETR-Bench: A Framework for Procedural Scientific Tasks with Auto-Populated Rubrics for Agentic LLM Evaluation"
+image_heading: /assets/images/PARAMETR-Bench/heading.png
 ---
-
-![PARAMETR-Bench heading](/assets/images/PARAMETR-Bench/heading.png)              
 
 <div class="intro-note" markdown="1">
 **Quick introduction:** I'm a particle physicist with a PhD from the University of Geneva during which I conducted reserch at CERN. There I searched for new elementary particles, contributed to the Athena software framework (the 5M+ line C++/Python codebase used across the ATLAS experiment, one of the largest scientific collaborations in the world) and to the FASER experiment's trigger and data acquisition system.  More recently, I've been working on reinforcement learning from human feedback (RLHF) platforms, designing physics evaluation tasks for frontier large language models.
@@ -15,6 +14,12 @@ PARAMETR-Bench, presented in this article, connects these three threads. It star
 
 [![DOI](https://zenodo.org/badge/1197193977.svg)](https://doi.org/10.5281/zenodo.20076421)
 </div>
+
+## Table of Contents
+{:.no_toc}
+
+* TOC
+{:toc}
 
 ## Motivation
 
@@ -146,6 +151,74 @@ You can try the task generator yourself in the interactive demo hosted on Huggin
   </a>
 </p>
 
+### Dataset Leak Detection Mechanism
+
+Seeded task generation has an inherent feature: I can generate new tasks of the same difficulty, which makes tasks across different seeds meaningfully comparable. For benchmarking purposes, I propose publishing benchmarking results together with:
+
+- the seeds used in the test
+- the difficulty settings
+- the evaluated model version
+- the model used as judge
+- the exact git commit hash, which references the exact state of the repository so the same results can be reproduced in the future
+
+The data themselves are not published — the exact same data are guaranteed by using the same seeds with the same framework version. This setup enables a leak detection mechanism.
+
+If evaluation data from specific public seeds were to leak into a model's training set, the model might show inflated performance due to memorization. This can in principle(\*) be detected by re-running the benchmark with a fresh set of random seeds. A statistically significant performance gap between public seeds and fresh private seeds would provide an indication of a potential data leak — making contamination detectable in principle, unlike static benchmarks where held-out sets differ in content rather than only in seed.
+
+(\*) *This is currently a hypothesis. To test it, I am setting up an experiment described in the section on [long-running contamination experiment](#a-long-running-contamination-experiment)*.
+
+
+### Metarubrics and Rubrics
+
+The user only needs to define the templates (metarubrics) and the framework handles the rest. Metarubrics are analogous to classes in object-oriented programming, while rubrics are specific instances of those classes instantiated with unique parameters for a given task. Each metarubric belongs to one of several categories, which lets the resulting evaluation distinguish between different failure modes — for example, errors in scientific reasoning, errors in image handling, or errors in data manipulation. This grouping approach is used in already estabilished benchmarks.
+
+The user provides a high-level template with placeholders.
+
+```json
+"metarubrics": [
+    {
+      "key": "z_estimation",
+      "source": "analyzed_galaxies",
+      "category": "image handling",
+      "name": "Redshift estimation",
+      "description": "Did the model compute that galaxy {galaxy_ID} has redshift {z}, or a value strictly inside the interval [{z_min}, {z_max}]?",
+      "weight": 5.0
+    }
+]
+```
+
+The framework populates the template using the ground truth stored in pandas DataFrames from the procedurally generated dataset.
+
+```json
+"metarubrics": [
+    {
+      "key": "z_estimation",
+      "name": "Redshift estimation",
+      "category": "image handling",
+      "weight": 5.0,
+      "total": 3,
+      "rubrics": [
+        {
+          "id": 1,
+          "criterion": "Did the model compute that galaxy GID075008 has redshift 0.02978, or value strictly inside interval [0.02928 , 0.03028]?"
+        },
+        {
+          "id": 2,
+          "criterion": "Did the model compute that galaxy GID104365 has redshift 0.01951, or value strictly inside interval [0.01901 , 0.02001]?"
+        },
+        {
+          "id": 3,
+          "criterion": "Did the model compute that galaxy GID173179 has redshift 0.01831, or value strictly inside interval [0.01781 , 0.01881]?"
+        }
+      ]
+    }
+]
+```
+
+### Evaluation Harness for AI Agents
+
+(TODO: This section is still being worked on)
+
 ## Tasks Included in PARAMETR-Bench
 
 Tasks in the PARAMETR-Bench have a few common features:
@@ -161,27 +234,29 @@ Currently, there are four complex physics tasks and two minimal working example 
 
  {% include gallery.html 
   type="justified" 
-  images="/assets/images/PARAMETR-Bench/spectrum.png > Procedurally generated spectrum in the Cepheid calibration task;"
-%}
+  images="/assets/images/PARAMETR-Bench/spectrum.png > Procedurally generated spectrum in the Cepheid calibration task;
+      "%}
 
-- [`invariant_mass_reconstruction`](https://github.com/otheiner/PARAMETR-Bench/blob/main/tasks/invariant_mass_reconstruction/prompt.md): A simplified version of an analysis performed by particle physicists at accelerators like the Large Hadron Collider at CERN. The model receives a description of the detector geometry and the simulated detector data - simplified readouts from a silicon tracker and an electromagnetic calorimeter. The data contain events in which an unknown particle decays into an electron-positron pair. For each event, the model must reconstruct the tracks of both particles (fitting a helix to the tracker hits) and combine them to compute the invariant mass of the parent particle. It then plots a histogram of these reconstructed masses across all events, identifies a peak on top of an exponentially decaying background, and extracts the mass and decay width of the unknown particle. Both quantities are drawn fresh from a probability distribution each run, so the model cannot succeed by guessing a memorized particle - it has to perform the full analysis to recover the values.
 
-- [`hubble_constant`](https://github.com/otheiner/PARAMETR-Bench/blob/main/tasks/hubble_constant/prompt.md): A data-analysis task inspired by Edwin Hubble's original work, one of the foundational results of observational cosmology. The model analyzes spectroscopic data to identify redshifts of fictitious galaxies, then combines this with Cepheid photometric data for distance calibration, and uses the result to estimate the local rate of cosmic expansion - the Hubble constant. It's effectively the inverse of the Cepheid calibration task, with a different spectral representation. The Hubble constant value is drawn fresh each run from a distribution whose mean is offset from current measurements, preventing the model from guessing a memorized value and forcing it to actually perform the analysis.
+ - [`invariant_mass_reconstruction`](https://github.com/otheiner/PARAMETR-Bench/blob/main/tasks/invariant_mass_reconstruction/prompt.md): A simplified version of an analysis performed by particle physicists at accelerators like the Large Hadron Collider at CERN. The model receives a description of the detector geometry and the simulated detector data - simplified readouts from a silicon tracker and an electromagnetic calorimeter. The data contain events in which an unknown particle decays into an electron-positron pair. For each event, the model must reconstruct the tracks of both particles (fitting a helix to the tracker hits) and combine them to compute the invariant mass of the parent particle. It then plots a histogram of these reconstructed masses across all events, identifies a peak on top of an exponentially decaying background, and extracts the mass and decay width of the unknown particle. Both quantities are drawn fresh from a probability distribution each run, so the model cannot succeed by guessing a memorized particle - it has to perform the full analysis to recover the values. The full real-world version of this analysis is extremely difficult; the task makes a few targeted simplifications that remove sub-problems unrelated to the core analytical chain (particle identification, vertex reconstruction, hit-level noise, shape of the background, ...) while preserving the analytical reasoning the task is designed to test.
 
-- [`lissajous_figures`](https://github.com/otheiner/PARAMETR-Bench/blob/main/tasks/lissajous_figures/prompt.md): The model is placed in the role of a physicist performing quality assurance at a company manufacturing AC power supplies. The key analytical step is reading Lissajous figures (see the image bellow) - spatially complex plots produced by combining two oscillating signals - to determine the frequency of the power supply under test. The estimation requires counting the ratio of lobes touching the vertical and horizontal axes of the figure. This is a simple task for human visual inspection but deceptively difficult even for capable vision models, and remains non-trivial even with agentic tool use.
+ - [`hubble_constant`](https://github.com/otheiner/PARAMETR-Bench/blob/main/tasks/hubble_constant/prompt.md): A data-analysis task inspired by Edwin Hubble's original work, one of the foundational results of observational cosmology. The model analyzes spectroscopic data to identify redshifts of fictitious galaxies, then combines this with Cepheid photometric data for distance calibration, and uses the result to estimate the local rate of cosmic expansion - the Hubble constant. It's effectively the inverse of the Cepheid calibration task, with a different spectral representation. The Hubble constant value is drawn fresh each run from a distribution whose mean is offset from current measurements, preventing the model from guessing a memorized value and forcing it to actually perform the analysis.
+
+ - [`lissajous_figures`](https://github.com/otheiner/PARAMETR-Bench/blob/main/tasks/lissajous_figures/prompt.md): The model is placed in the role of a physicist performing quality assurance at a company manufacturing AC power supplies. The key analytical step is reading Lissajous figures (see the image bellow) - spatially complex plots produced by combining two oscillating signals - to determine the frequency of the power supply under test. The estimation requires counting the ratio of lobes touching the vertical and horizontal axes of the figure. This is a simple task for human visual inspection but deceptively difficult even for capable vision models, and remains non-trivial even with agentic tool use.
 
  {% include gallery.html 
   type="justified" 
   images="/assets/images/PARAMETR-Bench/invariant_mass.png > Mass spectrum that model has to reconstruct from the data and then fit the peak in the invariant mass reconstruction task.;
           /assets/images/PARAMETR-Bench/hubble.png > Visualisation of the solution of the Hubble constant estimation.;
-          /assets/images/PARAMETR-Bench/lissajous.png > Lissajous figure generated in one of the tasks. Here the ratio of lobes is 3:5.;"
-%}
+          /assets/images/PARAMETR-Bench/lissajous.png > Lissajous figure generated in one of the tasks. Here the ratio of lobes is 3:5.;
+      "%}
 
 Two minimal working examples follow. These tasks are simple and require no physics knowledge, so a potential contributor from a different field can examine the framework without having to understand the physics tasks. Both tasks have names prefixed with an underscore - by convention, tasks in PARAMETR-Bench whose names start with `_` are minimal working examples and are not included in the default benchmark evaluation, but they remain in the repository for demonstration and debugging. Even though both tasks are deliberately simple, they reveal interesting LLM failure modes. They're useful both as framework demonstrations and as small empirical probes of what current models still struggle with.
 
-- [`_count_circles`](https://github.com/otheiner/PARAMETR-Bench/blob/main/tasks/_count_circles/prompt.md): The model receives several images of black circles on a white background and is asked to count the circles in each, then compute the average. With few circles per image, most vision models handle this easily; with many circles per image, even capable models start to miscount, making this a useful illustration of when agentic evaluation outperforms direct visual reasoning.
+  - [`_count_circles`](https://github.com/otheiner/PARAMETR-Bench/blob/main/tasks/_count_circles/prompt.md): The model receives several images of black circles on a white background and is asked to count the circles in each, then compute the average. With few circles per image, most vision models handle this easily; with many circles per image, even capable models start to miscount, making this a useful illustration of when agentic evaluation outperforms direct visual reasoning.
+  
+  - [`_compute_average`](https://github.com/otheiner/PARAMETR-Bench/blob/main/tasks/_compute_average/prompt.md): The model is given a list of numbers and asked to compute their average. Trivially easy in principle, but less capable models sometimes hallucinate the result when the list is long or the numbers contain many decimal places.
 
-- [`_compute_average`](https://github.com/otheiner/PARAMETR-Bench/blob/main/tasks/_compute_average/prompt.md): The model is given a list of numbers and asked to compute their average. Trivially easy in principle, but less capable models sometimes hallucinate the result when the list is long or the numbers contain many decimal places.
 
 ## Results
 
