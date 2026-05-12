@@ -68,7 +68,7 @@ graph TD
 ```
 </div>
 
-When running the benchmark, user specifies two inputs at the start of a run: a set of seeds and a difficulty level. Each seed produces a distinct task instance and the difficulty level is shared across all sequences in the run. The following diagram shows what happens inside a single evaluation sequence.
+When running the benchmark, user specifies two inputs at the start of a run: a set of seeds and a difficulty level. Each seed produces a distinct task instance and the difficulty level is shared across all sequences in the run. The following diagram shows what happens inside a single task evaluation sequence.
 
 <div style="text-align: center; max-width: 900px; margin: 0 auto;" markdown="1">
 ```mermaid
@@ -218,7 +218,15 @@ The framework populates the template using the ground truth stored in pandas Dat
 
 ### Evaluation Harness for AI Agents
 
-(TODO: This section is still being worked on)
+Since PARAMETR-Bench can generate many instances of one task at approximately the same difficulty, it allows treating the LLM as a statistical black box — probing its behavior across multiple trials rather than relying on a single evaluation. Even when model temperature is set to zero, responses can vary due to non-determinism in sampling and infrastructure. This variance is difficult to quantify from a single experiment, but running multiple seeds across the same task and difficulty level makes it measurable.
+
+Each evaluation sequence proceeds as follows. The model receives the task definition, the multimodal input data, and an agentic prompt. In agentic mode, it interacts with the Docker sandbox through the available tools — running Python scripts, reading files, viewing images — and iterates until it produces a final response or the maximum number of turns is reached. In non-agentic mode, the full input is embedded in a single prompt and the model responds in one turn.
+
+The model's response is then passed to an LLM-as-judge alongside the populated rubrics and a judge prompt. The judge grades each rubric criterion independently, producing a binary pass or fail for each. These grades are aggregated into a weighted score for the sequence, where each metarubric's weight reflects the relative importance of the corresponding analytical step. Rubrics are grouped into categories — such as scientific reasoning, numerical computation, and data extraction — allowing the aggregate score to be decomposed into per-category pass rates, which makes it possible to identify where a model fails rather than just whether it fails.
+
+All model responses are stored automatically alongside their rubric grades and metadata, so they can be re-analyzed in the future — for example, to study failure modes or to re-grade with an improved judge — without re-running the experiments.
+
+Across multiple seeds at the same difficulty level, per-task pass rates and their confidence intervals can be estimated. This multi-seed design is what makes the [leak detection mechanism](#dataset-leak-detection-mechanism) described earlier empirically testable: performance on public seeds and private seeds can be compared with appropriate statistical tests rather than as point estimates.
 
 ## Tasks Included in PARAMETR-Bench
 
@@ -303,6 +311,10 @@ PARAMETR-Bench is presented as a methodology and proof of concept rather than a 
 **LLM-as-judge limitations apply.** The framework currently relies on an LLM judge to grade responses against populated rubrics, inheriting the known failure modes of LLM-as-judge evaluation: sensitivity to verbosity, possible same-family bias, and unreliability on borderline cases. Reported results are entangled with the choice of judge model, which is why the proposed reporting format includes it alongside the evaluated model.
 
 **Contamination detection is currently theoretical.** The leak-detection mechanism works in principle. A statistically significant gap between public and private seeds would indicate contamination, but whether such a gap is detectable in practice has yet to be demonstrated. Until the long-running experiment produces results, contamination resistance should be read as a design property rather than a demonstrated capability.
+
+**Producing statistically meaningful results is expensive.** Reliably quantifying the variance of a model's responses requires running evaluations across many seeds — and increasing the sample size, while reducing statistical uncertainty, scales the cost of API calls proportionally. As an independent researcher running this framework as a curiosity project, I have chosen to prioritise a modest seed count that keeps costs manageable while still providing indicative results. Reducing statistical uncertainty further would require spending significantly more on inference tokens for diminishing marginal gains.
+
+**Difficulty levels are assumed.** Each task can be generated at three difficulty levels: `easy`, `medium`, and `hard`. These levels are defined by increasing dataset size, stronger noise effects, and the inclusion of edge cases that a human solver would consider more challenging. While it is reasonable to assume that similar difficulty scaling applies to LLMs, this remains an assumption until confirmed empirically — the validity of the parametric difficulty scaling is empirically demonstrated by the experimental results presented in this post.
 
 **Procedural generation suits some scientific tasks better than others.** The framework works naturally for tasks with parametric structure — number of events, noise levels, true values of physical constants, dataset size. Many forms of scientific reasoning, such as deciding which experiment to run next or recognizing that a model assumption is wrong, do not factorize this way. PARAMETR-Bench measures a specific slice of scientific competence — multi-step quantitative analysis with well-defined ground truth — and is not intended as a general measure of scientific reasoning.
 
