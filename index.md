@@ -230,13 +230,14 @@ This indirect approach is not always sufficient (some failure modes are invarian
 
 Since PARAMETR-Bench can generate many instances of one task at approximately the same difficulty, it allows treating the LLM as a statistical black box — probing its behavior across multiple trials rather than relying on a single evaluation. Even when model temperature is set to zero, responses can vary due to non-determinism in sampling and infrastructure. This variance is difficult to quantify from a single experiment, but running multiple seeds across the same task and difficulty level makes it measurable.
 
-Each evaluation sequence proceeds as follows. The model receives the task definition, the multimodal input data, and an agentic prompt. In agentic mode, it interacts with the Docker sandbox through the available tools — running Python scripts, reading files, viewing images — and iterates until it produces a final response or the maximum number of turns is reached. In non-agentic mode, the full input is embedded in a single prompt and the model responds in one turn.
+Each evaluation sequence proceeds as follows. The model receives the task definition, the multimodal input data, and an agentic prompt. In agentic mode, it interacts with the Docker sandbox through the available tools — running Python scripts, reading files, viewing images — and iterates until it produces a final response or the maximum number of turns is reached. Models are tested with their default parameters, but those that support reasoning also keep their thought thread in between the agentic turns. In non-agentic mode, the full input is embedded in a single prompt and the model responds in one turn.
 
 The model's response is then passed to an LLM-as-judge alongside the populated rubrics and a judge prompt. The judge grades each rubric criterion independently, producing a binary pass or fail for each. These grades are aggregated into a weighted score for the sequence, where each metarubric's weight reflects the relative importance of the corresponding analytical step. Rubrics are grouped into categories — such as scientific reasoning, numerical computation, and data extraction — allowing the aggregate score to be decomposed into per-category pass rates, which makes it possible to identify where a model fails rather than just whether it fails.
 
 All model responses are stored automatically alongside their rubric grades and metadata, so they can be re-analyzed in the future — for example, to study failure modes or to re-grade with an improved judge — without re-running the experiments.
 
 Across multiple seeds at the same difficulty level, per-task pass rates and their confidence intervals can be estimated. This multi-seed design is what makes the [leak detection mechanism](#dataset-leak-detection-mechanism) described earlier empirically testable: performance on public seeds and private seeds can be compared with appropriate statistical tests rather than as point estimates.
+
 
 ## Tasks Included in PARAMETR-Bench
 
