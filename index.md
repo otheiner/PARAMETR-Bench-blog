@@ -224,7 +224,7 @@ The framework supports static metarubrics (those with no parameters, e.g. "Did t
 
 2. **Sampling many numerical values across seeds gives a finer-grained signal** than a single procedural check. For example, a partially wrong formula will agree with ground truth on some parameter ranges and disagree on others, and a multi-seed pass-rate makes that visible without the rubric having to name the correct method. 
 
-This indirect approach is not always sufficient (some failure modes are invariant across seeds, and checks using static metarubrics remain useful for those) but where it applies, it allows keeping the ground truth hidden, while still being able to provide more than just a single numeric value.
+This indirect approach is not always sufficient (some failure modes are invariant across seeds, and checks using static metarubrics remain useful for those) but where it applies, it allows keeping the ground truth hidden, while still being able to provide more than just a single numeric value check.
 
 ### Evaluation Harness for AI Agents
 
