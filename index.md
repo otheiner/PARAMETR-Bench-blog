@@ -216,7 +216,7 @@ The framework populates the template using the ground truth stored in pandas Dat
 ]
 ```
 
-### Metarubrics Design Guidance
+#### Metarubrics Design Guidance
 
 The framework supports static metarubrics (those with no parameters, e.g. "Did the model perform a linear regression?"), but parameterized templates (e.g. "Did the model compute that galaxy {galaxy_ID} has redshift {z}?") are generally preferable. There are two reasons for this: 
 
