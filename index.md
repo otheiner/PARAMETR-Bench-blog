@@ -238,7 +238,6 @@ All model responses are stored automatically alongside their rubric grades and m
 
 Across multiple seeds at the same difficulty level, per-task pass rates and their confidence intervals can be estimated. This multi-seed design is what makes the [leak detection mechanism](#dataset-leak-detection-mechanism) described earlier empirically testable: performance on public seeds and private seeds can be compared with appropriate statistical tests rather than as point estimates.
 
-
 ## Tasks Included in PARAMETR-Bench
 
 Tasks in the PARAMETR-Bench have a few common features:
@@ -280,9 +279,45 @@ Two minimal working examples follow. These tasks are simple and require no physi
 
 ## Results
 
+<div style="color:red; font-weight:bold;">Disclaimer: Result sections is currently WIP. Results shown below are just a provisional demonstration of the framework on the minimal working example task. Better result aggregation is being worked on.</div>
+
+```txt
+==================================================
+BENCHMARK RESULTS
+==================================================
+Judge:      gemini/gemma-4-31b-it
+Difficulty: hard
+Seeds:      [0, 1]
+Commit:     7c2b5bc  |  2026-05-18T23:41:42.352777
+--------------------------------------------------
+Model: gemini/gemma-4-31b-it
+──────────────────────────────────────────────────
+Task:       _count_circles
+Model:      gemini/gemma-4-31b-it
+Judge:      gemini/gemma-4-31b-it
+Difficulty: hard  |  Seed: 0
+Commit:     7c2b5bc  |  2026-05-18T23:39:45.085074
+      - Counted circles correctly in each image:          7/10 (70.0%, 95% CI: [39.7%, 89.2%])
+      - Computed average number of circles correctly:     1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      ──────────────────────────────────────────────────
+      Weighted total: 80.0%
+
+Task:       _count_circles
+Model:      gemini/gemma-4-31b-it
+Judge:      gemini/gemma-4-31b-it
+Difficulty: hard  |  Seed: 1
+Commit:     7c2b5bc  |  2026-05-18T23:41:42.328636
+      - Counted circles correctly in each image:          6/10 (60.0%, 95% CI: [31.3%, 83.2%])
+      - Computed average number of circles correctly:     0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      ──────────────────────────────────────────────────
+      Weighted total: 40.0%
+
+  gemini/gemma-4-31b-it total: 60.0%   95% CI: [20.8%, 99.2%]  (2 runs)
+```
+
 ### Initial Evaluation
 
-(TODO: public vs. private seeds results)
+<div style="color:red; font-weight:bold;">Disclaimer: This section will be added soon and it will show results for private and public seeds.</div>
 
 ### A Long-Running Contamination Experiment
 
@@ -292,6 +327,7 @@ I cannot force a leak to happen, but I can make it as likely as possible. The st
 
 The measurement comes from the comparison between two seed sets evaluated on the same future model:
 
+<div style="color:red; font-weight:bold;">Disclaimer: The dataset on Hugging Face will be published soon (after running the experiments).</div>
 - A **public seed set**, published now along with the corresponding generated input data on [Hugging Face](https://huggingface.co/datasets/otheiner/PARAMETR-Bench).
 - A **private seed set**, drawn from the same generator distribution at the same difficulty levels but withheld from publication.
 
@@ -333,7 +369,7 @@ PARAMETR-Bench is presented as a methodology and proof of concept rather than a 
 
 ## Conclusion
 
-(TODO: This section is still being worked on)
+<div style="color:red; font-weight:bold;">Disclaimer: This section will be added soon.</div>
 
 ## References
 
