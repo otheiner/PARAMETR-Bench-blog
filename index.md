@@ -216,6 +216,16 @@ The framework populates the template using the ground truth stored in pandas Dat
 ]
 ```
 
+### Metarubrics Design Guidance
+
+The framework supports static metarubrics (those with no parameters, e.g. "Did the model perform a linear regression?"), but parameterized templates (e.g. "Did the model compute that galaxy {galaxy_ID} has redshift {z}?") are generally preferable. There are two reasons for this: 
+
+1. **Populated criteria depend on the seed**, so the exact answer key for any given run is not present in the published framework — a model exposed to the repository alone cannot memorize the numerical targets. 
+
+2. **Sampling many numerical values across seeds gives a finer-grained signal** than a single procedural check. For example, a partially wrong formula will agree with ground truth on some parameter ranges and disagree on others, and a multi-seed pass-rate makes that visible without the rubric having to name the correct method. 
+
+This indirect approach is not always sufficient (some failure modes are invariant across seeds, and checks using static metarubrics remain useful for those) but where it applies, it allows keeping the ground truth hidden, while still being able to provide more than just a single numeric value.
+
 ### Evaluation Harness for AI Agents
 
 Since PARAMETR-Bench can generate many instances of one task at approximately the same difficulty, it allows treating the LLM as a statistical black box — probing its behavior across multiple trials rather than relying on a single evaluation. Even when model temperature is set to zero, responses can vary due to non-determinism in sampling and infrastructure. This variance is difficult to quantify from a single experiment, but running multiple seeds across the same task and difficulty level makes it measurable.
