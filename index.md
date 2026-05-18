@@ -9,11 +9,11 @@ image_heading: /assets/images/PARAMETR-Bench/heading.png
 [![DOI](https://img.shields.io/badge/GitHub-otheiner/PARAMETR--Bench-black?style=flat&logo=github)](https://github.com/otheiner/PARAMETR-Bench)
 
 <div class="intro-note" markdown="1">
-**Quick introduction:** I'm a particle physicist with a PhD from the University of Geneva during which I conducted research at CERN. There I searched for new elementary particles, contributed to the Athena software framework (the 5M+ line C++/Python codebase used across the ATLAS experiment, one of the largest scientific collaborations in the world) and to the FASER experiment's trigger and data acquisition system.  More recently, I've been working on reinforcement learning from human feedback (RLHF) platforms, designing physics evaluation tasks for frontier large language models.
+**Quick introduction:** I'm a particle physicist with a PhD from the University of Geneva during which I conducted research at CERN. There, I searched for new elementary particles, contributed to the Athena software framework (the 5M+ line C++/Python codebase used across the ATLAS experiment, one of the largest scientific collaborations in the world), and to the FASER experiment's trigger and data acquisition system.  More recently, I've been working on reinforcement learning from human feedback (RLHF) platforms, designing physics evaluation tasks for frontier large language models.
 
 Problem design is a long thread in my background. As a high school student, I twice represented the Czech Republic at the International Olympiad on Astronomy and Astrophysics (IOAA), winning bronze medals in 2013 and 2014. Since starting university, I've been an organizer of the Czech Astronomy Olympiad, writing competition problems for students.
 
-PARAMETR-Bench, presented in this article, connects these three threads. It started as a curiosity project but grew into something I think is worth sharing. Despite the "Bench" in the name, my aim is not to build yet-another-benchmark, but to show my work and present a few interesting ideas I came across along the way. I welcome any comments and I'm open to discussion - just [reach out](https://otheiner.github.io/#contact).
+PARAMETR-Bench, presented in this article, connects these three threads. It started as a curiosity project, but grew into something I think is worth sharing. Despite the "Bench" in the name, my aim is not to build yet another benchmark, but to show my work and present a few interesting ideas I came across along the way. I welcome any comments, and I'm open to discussion - just [reach out](https://otheiner.github.io/#contact).
 </div>
 
 ## Table of Contents
@@ -25,7 +25,7 @@ PARAMETR-Bench, presented in this article, connects these three threads. It star
 ## Motivation
 
 PARAMETR-Bench grew out of my work on RLHF platforms, where I'm paid to create original multimodal physics problems for LLMs. Tasks have to hit specific difficulty thresholds, and crafting a multimodal task only to discover it's too easy is an expensive mistake. I started looking for a way to tune difficulty quickly, and ended up writing most of my tasks as small data generators in Jupyter notebooks: re-run the notebook to get new data, tweak parameters to add noise or scale up the dataset, and the same task becomes harder in seconds.
-From there I got curious about the other side — could I send these tasks to LLMs and evaluate the results automatically? I built a few tasks for myself and started building PARAMETR-Bench around them.
+From there, I got curious about the other side — could I send these tasks to LLMs and evaluate the results automatically? I built a few tasks for myself and started building PARAMETR-Bench around them.
 
 *Note: To be clear, the tasks in PARAMETR-Bench are not the ones I've submitted to platforms - those are subject to IP agreements. The tasks here are my work done specifically for this framework, and are built around the same workflow I use on RLHF platforms.*
 
@@ -68,7 +68,7 @@ graph TD
 ```
 </div>
 
-When running the benchmark, user specifies two inputs at the start of a run: a set of seeds and a difficulty level. Each seed produces a distinct task instance and the difficulty level is shared across all sequences in the run. The following diagram shows what happens inside a single task evaluation sequence.
+When running the benchmark, the user specifies two inputs at the start of a run: a set of seeds and a difficulty level. Each seed produces a distinct task instance and the difficulty level is shared across all sequences in the run. The following diagram shows what happens inside a single task evaluation sequence.
 
 <div style="text-align: center; max-width: 900px; margin: 0 auto;" markdown="1">
 ```mermaid
@@ -114,7 +114,7 @@ PARAMETR-Bench supports two evaluation modes. In non-agentic mode, the input dat
 
 In agentic mode, the model enters the agentic loop, where it receives the task definition, the multimodal input data, and an [agentic prompt](https://github.com/otheiner/PARAMETR-Bench/blob/main/src/agentic_prompt.md). Inside the loop, the model interacts with a Docker sandbox — an isolated, network-blocked execution environment — through a set of available tools:
 
-- **Running python scripts** - executed inside the Docker sandbox, memory-capped at 512 MB, no network access, restricted to a single mounted folder with input data. Only standard Python libraries plus a small task-relevant set of libraries are available.
+- **Running Python scripts** - executed inside the Docker sandbox, memory-capped at 512 MB, no network access, restricted to a single mounted folder with input data. Only standard Python libraries plus a small task-relevant set of libraries are available.
 - **Viewing images** - the framework converts the requested image to base64 and embeds it in the next message.
 - **Reading files** - reading text and CSV files from the mounted folder.
 - **Writing files** - writing helper files to the mounted folder.
@@ -159,14 +159,14 @@ Seeded task generation has an inherent feature: I can generate new tasks of the 
 - the seeds used in the test
 - the difficulty settings
 - the evaluated model version
-- the model used as judge
+- the model used as a judge
 - the exact git commit hash, which references the exact state of the repository so the same results can be reproduced in the future
 
 The data themselves are not published — the exact same data are guaranteed by using the same seeds with the same framework version. This setup enables a leak detection mechanism.
 
 If evaluation data from specific public seeds were to leak into a model's training set, the model might show inflated performance due to memorization. This can in principle(\*) be detected by re-running the benchmark with a fresh set of random seeds. A statistically significant performance gap between public seeds and fresh private seeds would provide an indication of a potential data leak — making contamination detectable in principle, unlike static benchmarks where held-out sets differ in content rather than only in seed.
 
-(\*) *This is currently a hypothesis. To test it, I am setting up an experiment described in the section on [long-running contamination experiment](#a-long-running-contamination-experiment)*.
+(\*) *This is currently a hypothesis. To test it, I am setting up an experiment described in the section on the [long-running contamination experiment](#a-long-running-contamination-experiment)*.
 
 
 ### Metarubrics and Rubrics
@@ -228,7 +228,7 @@ This indirect approach is not always sufficient (some failure modes are invarian
 
 ### Evaluation Harness for AI Agents
 
-Since PARAMETR-Bench can generate many instances of one task at approximately the same difficulty, it allows treating the LLM as a statistical black box — probing its behavior across multiple trials rather than relying on a single evaluation. Even when model temperature is set to zero, responses can vary due to non-determinism in sampling and infrastructure. This variance is difficult to quantify from a single experiment, but running multiple seeds across the same task and difficulty level makes it measurable.
+Since PARAMETR-Bench can generate many instances of one task at approximately the same difficulty, it allows treating the LLM as a statistical black box — probing its behavior across multiple trials rather than relying on a single evaluation. Even when the model temperature is set to zero, responses can vary due to non-determinism in sampling and infrastructure. This variance is difficult to quantify from a single experiment, but running multiple seeds across the same task and difficulty level makes it measurable.
 
 Each evaluation sequence proceeds as follows. The model receives the task definition, the multimodal input data, and an agentic prompt. In agentic mode, it interacts with the Docker sandbox through the available tools — running Python scripts, reading files, viewing images — and iterates until it produces a final response or the maximum number of turns is reached. Models are tested with their default parameters, but those that support reasoning also keep their thought thread in between the agentic turns. In non-agentic mode, the full input is embedded in a single prompt and the model responds in one turn.
 
@@ -242,12 +242,12 @@ Across multiple seeds at the same difficulty level, per-task pass rates and thei
 
 Tasks in the PARAMETR-Bench have a few common features:
 
-1. They are motivated by real science. Some of the tasks are inspired by the Nobel-prize level discoveries that revolutionized fields such as cosmology, or particle physics (though framework is not restricted only to physics).
+1. They are motivated by real science. Some of the tasks are inspired by the Nobel-prize level discoveries that revolutionized fields such as cosmology or particle physics (though the framework is not restricted only to physics).
 2. Multi-step nature - tasks consist of multiple steps combining scientific reasoning, data exploration, python code implementation.
 3. Data used as an input are multimodal (images, tables, text files)
 4. Adversarial by nature and designed to challenge models in things I noticed to be difficult.
 
-Currently, there are four complex physics tasks and two minimal working example tasks in the repository to demonstrate the framework on the simplest cases. These minimal working examples are by default not included when running the whole benchmark, unless user specifies them. The following paragraphs briefly describe tasks currently included in the framework. For more details, check [Hugging Face Space](https://huggingface.co/spaces/otheiner/PARAMETR-Bench_demo) or `tasks` folder in [GitHub repo](https://github.com/otheiner/PARAMETR-Bench/). 
+Currently, there are four complex physics tasks and two minimal working example tasks in the repository to demonstrate the framework on the simplest cases. These minimal working examples are by default not included when running the whole benchmark, unless the user specifies them. The following paragraphs briefly describe tasks currently included in the framework. For more details, check [Hugging Face Space](https://huggingface.co/spaces/otheiner/PARAMETR-Bench_demo) or `tasks` folder in [GitHub repo](https://github.com/otheiner/PARAMETR-Bench/). 
 
 - [`cepheid_calibration`](https://github.com/otheiner/PARAMETR-Bench/blob/main/tasks/cepheid_calibration/prompt.md): This analysis focuses on the well-known relation between luminosity of Cepheids (type of variable stars) and their period, recreating (though not exactly) the discovery by Henrietta Swan Leavitt, whose foundational contribution to observational cosmology was never recognized with a Nobel Prize. The task requires combining Hubble's law, spectroscopic data of galaxies, and photometric data about Cepheid variables. Beyond basic concepts from astrophysics, it tests methods of physical data analysis such as template cross-correlation in log-λ space.
 
@@ -265,7 +265,7 @@ Currently, there are four complex physics tasks and two minimal working example 
 
  {% include gallery.html 
   type="justified" 
-  images="/assets/images/PARAMETR-Bench/invariant_mass.png > Mass spectrum that model has to reconstruct from the data and then fit the peak in the invariant mass reconstruction task.;
+  images="/assets/images/PARAMETR-Bench/invariant_mass.png > Mass spectrum that the model has to reconstruct from the data and then fit the peak in the invariant mass reconstruction task.;
           /assets/images/PARAMETR-Bench/hubble.png > Visualisation of the solution of the Hubble constant estimation.;
           /assets/images/PARAMETR-Bench/lissajous.png > Lissajous figure generated in one of the tasks. Here the ratio of lobes is 3:5.;
       "%}
@@ -279,7 +279,7 @@ Two minimal working examples follow. These tasks are simple and require no physi
 
 ## Results
 
-<div style="color:red; font-weight:bold;">Disclaimer: Result sections is currently WIP. Results shown below are just a provisional demonstration of the framework on the minimal working example task. Better result aggregation is being worked on.</div>
+<div style="color:red; font-weight:bold;">Disclaimer: Result sections is currently WIP. The results shown below are just a provisional demonstration of the framework on the minimal working example task. Better result aggregation is being worked on.</div>
 
 ```txt
 ==================================================
@@ -347,7 +347,7 @@ The second family relies on expert-curated tasks that are periodically refreshed
 
 A third group targets scientific analysis directly but uses static, expert-curated tasks. ScienceAgentBench[^scienceagentbench] evaluates agents on 102 data-driven scientific tasks extracted from peer-reviewed publications, and BixBench[^bixbench] evaluates agents on real-world bioinformatics scenarios in Dockerized environments, both structurally similar to PARAMETR-Bench in their agentic setup. SciCode[^scicode] covers scientific coding across 16 sub-fields of natural science. These are the closest in scientific scope to PARAMETR-Bench, but their static nature leaves them vulnerable to contamination over time.
 
-PARAMETR-Bench sits at the intersection of the first and third families: procedural generation applied to multi-step scientific analysis. This combination introduces a challenge that neither family faces in isolation, which is keeping detailed grading criteria aligned with ground truth that varies across runs. Static scientific benchmarks can ship hand-written rubrics because answers never change, while procedural reasoning or game benchmarks typically grade on a single objective outcome that needs no rubric. Multi-step scientific analysis needs both: fresh instances every run and fine-grained rubrics. The metarubric mechanism addresses this by auto-populating rubrics from the same generator that produces the task, preventing rubric drift by construction. I am not aware of prior work that combines procedural generation with scientific analysis tasks, nor of a direct equivalent of the metarubric mechanism, though I cannot rule out related efforts I may have missed.
+PARAMETR-Bench sits at the intersection of the first and third families: procedural generation applied to multi-step scientific analysis. This combination introduces a challenge that neither family faces in isolation, which is keeping detailed grading criteria aligned with the ground truth that varies across runs. Static scientific benchmarks can ship hand-written rubrics because answers never change, while procedural reasoning or game benchmarks typically grade on a single objective outcome that needs no rubric. Multi-step scientific analysis needs both fresh instances every run and fine-grained rubrics. The metarubric mechanism addresses this by auto-populating rubrics from the same generator that produces the task, preventing rubric drift by construction. I am not aware of prior work that combines procedural generation with scientific analysis tasks, nor of a direct equivalent of the metarubric mechanism, though I cannot rule out related efforts I may have missed.
 
 ## Limitations and What's Next
 
@@ -363,7 +363,7 @@ PARAMETR-Bench is presented as a methodology and proof of concept rather than a 
 
 **Difficulty levels are assumed.** Each task can be generated at three difficulty levels: `easy`, `medium`, and `hard`. These levels are defined by increasing dataset size, stronger noise effects, and the inclusion of edge cases that a human solver would consider more challenging. While it is reasonable to assume that similar difficulty scaling applies to LLMs, this remains an assumption until confirmed empirically — the validity of the parametric difficulty scaling is empirically demonstrated by the experimental results presented in this post.
 
-**Procedural generation suits some scientific tasks better than others.** The framework works naturally for tasks with parametric structure — number of events, noise levels, true values of physical constants, dataset size. Many forms of scientific reasoning, such as deciding which experiment to run next or recognizing that a model assumption is wrong, do not factorize this way. PARAMETR-Bench measures a specific slice of scientific competence — multi-step quantitative analysis with well-defined ground truth — and is not intended as a general measure of scientific reasoning.
+**Procedural generation suits some scientific tasks better than others.** The framework works naturally for tasks with a parametric structure — number of events, noise levels, true values of physical constants, and dataset size. Many forms of scientific reasoning, such as deciding which experiment to run next or recognizing that a model assumption is wrong, do not factorize this way. PARAMETR-Bench measures a specific slice of scientific competence — multi-step quantitative analysis with well-defined ground truth — and is not intended as a general measure of scientific reasoning.
 
 **Scope of this work.** This post presents methodology and a working implementation, not a benchmark broad enough to rank frontier models. Doing the latter would require more tasks, more domains, multiple contributors, and the contamination experiment running to completion. The goal here is to put the methodological ideas — seeded scientific task generation, metarubrics, and the leak-detection design — on the table for discussion before possibly scaling further.
 
