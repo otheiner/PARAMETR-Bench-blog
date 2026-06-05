@@ -282,7 +282,8 @@ Two minimal working examples follow. These tasks are simple and require no physi
 *Note: Presented results were produced by the code at commit [`c7791b7`](https://github.com/otheiner/PARAMETR-Bench/tree/c7791b7b5e5a4d1acb4db35fed3257800b06d1f3).*
 
 ### Pilot Runs
-In the following results, I tested capabilities of four models: Claude-Sonnet-4.6, Gemini-3.1-Pro (preview - tests performed on 5 June, 2026), GPT-5.4-mini, Qwen3.6-35B-A3B, DeepSeek-V4-Pro. The picked Claude-Haiku-4.5 as a main judge and the Gemini-3.1-Flash-Lite as a reference judge model. Each model was evaluated in two *runs* - each containg 4 seeds (public and private set) on 4 tasks, which resulted in about 1900 yes/no rubric criteria per run and model.
+
+The following results cover four models: Claude Sonnet 4.6, Gemini 3.1 Pro (preview, evaluated 5 June 2026), GPT-5.4 Mini, and DeepSeek V4 Pro. Qwen 3.6-235B-A22B is excluded for the reason described below. Claude Haiku 4.5 served as the primary judge, with Gemini 3.1 Flash Lite as a reference judge for cross-family validation. Each model was evaluated in two runs — a public and a private seed set — each comprising 4 seeds across 4 tasks, yielding approximately 1900 binary rubric criteria per run per model.
  
 Since the tasks require tool use and multi-step reasoning, non-agentic evaluation produces no meaningful signal. All results presented here use agentic mode.
 
