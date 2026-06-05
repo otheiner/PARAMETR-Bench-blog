@@ -279,11 +279,13 @@ Two minimal working examples follow. These tasks are simple and require no physi
 
 ## Results
 
-*Note: Presented results were produced by the code at commit [`c7791b7`](https://github.com/otheiner/PARAMETR-Bench/tree/c7791b7b5e5a4d1acb4db35fed3257800b06d1f3)*
+*Note: Presented results were produced by the code at commit [`c7791b7`](https://github.com/otheiner/PARAMETR-Bench/tree/c7791b7b5e5a4d1acb4db35fed3257800b06d1f3).*
 
 In the following results, I tested capabilities of four models: Claude-Sonnet-4.6, Gemini-3.1-Pro (preview - tests performed on 5 June, 2026), GPT-5.4-mini, Qwen3.6-35B-A3B, DeepSeek-V4-Pro. The picked Claude-Haiku-4.5 as a main judge and the Gemini-3.1-Flash-Lite as a reference judge model. Each model was evaluated in two *runs* - each containg 4 seeds (public and private set) on 4 tasks, which resulted in about 1900 yes/no rubric criteria per run and model.
  
-Before starting the tests, it was important to decide about the evaluation protocol. I had to balance several constrains - having statistics, running the tests with reasonable tokens budget and making sure that taks are not too difficult, but also not too easy. The last requirement especially is extremely important. I didn't want the tasks to be too hard, or too easy, because I wanted to be able to spot the gaps in model performances. This is why I first did only a small pilot runs with only one seed (0) and I picked the two best performing models (Gemini-3.1-Pro and Claude-Sonnet-4.6). I ran with two different agentic turns budgets and I got:
+Since the tasks require tool use and multi-step reasoning, non-agentic evaluation produces no meaningful signal. All results presented here use agentic mode.
+
+Designing the evaluation protocol required balancing three constraints: having sufficient statistics, staying within a reasonable token budget, and choosing a difficulty level where model differences are visible — neither a ceiling nor a floor. To calibrate this, I ran a small pilot with a single seed (0) on the two strongest models (Gemini 3.1 Pro and Claude Sonnet 4.6) at two different agentic turn budgets:
 
 <style type="text/css">
 .tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;table-layout:fixed;width:400px;margin:0 auto;}
@@ -317,7 +319,7 @@ Before starting the tests, it was important to decide about the evaluation proto
 <caption style="caption-side:bottom;">Table 1: Results of the pilot run with one seed (0) to correctly select maximum allowed number of agentic turns.</caption>
 </table>
 
-Since using 15 agentic turns signifficantly increases token budget, while no improvement in the performance was observed, I decidet to run all following tests with 10 agentic turns. Since I plan to run experiments in the future to test dataset leakage mechanism (see section about long-running contamination experiment), having the best scoring models around 60% gives me still possibility to observe model improving without (hopefully) saturating the benchmark in the future. 
+Since 15 agentic turns brought no performance improvement despite higher token cost, all subsequent evaluations use 10 turns. With the best models currently around 50-70%, there is also headroom to observe future improvement — important for the planned contamination experiment discussed below — without risking benchmark saturation.
 
  {% include gallery.html 
   type="justified" 
@@ -329,9 +331,7 @@ Since using 15 agentic turns signifficantly increases token budget, while no imp
   images="/assets/images/PARAMETR-Bench/benchmark_results_by_task_judge_haiku-4-5.png > Model results accross public seeds [10, 11, 12, 13] and tasks used in the evaluation.;
       "%}
 
-### Evaluation Protocol
-
-number of turns, agentic vs. nonagentic
+  
 
 ### Judge Reliability
 
@@ -363,7 +363,6 @@ I cannot force a leak to happen, but I can make it as likely as possible. The st
 
 The measurement comes from the comparison between two seed sets evaluated on the same future model:
 
-<div style="color:red; font-weight:bold;">Disclaimer: The dataset on Hugging Face will be published soon (after running the experiments).</div>
 - A **public seed set**, published now along with the corresponding generated input data on [Hugging Face](https://huggingface.co/datasets/otheiner/PARAMETR-Bench).
 - A **private seed set**, drawn from the same generator distribution at the same difficulty levels but withheld from publication.
 
