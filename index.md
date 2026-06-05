@@ -281,6 +281,7 @@ Two minimal working examples follow. These tasks are simple and require no physi
 
 *Note: Presented results were produced by the code at commit [`c7791b7`](https://github.com/otheiner/PARAMETR-Bench/tree/c7791b7b5e5a4d1acb4db35fed3257800b06d1f3).*
 
+### Pilot Runs
 In the following results, I tested capabilities of four models: Claude-Sonnet-4.6, Gemini-3.1-Pro (preview - tests performed on 5 June, 2026), GPT-5.4-mini, Qwen3.6-35B-A3B, DeepSeek-V4-Pro. The picked Claude-Haiku-4.5 as a main judge and the Gemini-3.1-Flash-Lite as a reference judge model. Each model was evaluated in two *runs* - each containg 4 seeds (public and private set) on 4 tasks, which resulted in about 1900 yes/no rubric criteria per run and model.
  
 Since the tasks require tool use and multi-step reasoning, non-agentic evaluation produces no meaningful signal. All results presented here use agentic mode.
@@ -321,10 +322,20 @@ Designing the evaluation protocol required balancing three constraints: having s
 
 Since 15 agentic turns brought no performance improvement despite higher token cost, all subsequent evaluations use 10 turns. With the best models currently around 50-70%, there is also headroom to observe future improvement — important for the planned contamination experiment discussed below — without risking benchmark saturation.
 
+### Main Evaluation
+
+The following chart shows results for four models. Scores are weighted averages across metarubrics, so tasks with fewer or simpler steps contribute less to the final score than tasks with many demanding ones. Weighting at the metarubric level also means that the relative importance of each analytical step is preserved regardless of difficulty — scaling the input data size does not dilute the contribution of the harder reasoning steps.
+
  {% include gallery.html 
   type="justified" 
   images="/assets/images/PARAMETR-Bench/benchmark_results_public_judge_haiku-4-5.png > Model performance on tasks seeded by the public seed set: [10, 11, 12, 13].;
       "%}
+
+Qwen is excluded because it ignored the agentic turn budget and, when prompted on the final turn to report its findings, continued one more agentic turn and producing an empty answer.
+
+Evaluating GPT-5.4 mini required multiple restarts. OpenAI's safety classifier repeatedly flagged the model's own outputs as potentially harmful mid-run, terminating the agentic loop. Resuming from the same point in the conversation was generally not flagged again, so all tests were eventually completed — but only with repeated human intervention. This seems to be a practical limitation for using GPT-5.4 mini (but likely all GPT models hosted by OpenAI) in unattended agentic pipelines, particularly in scientific contexts where generated code and data can superficially resemble harmful content.
+
+Following table shows a detailed breakdown of the model scores on individual seeded instances of the tasks in the benchmark. 
 
  {% include gallery.html 
   type="justified" 
@@ -334,6 +345,8 @@ Since 15 agentic turns brought no performance improvement despite higher token c
   
 
 ### Judge Reliability
+
+LLM-as-judge remains one of the weaker links in the evaluation chain. The main results above were graded by Claude Haiku 4.5. To assess judge reliability and check for same-family bias — where Haiku grading Sonnet could artificially inflate scores — I re-graded all responses using Gemini 3.1 Flash Lite, a model from a different family. The chart below shows that scores vary slightly across judges, but the variation is well within the 95% confidence intervals. No same-family bias is apparent; if anything the direction is reversed, though given the statistical uncertainty in the data this is not meaningful. The conclusion is that we do not observe same-family bias, or if it exists, it is below our resolution. All judge models were run at temperature 0.
 
 {% include gallery.html 
   type="justified" 
