@@ -279,14 +279,68 @@ Two minimal working examples follow. These tasks are simple and require no physi
 
 ## Results
 
-All results were produced by the code at commit [`c7791b7`](https://github.com/otheiner/PARAMETR-Bench/tree/c7791b7b5e5a4d1acb4db35fed3257800b06d1f3) using maximum of 10 agentic turns and can be reproduced exactly using the same seeds and difficulty settings.
+*Note: Presented results were produced by the code at commit [`c7791b7`](https://github.com/otheiner/PARAMETR-Bench/tree/c7791b7b5e5a4d1acb4db35fed3257800b06d1f3)*
+
+In the following results, I tested capabilities of four models: Claude-Sonnet-4.6, Gemini-3.1-Pro (preview - tests performed on 5 June, 2026), GPT-5.4-mini, Qwen3.6-35B-A3B, DeepSeek-V4-Pro. The picked Claude-Haiku-4.5 as a main judge and the Gemini-3.1-Flash-Lite as a reference judge model. Each model was evaluated in two *runs* - each containg 4 seeds (public and private set) on 4 tasks, which resulted in about 1900 yes/no rubric criteria per run and model.
+ 
+Before starting the tests, it was important to decide about the evaluation protocol. I had to balance several constrains - having statistics, running the tests with reasonable tokens budget and making sure that taks are not too difficult, but also not too easy. The last requirement especially is extremely important. I didn't want the tasks to be too hard, or too easy, because I wanted to be able to spot the gaps in model performances. This is why I first did only a small pilot runs with only one seed (0) and I picked the two best performing models (Gemini-3.1-Pro and Claude-Sonnet-4.6). I ran with two different agentic turns budgets and I got:
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;table-layout:fixed;width:400px;margin:0 auto;}
+.tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;width:130px;}
+.tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;width:130px;}
+.tg .tg-abx8{background-color:#c0c0c0;font-weight:bold;text-align:center;vertical-align:top}
+.tg .tg-0lax{text-align:center;vertical-align:top}
+.tg .tg-y6fn{background-color:#c0c0c0;text-align:center;vertical-align:top}
+.tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;table-layout:fixed;width:400px;margin:0 auto;font-size:12px;}
+</style>
+<table class="tg"><thead>
+  <tr>
+    <th class="tg-0lax" style="width:140px;"></th>
+    <th class="tg-abx8" style="width:130px;">10 turns</th>
+    <th class="tg-abx8" style="width:130px;">15 turns</th>
+  </tr></thead>
+<tbody>
+  <tr>
+    <td class="tg-y6fn" style="width:140px;">Claude-Sonnet-4.6</td>
+    <td class="tg-0lax" style="width:130px;">42%</td>
+    <td class="tg-0lax" style="width:130px;">42%</td>
+  </tr>
+  <tr>
+    <td class="tg-y6fn" style="width:140px;">Gemini-3.1-Pro</td>
+    <td class="tg-0lax" style="width:130px;">74%</td>
+    <td class="tg-0lax" style="width:130px;">65%</td>
+  </tr>
+</tbody>
+<caption style="caption-side:bottom;">Table 1: Results of the pilot run with one seed (0) to correctly select maximum allowed number of agentic turns.</caption>
+</table>
+
+Since using 15 agentic turns signifficantly increases token budget, while no improvement in the performance was observed, I decidet to run all following tests with 10 agentic turns. Since I plan to run experiments in the future to test dataset leakage mechanism (see section about long-running contamination experiment), having the best scoring models around 60% gives me still possibility to observe model improving without (hopefully) saturating the benchmark in the future. 
 
  {% include gallery.html 
   type="justified" 
-  images="/assets/images/PARAMETR-Bench/benchmark_results_public.png > Model performance on tasks seeded by the public seed set: [10, 11, 12, 13].;
+  images="/assets/images/PARAMETR-Bench/benchmark_results_public_judge_haiku-4-5.png > Model performance on tasks seeded by the public seed set: [10, 11, 12, 13].;
       "%}
 
+ {% include gallery.html 
+  type="justified" 
+  images="/assets/images/PARAMETR-Bench/benchmark_results_by_task_judge_haiku-4-5.png > Model results accross public seeds [10, 11, 12, 13] and tasks used in the evaluation.;
+      "%}
+
+### Evaluation Protocol
+
+number of turns, agentic vs. nonagentic
+
 ### Judge Reliability
+
+{% include gallery.html 
+  type="justified" 
+  images="/assets/images/PARAMETR-Bench/benchmark_results_haiku_gemini.png > Model results accross public seeds [10, 11, 12, 13] and tasks used in the evaluation.;
+      "%}
+
+### Difficulty Scaling
 
 ### Model Capabilities by Dimensions
 
@@ -296,7 +350,7 @@ It is important to say that even though these dimensions test different capabili
 
 {% include gallery.html 
   type="justified" 
-  images="/assets/images/PARAMETR-Bench/benchmark_results_dimensions.png > Comparison of model performance across four dimensions.;
+  images="/assets/images/PARAMETR-Bench/benchmark_results_dimensions_judge_haiku-4-5.png > Comparison of model performance across four dimensions.;
       "%}
 
 Even if these results give us only approximate idea about model performance, it can be seen that models scored the lowest in the image data extraction. The image extractions step is usually early in the analysis because it requires extracting data for the further analysis. For this reason, this step is in the presented tasks usually mostly independent of others. On the other hand, scientific reasoning also covers rubrics checking for the correctness of the final result and that is what renders these scores lower.
@@ -315,7 +369,7 @@ The measurement comes from the comparison between two seed sets evaluated on the
 
 {% include gallery.html 
   type="justified" 
-  images="/assets/images/PARAMETR-Bench/benchmark_results_public_private.png > Initial comparison of model performances on public and private seeds for hard difficulty and a maximum of 10 agentic turns.;
+  images="/assets/images/PARAMETR-Bench/benchmark_results_public_private_judge_haiku-4-5.png > Initial comparison of model performances on public and private seeds for hard difficulty and a maximum of 10 agentic turns.;
       "%}
 
 At publication time, both sets are equivalent: same generator, same parameters, same statistical properties. If a model trained months from now has been exposed to the public seed set, its performance on those seeds should be measurably higher than its performance on the held-out private seeds. A statistically significant gap would constitute evidence of contamination; a null result would constitute evidence that the framework's contamination resistance survives even direct exposure.
