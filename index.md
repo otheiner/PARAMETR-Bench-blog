@@ -332,16 +332,18 @@ The following chart shows results for four models. Scores are weighted averages 
   images="/assets/images/PARAMETR-Bench/benchmark_results_public_judge_haiku-4-5.png > Model performance on tasks seeded by the public seed set: [10, 11, 12, 13].;
       "%}
 
-Qwen is excluded because it ignored the agentic turn budget and, when prompted on the final turn to report its findings, continued one more agentic turn and producing an empty answer.
-
-Evaluating GPT-5.4 mini required multiple restarts. OpenAI's safety classifier repeatedly flagged the model's own outputs as potentially harmful mid-run, terminating the agentic loop. Resuming from the same point in the conversation was generally not flagged again, so all tests were eventually completed — but only with repeated human intervention. This seems to be a practical limitation for using GPT-5.4 mini (but likely all GPT models hosted by OpenAI) in unattended agentic pipelines, particularly in scientific contexts where generated code and data can superficially resemble harmful content.
-
 Following table shows a detailed breakdown of the model scores on individual seeded instances of the tasks in the benchmark. 
 
  {% include gallery.html 
   type="justified" 
   images="/assets/images/PARAMETR-Bench/benchmark_results_by_task_judge_haiku-4-5.png > Model results accross public seeds [10, 11, 12, 13] and tasks used in the evaluation.;
       "%}
+
+**Observations**
+
+Qwen is excluded because it ignored the agentic turn budget and, when prompted on the final turn to report its findings, continued one more agentic turn and producing an empty answer.
+
+Evaluating GPT-5.4 mini required multiple restarts. OpenAI's safety classifier repeatedly flagged the model's own outputs as potentially harmful mid-run, terminating the agentic loop. Resuming from the same point in the conversation was generally not flagged again, so all tests were eventually completed — but only with repeated human intervention. This seems to be a practical limitation for using GPT-5.4 mini (but likely all GPT models hosted by OpenAI) in unattended agentic pipelines, particularly in scientific contexts where generated code and data can superficially resemble harmful content.
 
   
 
@@ -351,7 +353,7 @@ LLM-as-judge remains one of the weaker links in the evaluation chain. The main r
 
 {% include gallery.html 
   type="justified" 
-  images="/assets/images/PARAMETR-Bench/benchmark_results_haiku_gemini.png > Model results accross public seeds [10, 11, 12, 13] and tasks used in the evaluation.;
+  images="/assets/images/PARAMETR-Bench/benchmark_results_haiku_gemini.png > Comperison of grading results obtained by two different judges.;
       "%}
 
 
