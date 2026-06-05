@@ -1,0 +1,39 @@
+<p class="toc-title">Contents</p>
+<details class="toc-details">
+  <summary class="toc-summary">Contents</summary>
+  <nav class="toc">
+    <ul id="toc-list" class="toc-list"></ul>
+  </nav>
+</details>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var content = document.querySelector('.post-content');
+  if (!content) return;
+
+  var headings = content.querySelectorAll('h2, h3, h4');
+  var tocList  = document.getElementById('toc-list');
+  var sidebar  = document.querySelector('.toc-sidebar');
+
+  if (headings.length === 0) {
+    if (sidebar) sidebar.style.display = 'none';
+    return;
+  }
+
+  headings.forEach(function(heading, index) {
+    if (!heading.textContent.trim()) return;
+    if (!heading.id) heading.id = 'heading-' + index;
+
+    var level = parseInt(heading.tagName[1]);
+    var li = document.createElement('li');
+    li.className = 'toc-level-' + level;
+
+    var a = document.createElement('a');
+    a.href = '#' + heading.id;
+    a.textContent = heading.textContent;
+
+    li.appendChild(a);
+    tocList.appendChild(li);
+  });
+});
+</script>

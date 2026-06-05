@@ -3,3 +3,5 @@ _site/
 .bundle/
 .DS_Store
 private
+.venv
+.vscode

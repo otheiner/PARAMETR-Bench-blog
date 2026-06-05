@@ -279,45 +279,27 @@ Two minimal working examples follow. These tasks are simple and require no physi
 
 ## Results
 
-<div style="color:red; font-weight:bold;">Disclaimer: Result sections is currently WIP. The results shown below are just a provisional demonstration of the framework on the minimal working example task. Better result aggregation is being worked on.</div>
+All results were produced by the code at commit [`c7791b7`](https://github.com/otheiner/PARAMETR-Bench/tree/c7791b7b5e5a4d1acb4db35fed3257800b06d1f3) using maximum of 10 agentic turns and can be reproduced exactly using the same seeds and difficulty settings.
 
-```txt
-==================================================
-BENCHMARK RESULTS
-==================================================
-Judge:      gemini/gemma-4-31b-it
-Difficulty: hard
-Seeds:      [0, 1]
-Commit:     7c2b5bc  |  2026-05-18T23:41:42.352777
---------------------------------------------------
-Model: gemini/gemma-4-31b-it
-──────────────────────────────────────────────────
-Task:       _count_circles
-Model:      gemini/gemma-4-31b-it
-Judge:      gemini/gemma-4-31b-it
-Difficulty: hard  |  Seed: 0
-Commit:     7c2b5bc  |  2026-05-18T23:39:45.085074
-      - Counted circles correctly in each image:          7/10 (70.0%, 95% CI: [39.7%, 89.2%])
-      - Computed average number of circles correctly:     1/1 (100.0%, 95% CI: [20.7%, 100.0%])
-      ──────────────────────────────────────────────────
-      Weighted total: 80.0%
+ {% include gallery.html 
+  type="justified" 
+  images="/assets/images/PARAMETR-Bench/benchmark_results_public.png > Model performance on tasks seeded by the public seed set: [10, 11, 12, 13].;
+      "%}
 
-Task:       _count_circles
-Model:      gemini/gemma-4-31b-it
-Judge:      gemini/gemma-4-31b-it
-Difficulty: hard  |  Seed: 1
-Commit:     7c2b5bc  |  2026-05-18T23:41:42.328636
-      - Counted circles correctly in each image:          6/10 (60.0%, 95% CI: [31.3%, 83.2%])
-      - Computed average number of circles correctly:     0/1 (0.0%, 95% CI: [0.0%, 79.3%])
-      ──────────────────────────────────────────────────
-      Weighted total: 40.0%
+### Judge Reliability
 
-  gemini/gemma-4-31b-it total: 60.0%   95% CI: [20.8%, 99.2%]  (2 runs)
-```
+### Model Capabilities by Dimensions
 
-### Initial Evaluation
+Rubric criteria are split into four dimensions: data handling, image data extraction, scientific reasoning, instruction following and each model was also evaluated accross these dimentions by grouping weighted rubrics from these dimensions together. Each dimension is evaluated independently, so if the model would fullfill all rubrics from one dimension, it would score 100% dimension, but it wouldn't influence scores in other dimensions.
 
-<div style="color:red; font-weight:bold;">Disclaimer: This section will be added soon and it will show results for private and public seeds.</div>
+It is important to say that even though these dimensions test different capabilities, they are not entirely independent. Rubric criteria that are dependent on previous steps that failed, will also likely fail. For this reason, results in the following histogram should be only viewed as an approximate qualitative analysis.
+
+{% include gallery.html 
+  type="justified" 
+  images="/assets/images/PARAMETR-Bench/benchmark_results_dimensions.png > Comparison of model performance across four dimensions.;
+      "%}
+
+Even if these results give us only approximate idea about model performance, it can be seen that models scored the lowest in the image data extraction. The image extractions step is usually early in the analysis because it requires extracting data for the further analysis. For this reason, this step is in the presented tasks usually mostly independent of others. On the other hand, scientific reasoning also covers rubrics checking for the correctness of the final result and that is what renders these scores lower.
 
 ### A Long-Running Contamination Experiment
 
@@ -330,6 +312,11 @@ The measurement comes from the comparison between two seed sets evaluated on the
 <div style="color:red; font-weight:bold;">Disclaimer: The dataset on Hugging Face will be published soon (after running the experiments).</div>
 - A **public seed set**, published now along with the corresponding generated input data on [Hugging Face](https://huggingface.co/datasets/otheiner/PARAMETR-Bench).
 - A **private seed set**, drawn from the same generator distribution at the same difficulty levels but withheld from publication.
+
+{% include gallery.html 
+  type="justified" 
+  images="/assets/images/PARAMETR-Bench/benchmark_results_public_private.png > Initial comparison of model performances on public and private seeds for hard difficulty and a maximum of 10 agentic turns.;
+      "%}
 
 At publication time, both sets are equivalent: same generator, same parameters, same statistical properties. If a model trained months from now has been exposed to the public seed set, its performance on those seeds should be measurably higher than its performance on the held-out private seeds. A statistically significant gap would constitute evidence of contamination; a null result would constitute evidence that the framework's contamination resistance survives even direct exposure.
 

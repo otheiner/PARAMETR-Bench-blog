@@ -1,0 +1,8 @@
+@charset "utf-8";
+
+// Skin variables must come first so base/layout can use them as defaults.
+@import "minima/skins/classic";
+
+// initialize.scss defines all remaining variables, mixins, and imports
+// base, layout, custom-variables, and custom-styles in the right order.
+@import "minima/initialize";
