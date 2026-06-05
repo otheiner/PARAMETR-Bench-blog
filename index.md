@@ -347,12 +347,13 @@ Following table shows a detailed breakdown of the model scores on individual see
 
 ### Judge Reliability
 
-LLM-as-judge remains one of the weaker links in the evaluation chain. The main results above were graded by Claude Haiku 4.5. To assess judge reliability and check for same-family bias — where Haiku grading Sonnet could artificially inflate scores — I re-graded all responses using Gemini 3.1 Flash Lite, a model from a different family. The chart below shows that scores vary slightly across judges, but the variation is well within the 95% confidence intervals. No same-family bias is apparent; if anything the direction is reversed, though given the statistical uncertainty in the data this is not meaningful. The conclusion is that we do not observe same-family bias, or if it exists, it is below our resolution. All judge models were run at temperature 0.
+LLM-as-judge remains one of the weaker links in the evaluation chain. The main results above were graded by Claude Haiku 4.5. To assess judge reliability and check for same-family bias — where Haiku grading Sonnet could artificially inflate scores — I re-graded all responses using Gemini 3.1 Flash Lite, a model from a different family. The chart below shows that scores vary slightly across judges, but well within the 95% confidence intervals. No same-family bias is apparent; if anything the direction is reversed, though the statistical uncertainty is too large to draw any conclusion from that. All judge models were run at temperature 0. Note that this cross-family comparison can only detect relative bias between judges — it cannot reveal systematic bias shared by both.
 
 {% include gallery.html 
   type="justified" 
   images="/assets/images/PARAMETR-Bench/benchmark_results_haiku_gemini.png > Model results accross public seeds [10, 11, 12, 13] and tasks used in the evaluation.;
       "%}
+
 
 ### Difficulty Scaling
 
