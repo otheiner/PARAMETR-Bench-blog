@@ -281,11 +281,11 @@ Two minimal working examples follow. These tasks are simple and require no physi
 
 *Note: Presented results were produced by the code at commit [`c7791b7`](https://github.com/otheiner/PARAMETR-Bench/tree/c7791b7b5e5a4d1acb4db35fed3257800b06d1f3).*
 
-### Pilot Runs
-
 The following results cover four models: Claude Sonnet 4.6, Gemini 3.1 Pro (preview, evaluated 5 June 2026), GPT-5.4 Mini, and DeepSeek V4 Pro. Qwen 3.6-235B-A22B is excluded for the reason described below. Claude Haiku 4.5 served as the primary judge, with Gemini 3.1 Flash Lite as a reference judge for cross-family validation. Each model was evaluated in two runs — a public and a private seed set — each comprising 4 seeds across 4 tasks, yielding approximately 1900 binary rubric criteria per run per model.
  
 Since the tasks require tool use and multi-step reasoning, non-agentic evaluation produces no meaningful signal. All results presented here use agentic mode.
+
+### Pilot Runs
 
 Designing the evaluation protocol required balancing three constraints: having sufficient statistics, staying within a reasonable token budget, and choosing a difficulty level where model differences are visible — neither a ceiling nor a floor. To calibrate this, I ran a small pilot with a single seed (0) on the two strongest models (Gemini 3.1 Pro and Claude Sonnet 4.6) at two different agentic turn budgets:
 
@@ -329,7 +329,8 @@ The following chart shows results for four models. Scores are weighted averages 
 
  {% include gallery.html 
   type="justified" 
-  images="/assets/images/PARAMETR-Bench/benchmark_results_public_judge_haiku-4-5.png > Model performance on tasks seeded by the public seed set: [10, 11, 12, 13].;
+  width="70%"
+  images="/assets/images/PARAMETR-Bench/benchmark_results_public_judge_haiku-4-5.png > Model performance on tasks seeded by the public seed set [10, 11, 12, 13] on hard difficulty.;
       "%}
 
 Following table shows a detailed breakdown of the model scores on individual seeded instances of the tasks in the benchmark. 
@@ -359,6 +360,13 @@ LLM-as-judge remains one of the weaker links in the evaluation chain. The main r
 
 ### Difficulty Scaling
 
+{% include gallery.html 
+  type="justified" 
+  width="70%"
+  images="/assets/images/PARAMETR-Bench/benchmark_results_difficulties_judge_haiku-4-5.png > Comparison of model performance across four dimensions.;
+      "%}
+      
+
 ### Model Capabilities by Dimensions
 
 Rubric criteria are split into four dimensions: data handling, image data extraction, scientific reasoning, instruction following and each model was also evaluated accross these dimentions by grouping weighted rubrics from these dimensions together. Each dimension is evaluated independently, so if the model would fullfill all rubrics from one dimension, it would score 100% dimension, but it wouldn't influence scores in other dimensions.
@@ -367,6 +375,7 @@ It is important to say that even though these dimensions test different capabili
 
 {% include gallery.html 
   type="justified" 
+  width="70%"
   images="/assets/images/PARAMETR-Bench/benchmark_results_dimensions_judge_haiku-4-5.png > Comparison of model performance across four dimensions.;
       "%}
 

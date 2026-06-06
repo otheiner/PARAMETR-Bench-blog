@@ -19,7 +19,8 @@
   </div>
 
 {% elsif type == "justified"%}
-  <div id="gallery-{{ gallery }}">
+  {% assign gallery_width = include.width | default: "100%" %}
+  <div id="gallery-{{ gallery }}" style="width: {{ gallery_width }}; margin: 0 auto;">
   {% for image in images %}
     {% assign parts = image | split: '>' %}
     {% assign src = parts[0] | strip %}
