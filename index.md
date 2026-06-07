@@ -130,7 +130,7 @@ Task generation in PARAMETR-Bench uses seeded pseudo-random number generators, w
 
 Each task also ships with a configuration file that exposes the generator's parameters, grouped into three difficulty levels: easy, medium, and hard. These levels typically differ in dataset size, noise levels, and other parameters that control how challenging the task is to solve.
 
-The [`_count_circles`](https://github.com/otheiner/PARAMETR-Bench/blob/main/tasks/_count_circles/prompt.md) task included in the framework is a useful illustration. Tasks prefixed with an underscore are minimal working examples — not used in evaluation by default, but kept in the repository for demonstration and debugging. The setup is simple: the model receives several images of black circles on a white background and is asked to count the circles in each, then compute the average. With at most 5 circles per image, most modern vision models handle this reliably. With 20 circles per image, even capable models start to miscount. This is precisely where agentic evaluation matters: a model that can write a Python script to detect and count the circles will succeed where direct visual counting fails. The same task, evaluated agentically versus non-agentically, measures qualitatively different capabilities. We will discuss the agentic vs. non-agentic aspect in depth later.
+The [`_count_circles`](https://github.com/otheiner/PARAMETR-Bench/blob/main/tasks/_count_circles/prompt.md) task included in the framework is a useful illustration. Tasks prefixed with an underscore are minimal working examples — not used in evaluation by default, but kept in the repository for demonstration and debugging. The setup is simple: the model receives several images of black circles on a white background and is asked to count the circles in each, then compute the average. With at most 5 circles per image, most modern vision models handle this reliably. With 20 circles per image, even capable models start to miscount. This is precisely where agentic evaluation matters: a model that can write a Python script to detect and count the circles will succeed where direct visual counting fails. The same task, evaluated agentically versus non-agentically, measures qualitatively different capabilities. I will discuss the agentic vs. non-agentic aspect in depth later.
 
 You can try the task generator yourself in the interactive demo hosted on Hugging Face Spaces:
 
@@ -279,9 +279,9 @@ Two minimal working examples follow. These tasks are simple and require no physi
 
 ## Results
 
-*Note: Presented results were produced by the code at commit [`c7791b7`](https://github.com/otheiner/PARAMETR-Bench/tree/c7791b7b5e5a4d1acb4db35fed3257800b06d1f3).*
+*Note: Presented results come from the end of May 2026 and were produced by the code at commit [`c7791b7`](https://github.com/otheiner/PARAMETR-Bench/tree/c7791b7b5e5a4d1acb4db35fed3257800b06d1f3).*
 
-The following results cover four models: Claude Sonnet 4.6, Gemini 3.1 Pro (preview, evaluated 5 June 2026), GPT-5.4 Mini, and DeepSeek V4 Pro. Qwen 3.6-235B-A22B is excluded for the reason described below. Claude Haiku 4.5 served as the primary judge, with Gemini 3.1 Flash Lite as a reference judge for cross-family validation. Each model was evaluated in two runs — a public and a private seed set — each comprising 4 seeds across 4 tasks, yielding approximately 1900 binary rubric criteria per run per model.
+The following results cover four models: **Claude Sonnet 4.6**, **Gemini 3.1 Pro preview**, **GPT-5.4 Mini**, and **DeepSeek V4 Pro**. Qwen 3.6-235B-A22B was excluded for the reason described below. Claude Haiku 4.5 served as the primary judge, with Gemini 3.1 Flash Lite as a reference judge for cross-family validation. Each model was evaluated in two runs — a public and a private seed set — each comprising 4 seeds across 4 tasks, yielding approximately 1900 binary rubric criteria per run per model.
  
 Since the tasks require tool use and multi-step reasoning, non-agentic evaluation produces no meaningful signal. All results presented here use agentic mode.
 
@@ -337,7 +337,7 @@ Following table shows a detailed breakdown of the model scores on individual see
 
  {% include gallery.html 
   type="justified" 
-  images="/assets/images/PARAMETR-Bench/benchmark_results_by_task_judge_haiku-4-5.png > Model results accross public seeds [10, 11, 12, 13] and tasks used in the evaluation.;
+  images="/assets/images/PARAMETR-Bench/benchmark_results_by_task_judge_haiku-4-5.png > Model results across public seeds [10, 11, 12, 13] and hard difficulty.;
       "%}
 
 **Observations**
@@ -350,18 +350,28 @@ Evaluating GPT-5.4 mini required multiple restarts. OpenAI's safety classifier r
 
 The figures above tell us how well agents performed on the tasks, but reveal nothing about their working strategies. This section aims to shed light on the different approaches taken by each agent.
 
-Models can issue multiple simultaneous tool calls within a single agentic turn. The figure below shows (click to zoom in) the distribution of tool calls across the task instances presented above. White numbers indicate the total number of calls for a given tool, and the colour fraction corresponds to that tool's share of all tool calls in the given task instance.
+Models can issue multiple simultaneous tool calls within a single agentic turn. The figure below shows the aggregated number of tool calls across all task instances in the test. The statistics comes from the same results as I present in the main result section.
 
  {% include gallery.html 
   type="justified" 
-  images="/assets/images/PARAMETR-Bench/tool_usage_public.png > Model agentic tool use accross public seeds [10, 11, 12, 13] and tasks used in the evaluation. All tasks had limit of 10 agentic turns in which multiple parallel tool calls can be executed.;
+  width="70%"
+  images="/assets/images/PARAMETR-Bench/tool_usage_aggregated.png > Aggregated model tool use across public seeds [10, 11, 12, 13] and hard difficulty. All tasks had a limit of maximum of 10 agentic turns, where multiple parallel tool calls can be made within one turn.;
+      "%}
+
+The next figure shows (click to zoom in) more detailed breakdown - the distribution of tool calls across the task instances presented above. White numbers indicate the total number of calls for a given tool, and the colour fraction corresponds to that tool's share of all tool calls in the given task instance.
+
+ {% include gallery.html 
+  type="justified" 
+  images="/assets/images/PARAMETR-Bench/tool_usage_public.png > Model tool use across public seeds [10, 11, 12, 13] and hard difficulty. All tasks had a limit of maximum of 10 agentic turns, where multiple parallel tool calls can be made within one turn.;
       "%}
 
 The first interesting observation is that even though task instances across seeds are very similar — comparable amounts of data and the same noise effects — models sometimes adopted a different strategy on one seed compared to the others. For example, Sonnet did not use the `run_command` (bash) tool on seed 13 of the `cepheid_calibration` task. Even more striking is the 48 `view_image` calls on seed 13 of `lissajous_figures`, which is completely different from the model behaviour on seeds 10 and 11.
 
-A particularly surprising case is Gemini's strategy on `invariant_mass_reconstruction` for seed 11: the model never called `view_image`, despite the task including an image from which detector geometry must be read. Closer inspection of the model output revealed that Gemini reverse-engineered the detector geometry directly from the data — a approach that would rarely be viable in practice, but is entirely valid here because the task explicitly states a simplification that makes it tractable.
+A particularly surprising case is Gemini's strategy on `invariant_mass_reconstruction` for seed 11: the model never called `view_image`, despite the task including an image from which detector geometry is supposed to be read. Closer inspection of the model output revealed that Gemini reverse-engineered the detector geometry directly from the data — an approach that would rarely be viable in practice, but is entirely valid here because the task explicitly states a simplification that makes it tractable. I hadn't considered this approach at all when designing the task!
 
-Also noteworthy is DeepSeek's heavier reliance on `view_image` compared to the other models, suggesting it leaned more on its vision capabilities where other models turned to Python for image analysis.
+Also noteworthy is DeepSeek's heavier reliance on `view_image` compared to the other models, suggesting it leaned more on its vision capabilities where other models turned to Python for image analysis. From all models DeepSeek had the worst score from tested models (excluding Qwen). 
+
+Notably, Gemini 3.1 Pro achieved results comparable to Claude Sonnet 4.6 with a significantly smaller total number of tool calls. Claude Sonnet 4.6 and DeepSeek V4 Pro also show a nearly identical aggregated tool-call count, yet DeepSeek performed considerably worse. That said, Sonnet's count is inflated by the 48 `view_image` calls on seed 13 of `lissajous_figures`; without that outlier, the two models would differ substantially.
   
 
 ### Judge Reliability
@@ -461,7 +471,7 @@ PARAMETR-Bench is presented as a methodology and proof of concept rather than a 
 
 I started this project as a personal endeavour in LLM evaluation which grew into something bigger. PARAMETR-Bench is a working implementation of procedural benchmarking framework for evaluation of LLM agents on scientific tasks. It introduces a novel concept of metarubric (or concept I haven't seen elsewhere at least) which addresses the problem of rubric drifts on procedurally generated tasks. Even if this concept cannot be appliet ot every procedural task generation with LLM-as-judge, it is concept that is simple enough and could be possibly used by other evaluation work.
 
-I ran tests and I tested the agentic evaluation on five models. Qwen failed in instructions following and didn't print any results when it reached its budget of agentic turns and so it was excluded from the tests (to save API credits on unseccesfull agent). Claude Sonnet 4.6 performed comparable (and sometimes even better) than the flagship model Gemini 3.1 Pro (preview). Considering that Sonnet is cheaper to run 
+I ran tests and I tested the agentic evaluation on five models. Qwen failed in instructions following and didn't print any results when it reached its budget of agentic turns and so it was excluded from the tests (to save API credits on unseccesfull agent). Claude Sonnet 4.6 performed comparable (and sometimes even better) than the flagship model Gemini 3.1 Pro (preview). 
 
 I tested 
 
