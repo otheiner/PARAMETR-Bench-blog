@@ -1,0 +1,334 @@
+==================================================
+BENCHMARK RESULTS
+==================================================
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      gemini/gemini-3.1-flash-lite
+Difficulty: hard
+Seeds:      [1042, 1043, 1044, 1045]
+Commit:     c7791b7  |  2026-06-05T20:38:06.741820
+Agentic:    YES  |  Max-turns: 10
+--------------------------------------------------
+Overall score: 58.8%  95% CI: [49.2%, 68.4%]  (1901 binary outcomes across 16 task runs)
+
+
+
+==================================================
+TASK RESULTS AGGREGATED (combined across seeds)
+==================================================
+Task:       cepheid_calibration
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      gemini/gemini-3.1-flash-lite
+Difficulty: hard  |  Seeds: [1042, 1043, 1044, 1045]
+      - Listed Cepheids with data:                        241/244 (98.8%, 95% CI: [96.4%, 99.6%])  weight: 2.0
+      - Estimated redshifts:                              168/244 (68.9%, 95% CI: [62.8%, 74.3%])  weight: 8.0
+      - Fitted function form:                             4/4 (100.0%, 95% CI: [51.0%, 100.0%])  weight: 1.0
+      - Estimated 'a':                                    4/4 (100.0%, 95% CI: [51.0%, 100.0%])  weight: 10.0
+      - Estimated 'sigma_a':                              4/4 (100.0%, 95% CI: [51.0%, 100.0%])  weight: 8.0
+      - Estimated 'b':                                    4/4 (100.0%, 95% CI: [51.0%, 100.0%])  weight: 10.0
+      - Estimated 'sigma_b':                              4/4 (100.0%, 95% CI: [51.0%, 100.0%])  weight: 8.0
+      ──────────────────────────────────────────────────
+      Weighted total: 94.6%
+Task:       hubble_constant
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      gemini/gemini-3.1-flash-lite
+Difficulty: hard  |  Seeds: [1042, 1043, 1044, 1045]
+      - Included summary section:                         4/4 (100.0%, 95% CI: [51.0%, 100.0%])  weight: 0.5
+      - Correct number of galaxies:                       3/4 (75.0%, 95% CI: [30.1%, 95.4%])  weight: 2.0
+      - Listed section measured redshifts:                4/4 (100.0%, 95% CI: [51.0%, 100.0%])  weight: 0.5
+      - Redshift estimation:                              13/120 (10.8%, 95% CI: [6.4%, 17.7%])  weight: 10.0
+      - Fitted function - linear:                         4/4 (100.0%, 95% CI: [51.0%, 100.0%])  weight: 1.0
+      - Fitted function - zero offset:                    1/4 (25.0%, 95% CI: [4.6%, 69.9%])  weight: 2.0
+      - Included Hubble constant section:                 4/4 (100.0%, 95% CI: [51.0%, 100.0%])  weight: 0.5
+      - Hubble constant estimation:                       1/4 (25.0%, 95% CI: [4.6%, 69.9%])  weight: 8.0
+      - Uncertainty on Hubble constant:                   1/4 (25.0%, 95% CI: [4.6%, 69.9%])  weight: 8.0
+      ──────────────────────────────────────────────────
+      Weighted total: 29.5%
+Task:       invariant_mass_reconstruction
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      gemini/gemini-3.1-flash-lite
+Difficulty: hard  |  Seeds: [1042, 1043, 1044, 1045]
+      - Analysis summary:                                 4/4 (100.0%, 95% CI: [51.0%, 100.0%])  weight: 0.5
+      - Detector dimensions retrieval:                    15/20 (75.0%, 95% CI: [53.1%, 88.8%])  weight: 0.5
+      - Number of events in the list:                     0/4 (0.0%, 95% CI: [0.0%, 49.0%])  weight: 1.0
+      - Per-event invariant mass reconstruction:          8/800 (1.0%, 95% CI: [0.5%, 2.0%])  weight: 5.0
+      - Final result existence - mass:                    4/4 (100.0%, 95% CI: [51.0%, 100.0%])  weight: 0.5
+      - Particle mass M:                                  1/4 (25.0%, 95% CI: [4.6%, 69.9%])  weight: 10.0
+      - Final result existence - decay width:             4/4 (100.0%, 95% CI: [51.0%, 100.0%])  weight: 0.5
+      - Decay width:                                      1/4 (25.0%, 95% CI: [4.6%, 69.9%])  weight: 10.0
+      ──────────────────────────────────────────────────
+      Weighted total: 24.7%
+Task:       lissajous_figures
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      gemini/gemini-3.1-flash-lite
+Difficulty: hard  |  Seeds: [1042, 1043, 1044, 1045]
+      - Included sections for QA:                         4/4 (100.0%, 95% CI: [51.0%, 100.0%])  weight: 0.5
+      - Listed faulty supplies:                           0/45 (0.0%, 95% CI: [0.0%, 7.9%])  weight: 2.0
+      - Skipped not faulty supplies:                      150/161 (93.2%, 95% CI: [88.2%, 96.1%])  weight: 2.0
+      - Computed frequency of faulty supply:              22/45 (48.9%, 95% CI: [35.0%, 63.0%])  weight: 8.0
+      - Listed batch of supply:                           44/45 (97.8%, 95% CI: [88.4%, 99.6%])  weight: 4.0
+      - Listed manufacturing machine of supply:           44/45 (97.8%, 95% CI: [88.4%, 99.6%])  weight: 2.0
+      - Included sections for management:                 4/4 (100.0%, 95% CI: [51.0%, 100.0%])  weight: 0.5
+      - Identified faulty machines:                       16/16 (100.0%, 95% CI: [80.6%, 100.0%])  weight: 2.0
+      - Skipped not faulty machines:                      21/32 (65.6%, 95% CI: [48.3%, 79.6%])  weight: 2.0
+      ──────────────────────────────────────────────────
+      Weighted total: 69.4%
+
+
+
+==================================================
+INDIVIDUAL TASK RESULTS
+==================================================
+Task:       cepheid_calibration
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      gemini/gemini-3.1-flash-lite
+Difficulty: hard  |  Seed: 1042
+      - Listed Cepheids with data:                        58/61 (95.1%, 95% CI: [86.5%, 98.3%])
+      - Estimated redshifts:                              6/61 (9.8%, 95% CI: [4.6%, 19.8%])
+      - Fitted function form:                             1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Estimated 'a':                                    1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Estimated 'sigma_a':                              1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Estimated 'b':                                    1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Estimated 'sigma_b':                              1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      ──────────────────────────────────────────────────
+      Weighted total: 84.4%
+
+Task:       cepheid_calibration
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      gemini/gemini-3.1-flash-lite
+Difficulty: hard  |  Seed: 1043
+      - Listed Cepheids with data:                        61/61 (100.0%, 95% CI: [94.1%, 100.0%])
+      - Estimated redshifts:                              57/61 (93.4%, 95% CI: [84.3%, 97.4%])
+      - Fitted function form:                             1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Estimated 'a':                                    1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Estimated 'sigma_a':                              1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Estimated 'b':                                    1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Estimated 'sigma_b':                              1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      ──────────────────────────────────────────────────
+      Weighted total: 98.9%
+
+Task:       cepheid_calibration
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      gemini/gemini-3.1-flash-lite
+Difficulty: hard  |  Seed: 1044
+      - Listed Cepheids with data:                        61/61 (100.0%, 95% CI: [94.1%, 100.0%])
+      - Estimated redshifts:                              55/61 (90.2%, 95% CI: [80.2%, 95.4%])
+      - Fitted function form:                             1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Estimated 'a':                                    1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Estimated 'sigma_a':                              1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Estimated 'b':                                    1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Estimated 'sigma_b':                              1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      ──────────────────────────────────────────────────
+      Weighted total: 98.3%
+
+Task:       cepheid_calibration
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      gemini/gemini-3.1-flash-lite
+Difficulty: hard  |  Seed: 1045
+      - Listed Cepheids with data:                        61/61 (100.0%, 95% CI: [94.1%, 100.0%])
+      - Estimated redshifts:                              50/61 (82.0%, 95% CI: [70.5%, 89.6%])
+      - Fitted function form:                             1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Estimated 'a':                                    1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Estimated 'sigma_a':                              1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Estimated 'b':                                    1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Estimated 'sigma_b':                              1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      ──────────────────────────────────────────────────
+      Weighted total: 96.9%
+
+Task:       hubble_constant
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      gemini/gemini-3.1-flash-lite
+Difficulty: hard  |  Seed: 1042
+      - Included summary section:                         1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Correct number of galaxies:                       1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Listed section measured redshifts:                1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Redshift estimation:                              2/24 (8.3%, 95% CI: [2.3%, 25.8%])
+      - Fitted function - linear:                         1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Fitted function - zero offset:                    0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Included Hubble constant section:                 1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Hubble constant estimation:                       0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Uncertainty on Hubble constant:                   1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      ──────────────────────────────────────────────────
+      Weighted total: 41.0%
+
+Task:       hubble_constant
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      gemini/gemini-3.1-flash-lite
+Difficulty: hard  |  Seed: 1043
+      - Included summary section:                         1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Correct number of galaxies:                       1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Listed section measured redshifts:                1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Redshift estimation:                              0/29 (0.0%, 95% CI: [0.0%, 11.7%])
+      - Fitted function - linear:                         1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Fitted function - zero offset:                    0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Included Hubble constant section:                 1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Hubble constant estimation:                       0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Uncertainty on Hubble constant:                   0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      ──────────────────────────────────────────────────
+      Weighted total: 13.8%
+
+Task:       hubble_constant
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      gemini/gemini-3.1-flash-lite
+Difficulty: hard  |  Seed: 1044
+      - Included summary section:                         1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Correct number of galaxies:                       1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Listed section measured redshifts:                1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Redshift estimation:                              0/32 (0.0%, 95% CI: [0.0%, 10.7%])
+      - Fitted function - linear:                         1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Fitted function - zero offset:                    0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Included Hubble constant section:                 1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Hubble constant estimation:                       0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Uncertainty on Hubble constant:                   0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      ──────────────────────────────────────────────────
+      Weighted total: 13.8%
+
+Task:       hubble_constant
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      gemini/gemini-3.1-flash-lite
+Difficulty: hard  |  Seed: 1045
+      - Included summary section:                         1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Correct number of galaxies:                       0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Listed section measured redshifts:                1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Redshift estimation:                              11/35 (31.4%, 95% CI: [18.6%, 48.0%])
+      - Fitted function - linear:                         1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Fitted function - zero offset:                    1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Included Hubble constant section:                 1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Hubble constant estimation:                       1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Uncertainty on Hubble constant:                   0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      ──────────────────────────────────────────────────
+      Weighted total: 48.1%
+
+Task:       invariant_mass_reconstruction
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      gemini/gemini-3.1-flash-lite
+Difficulty: hard  |  Seed: 1042
+      - Analysis summary:                                 1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Detector dimensions retrieval:                    5/5 (100.0%, 95% CI: [56.6%, 100.0%])
+      - Number of events in the list:                     0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Per-event invariant mass reconstruction:          0/200 (0.0%, 95% CI: [0.0%, 1.9%])
+      - Final result existence - mass:                    1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Particle mass M:                                  0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Final result existence - decay width:             1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Decay width:                                      0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      ──────────────────────────────────────────────────
+      Weighted total: 7.1%
+
+Task:       invariant_mass_reconstruction
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      gemini/gemini-3.1-flash-lite
+Difficulty: hard  |  Seed: 1043
+      - Analysis summary:                                 1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Detector dimensions retrieval:                    5/5 (100.0%, 95% CI: [56.6%, 100.0%])
+      - Number of events in the list:                     0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Per-event invariant mass reconstruction:          3/200 (1.5%, 95% CI: [0.5%, 4.3%])
+      - Final result existence - mass:                    1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Particle mass M:                                  0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Final result existence - decay width:             1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Decay width:                                      0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      ──────────────────────────────────────────────────
+      Weighted total: 7.4%
+
+Task:       invariant_mass_reconstruction
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      gemini/gemini-3.1-flash-lite
+Difficulty: hard  |  Seed: 1044
+      - Analysis summary:                                 1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Detector dimensions retrieval:                    0/5 (0.0%, 95% CI: [0.0%, 43.4%])
+      - Number of events in the list:                     0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Per-event invariant mass reconstruction:          0/200 (0.0%, 95% CI: [0.0%, 1.9%])
+      - Final result existence - mass:                    1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Particle mass M:                                  0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Final result existence - decay width:             1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Decay width:                                      0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      ──────────────────────────────────────────────────
+      Weighted total: 5.4%
+
+Task:       invariant_mass_reconstruction
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      gemini/gemini-3.1-flash-lite
+Difficulty: hard  |  Seed: 1045
+      - Analysis summary:                                 1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Detector dimensions retrieval:                    5/5 (100.0%, 95% CI: [56.6%, 100.0%])
+      - Number of events in the list:                     0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Per-event invariant mass reconstruction:          5/200 (2.5%, 95% CI: [1.1%, 5.7%])
+      - Final result existence - mass:                    1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Particle mass M:                                  1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Final result existence - decay width:             1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Decay width:                                      1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      ──────────────────────────────────────────────────
+      Weighted total: 79.0%
+
+Task:       lissajous_figures
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      gemini/gemini-3.1-flash-lite
+Difficulty: hard  |  Seed: 1042
+      - Included sections for QA:                         1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Listed faulty supplies:                           0/9 (0.0%, 95% CI: [0.0%, 29.9%])
+      - Skipped not faulty supplies:                      40/40 (100.0%, 95% CI: [91.2%, 100.0%])
+      - Computed frequency of faulty supply:              4/9 (44.4%, 95% CI: [18.9%, 73.3%])
+      - Listed batch of supply:                           9/9 (100.0%, 95% CI: [70.1%, 100.0%])
+      - Listed manufacturing machine of supply:           9/9 (100.0%, 95% CI: [70.1%, 100.0%])
+      - Included sections for management:                 1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Identified faulty machines:                       5/5 (100.0%, 95% CI: [56.6%, 100.0%])
+      - Skipped not faulty machines:                      2/7 (28.6%, 95% CI: [8.2%, 64.1%])
+      ──────────────────────────────────────────────────
+      Weighted total: 65.8%
+
+Task:       lissajous_figures
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      gemini/gemini-3.1-flash-lite
+Difficulty: hard  |  Seed: 1043
+      - Included sections for QA:                         1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Listed faulty supplies:                           0/15 (0.0%, 95% CI: [0.0%, 20.4%])
+      - Skipped not faulty supplies:                      39/40 (97.5%, 95% CI: [87.1%, 99.6%])
+      - Computed frequency of faulty supply:              8/15 (53.3%, 95% CI: [30.1%, 75.2%])
+      - Listed batch of supply:                           15/15 (100.0%, 95% CI: [79.6%, 100.0%])
+      - Listed manufacturing machine of supply:           15/15 (100.0%, 95% CI: [79.6%, 100.0%])
+      - Included sections for management:                 1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Identified faulty machines:                       4/4 (100.0%, 95% CI: [51.0%, 100.0%])
+      - Skipped not faulty machines:                      7/8 (87.5%, 95% CI: [52.9%, 97.8%])
+      ──────────────────────────────────────────────────
+      Weighted total: 73.8%
+
+Task:       lissajous_figures
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      gemini/gemini-3.1-flash-lite
+Difficulty: hard  |  Seed: 1044
+      - Included sections for QA:                         1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Listed faulty supplies:                           0/11 (0.0%, 95% CI: [0.0%, 25.9%])
+      - Skipped not faulty supplies:                      33/43 (76.7%, 95% CI: [62.3%, 86.8%])
+      - Computed frequency of faulty supply:              7/11 (63.6%, 95% CI: [35.4%, 84.8%])
+      - Listed batch of supply:                           11/11 (100.0%, 95% CI: [74.1%, 100.0%])
+      - Listed manufacturing machine of supply:           11/11 (100.0%, 95% CI: [74.1%, 100.0%])
+      - Included sections for management:                 1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Identified faulty machines:                       4/4 (100.0%, 95% CI: [51.0%, 100.0%])
+      - Skipped not faulty machines:                      3/8 (37.5%, 95% CI: [13.7%, 69.4%])
+      ──────────────────────────────────────────────────
+      Weighted total: 71.2%
+
+Task:       lissajous_figures
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      gemini/gemini-3.1-flash-lite
+Difficulty: hard  |  Seed: 1045
+      - Included sections for QA:                         1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Listed faulty supplies:                           0/10 (0.0%, 95% CI: [0.0%, 27.8%])
+      - Skipped not faulty supplies:                      38/38 (100.0%, 95% CI: [90.8%, 100.0%])
+      - Computed frequency of faulty supply:              3/10 (30.0%, 95% CI: [10.8%, 60.3%])
+      - Listed batch of supply:                           9/10 (90.0%, 95% CI: [59.6%, 98.2%])
+      - Listed manufacturing machine of supply:           9/10 (90.0%, 95% CI: [59.6%, 98.2%])
+      - Included sections for management:                 1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Identified faulty machines:                       3/3 (100.0%, 95% CI: [43.9%, 100.0%])
+      - Skipped not faulty machines:                      9/9 (100.0%, 95% CI: [70.1%, 100.0%])
+      ──────────────────────────────────────────────────
+      Weighted total: 64.3%
+
+
+
+
+==================================================
+BY DIMENSION (aggregated across all tasks and seeds)
+==================================================
+  data handling:                 80.4%
+  image data extraction:         40.4%
+  scientific reasoning:          58.7%
+  instructions following:        80.0%

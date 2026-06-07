@@ -1,0 +1,20 @@
+{
+  "run_id": "edga91",
+  "model": "anthropic/claude-sonnet-4-6",
+  "judge": "anthropic/claude-haiku-4-5",
+  "difficulty": "easy",
+  "seeds": [
+    10,
+    11
+  ],
+  "agentic": true,
+  "max_turns": 10,
+  "tasks": [
+    "cepheid_calibration",
+    "hubble_constant",
+    "invariant_mass_reconstruction",
+    "lissajous_figures"
+  ],
+  "git_commit": "c7791b7",
+  "timestamp": "2026-06-06T15:42:05.135034"
+}

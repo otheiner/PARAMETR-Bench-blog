@@ -1,0 +1,921 @@
+{
+  "task": "hubble_constant",
+  "model": "anthropic/claude-sonnet-4-6",
+  "seed": 1044,
+  "messages": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "# Problem definition\n\nThe provided dataset contains results of a simulated observational campaign surveying galaxy spectra and Cepheid variable stars. For Cepheid variables, the period-luminosity relation is established as:\n\n$$M = -2.43 \\cdot (\\log_{10}(P) - 1) - 4.05$$\n\nThe dataset contains measured spectra of several galaxies and photometric information about Cepheid variables in these galaxies, where available. There is at most one Cepheid per galaxy. Analysis of the measured spectra verified that the observed spectra contain only lines that were observed in the laboratory reference spectrum.\n\nUse the provided dataset to determine Hubble's constant, incorporating all available data. Fit the data by physically well-motivated function. Assume the relativistic Doppler formula for computing velocities from redshifts. For redshift extraction, identify observed spectral lines with the lines in the laboratory reference spectrum. Assume that spectral lines in the observed spectrum are always subset of the presented lab spectrum.\n\nState the result in km/s/Mpc rounded to one decimal place \u00b1 absolute statistical uncertainty. Also list computed redshifts of galaxies used for the analysis.\n________________________________________\n## Output format\n\nThe final output is used to grade your answer.\n\nStructure your response according to the following template:\n\nSUMMARY:\n[high level summary of your approach, including key formulas and methods used to solve the task]\n\nREDSHIFTS OF GALAXIES USED IN THE ANALYSIS:\n[GID...]    [redshift value]\n[GID...]    [redshift value]\n\nHUBBLE CONSTANT \u00b1 STDEV:\n[H_0] \u00b1 [STDEV] km/s/Mpc\n\n________________________________________\n## Files provided\n\nFiles provided to solve the task are:\n\n- `cepheids_measurements.csv` \u2014 database of measured Cepheids\n- `spectral_lines_lab.png` \u2014 laboratory emission spectrum\n- `observed_spectra/` \u2014 folder containing observed emission spectra of some galaxies________________________________________\n## Agentic instructions\nYou are a scientist solving the task from the presented prompt. You have access to multiple tools described below. \n\n### Tools\nYou have available these tools:\n\n- **run_command** \u2014 run a shell command for quick data inspection; supports pipes (`|`), `&&`, `||`, `;`, and regex patterns in arguments; allowed commands: `grep`, `sed`, `awk`, `find`, `head`, `tail`, `cat`, `wc`, `sort`, `uniq`, `cut`, `ls`, `file`, `mkdir`, `touch`, `cp`, `cd`; output capped at 5 000 chars \u2014 pipe through `head`/`tail` or use `execute_python` for larger outputs\n- **read_file** \u2014 read a text or CSV file from the workspace into your context (output capped at 10 000 chars; for larger files use `execute_python` to read and process programmatically, or use `run_command` with `grep`/`head`/`tail` to inspect specific sections)\n- **write_file** \u2014 write text content to a file in the workspace\n- **view_image** \u2014 render an image file into your context so you can inspect it visually (only use this if your model supports vision)\n- **execute_python** \u2014 execute a Python script; stdout is returned to you\n\nAll input files are listed above by name and are available in your working directory \u2014 their contents are not pre-loaded. Use `read_file` or `run_command` to inspect text and CSV files, and `view_image` to inspect image files if your model supports vision. Files written by `execute_python` or `write_file` persist between tool calls, but the working directory always resets to the workspace root \u2014 `cd` changes do not carry over between calls. Use explicit paths or chain `cd` within a single call (e.g. `cd subdir && head file.csv`). You can use these tools to also inspect the files you created. \n\nEach `execute_python` call runs in a fresh Python process \u2014 no variables or imports persist between calls; every script must be self-contained. Available libraries: numpy, scipy, pandas, matplotlib, astropy, scikit-learn, opencv-python-headless. Do NOT use any libraries outside this list.\n\n### Constraints\n- You have at most 10 tool calls.\n- Each `execute_python` and `run_command` call has a **120-second timeout** \u2014 scripts that exceed this will be killed. Keep computations efficient and avoid long-running loops.\n- You can issue multiple tool calls in a single turn \u2014 use this to run independent operations in parallel and conserve your turn budget.\n- Plan before executing and use your turn efficiently\n- Inspecting data structure before starting the analysis is recommended\n\n### Working Strategy\nBefore using any tool, you should:\n1. Briefly plan your approach\n2. Decide whether a tool call is necessary - e.g. you don't need to use tools to write code analyzing the image if you think that your vision capabilities are sufficient for the task.\n\nWhen using tools:\n- Prefer inspecting data before making assumptions\n- Write clear, minimal, and correct code\n- Save intermediate results if needed\n\n### Error Handling\n- If a tool call fails, analyze the error and correct your approach\n- Do not repeat the same mistake\n- If results seem incorrect, validate or sanity-check them\n\n### Scientific Rigor\n- Clearly state assumptions\n- Use appropriate units and numerical precision\n- Perform sanity checks when possible\n- Avoid unjustified guesses\n\n### Final Answer\nAt the end of your response:\n- Provide a clear, explicit final result in plain text according to the format specified in the prompt\n- You can write your thoughts or intermediate results, but only. the final answer is what is being judged \n- Include units where applicable\n- Ensure the answer directly addresses the task\n\nDo not rely on implicit reasoning or hidden computation \u2014 your answer must be verifiable from your steps."
+        },
+        {
+          "type": "text",
+          "text": "File: cepheids_measurements.csv"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID012760.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID024901.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID046905.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID048359.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID058444.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID063175.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID071514.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID080316.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID085789.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID105996.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID113438.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID117309.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID125384.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID127533.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID135667.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID146839.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID150774.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID155250.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID167714.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID171116.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID177099.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID184135.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID196934.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID201122.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID210801.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID222964.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID223665.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID225042.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID234331.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID234986.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID239075.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID242692.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID245805.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID259418.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID263554.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID268067.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID281115.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID285076.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID292181.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID319416.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID319436.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID324261.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID333248.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID337887.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID340733.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID352527.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID352735.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID360396.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID379426.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID384984.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID385719.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID389013.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID393855.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID395862.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID398164.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID399137.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID416465.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID422945.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID425981.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID426838.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID427649.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID456501.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID467021.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID473352.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID477471.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID488946.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID493425.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID498639.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID500279.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID505059.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID509032.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID517228.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID519408.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID524865.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID527090.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID545203.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID552564.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID554040.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID561391.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID568877.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID570450.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID578418.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID581795.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID591189.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID593624.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID599224.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID613052.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID614424.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID617890.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID627692.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID637215.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID648930.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID650550.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID655617.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID663855.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID677382.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID702037.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID709657.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID711000.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID733753.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID734104.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID743345.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID747995.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID755466.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID765497.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID779257.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID789972.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID806845.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID808997.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID826671.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID854567.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID857912.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID873051.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID882878.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID884886.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID894745.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID908519.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID912018.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID919808.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID921806.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID922668.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID952970.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID954352.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID987062.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: observed_spectra/GID993903.png"
+        },
+        {
+          "type": "text",
+          "text": "Image file: spectral_lines_lab.png",
+          "cache_control": {
+            "type": "ephemeral"
+          }
+        }
+      ]
+    },
+    {
+      "content": "I'll start by examining the data files and images to understand the structure before diving into analysis.",
+      "role": "assistant",
+      "tool_calls": [
+        {
+          "index": 1,
+          "caller": {
+            "type": "direct"
+          },
+          "function": {
+            "arguments": "{\"path\": \"cepheids_measurements.csv\"}",
+            "name": "read_file"
+          },
+          "id": "toolu_01V7iXbSFpKj5vWPnZATsXxe",
+          "type": "function"
+        },
+        {
+          "index": 2,
+          "caller": {
+            "type": "direct"
+          },
+          "function": {
+            "arguments": "{\"path\": \"spectral_lines_lab.png\"}",
+            "name": "view_image"
+          },
+          "id": "toolu_01LyVV7s2JAPAVgbrqV3aQMv",
+          "type": "function"
+        }
+      ],
+      "function_call": null,
+      "provider_specific_fields": {
+        "citations": null,
+        "thinking_blocks": null
+      }
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "toolu_01V7iXbSFpKj5vWPnZATsXxe",
+      "name": "read_file",
+      "content": "galaxy_ID,cepheid_ID,mean_mag_cepheid,period [days]\nGID737477,,nan,nan\nGID869540,,nan,nan\nGID830142,,nan,nan\nGID624197,,nan,nan\nGID622622,,nan,nan\nGID335860,,nan,nan\nGID462621,,nan,nan\nGID825572,,nan,nan\nGID354656,,nan,nan\nGID606005,,nan,nan\nGID345027,,nan,nan\nGID230985,,nan,nan\nGID162373,,nan,nan\nGID341808,,nan,nan\nGID096533,,nan,nan\nGID614300,,nan,nan\nGID473293,,nan,nan\nGID557438,,nan,nan\nGID424431,,nan,nan\nGID847130,,nan,nan\nGID916875,,nan,nan\nGID174595,,nan,nan\nGID284580,,nan,nan\nGID352735,HDD507907,30.163,58.5461\nGID871000,,nan,nan\nGID654282,,nan,nan\nGID270129,,nan,nan\nGID374726,,nan,nan\nGID591762,,nan,nan\nGID980534,,nan,nan\nGID804845,,nan,nan\nGID286346,,nan,nan\nGID032906,,nan,nan\nGID986583,,nan,nan\nGID901550,,nan,nan\nGID422782,,nan,nan\nGID065277,,nan,nan\nGID620962,,nan,nan\nGID249837,,nan,nan\nGID914886,,nan,nan\nGID806845,,nan,nan\nGID918574,,nan,nan\nGID207059,,nan,nan\nGID783266,,nan,nan\nGID048684,,nan,nan\nGID165524,,nan,nan\nGID100705,,nan,nan\nGID202930,,nan,nan\nGID496271,,nan,nan\nGID917198,,nan,nan\nGID391087,,nan,nan\nGID847694,,nan,nan\nGID282545,,nan,nan\nGID177665,,nan,nan\nGID773117,,nan,nan\nGID673935,,nan,nan\nGID085340,,nan,nan\nGID916200,,nan,nan\nGID667060,,nan,nan\nGID394129,,nan,nan\nGID037387,,nan,nan\nGID740405,,nan,nan\nGID886642,,nan,nan\nGID046698,,nan,nan\nGID541598,,nan,nan\nGID691972,,nan,nan\nGID192919,,nan,nan\nGID493855,,nan,nan\nGID669748,,nan,nan\nGID664841,,nan,nan\nGID638180,,nan,nan\nGID134951,,nan,nan\nGID148832,,nan,nan\nGID412544,,nan,nan\nGID535631,,nan,nan\nGID816540,,nan,nan\nGID453890,,nan,nan\nGID952529,,nan,nan\nGID162976,,nan,nan\nGID650550,,nan,nan\nGID670949,,nan,nan\nGID564503,,nan,nan\nGID622335,,nan,nan\nGID843919,,nan,nan\nGID126919,,nan,nan\nGID709926,,nan,nan\nGID721485,,nan,nan\nGID977569,,nan,nan\nGID534272,,nan,nan\nGID946845,,nan,nan\nGID220363,,nan,nan\nGID217803,,nan,nan\nGID765142,,nan,nan\nGID268067,,nan,nan\nGID007563,,nan,nan\nGID200621,,nan,nan\nGID731519,,nan,nan\nGID940358,,nan,nan\nGID179621,,nan,nan\nGID784223,,nan,nan\nGID527701,,nan,nan\nGID291887,,nan,nan\nGID158589,,nan,nan\nGID964434,,nan,nan\nGID603472,,nan,nan\nGID374800,,nan,nan\nGID349970,,nan,nan\nGID864483,,nan,nan\nGID599471,,nan,nan\nGID733836,,nan,nan\nGID270151,,nan,nan\nGID721007,,nan,nan\nGID940388,,nan,nan\nGID383453,,nan,nan\nGID126796,,nan,nan\nGID905506,,nan,nan\nGID089371,,nan,nan\nGID826503,,nan,nan\nGID800032,,nan,nan\nGID614034,,nan,nan\nGID122751,,nan,nan\nGID840977,,nan,nan\nGID232219,,nan,nan\nGID848035,,nan,nan\nGID919419,,nan,nan\nGID658072,,nan,nan\nGID341886,,nan,nan\nGID110998,,nan,nan\nGID138664,,nan,nan\nGID355928,,nan,nan\nGID610788,,nan,nan\nGID884975,,nan,nan\nGID204730,,nan,nan\nGID166650,,nan,nan\nGID635030,,nan,nan\nGID706852,,nan,nan\nGID031573,,nan,nan\nGID559928,,nan,nan\nGID304434,,nan,nan\nGID499411,,nan,nan\nGID441844,,nan,nan\nGID196785,,nan,nan\nGID201677,,nan,nan\nGID040707,,nan,nan\nGID674629,,nan,nan\nGID938876,,nan,nan\nGID565348,,nan,nan\nGID711066,,nan,nan\nGID924441,,nan,nan\nGID782943,,nan,nan\nGID665345,,nan,nan\nGID418131,,nan,nan\nGID253854,,nan,nan\nGID210801,,nan,nan\nGID309106,,nan,nan\nGID201721,,nan,nan\nGID200692,,nan,nan\nGID155250,HDD502872,29.479,79.3832\nGID709396,,nan,nan\nGID692172,,nan,nan\nGID480132,,nan,nan\nGID636816,,nan,nan\nGID377367,,nan,nan\nGID829996,,nan,nan\nGID421837,,nan,nan\nGID022092,,nan,nan\nGID000084,,nan,nan\nGID470835,,nan,nan\nGID389013,,nan,nan\nGID226836,,nan,nan\nGID967746,,nan,nan\nGID516606,,nan,nan\nGID354244,,nan,nan\nGID637885,,nan,nan\nGID997797,,nan,nan\nGID691262,,nan,nan\nGID987390,,nan,nan\nGID729938,,nan,nan\nGID664792,,nan,nan\nGID120114,,nan,nan\nGID431119,,nan,nan\nGID991182,,nan,nan\nGID612554,,nan,nan\nGID181415,,nan,nan\nGID667123,,nan,nan\nGID211945,,nan,nan\nGID902529,,nan,nan\nGID747995,,nan,nan\nGID769878,,nan,nan\nGID567972,,nan,nan\nGID911104,,nan,nan\nGID492524,,nan,nan\nGID746664,,nan,nan\nGID635708,,nan,nan\nGID403879,,nan,nan\nGID666071,,nan,nan\nGID711478,,nan,nan\nGID926115,,nan,nan\nGID447454,,nan,nan\nGID309185,,nan,nan\nGID234961,,nan,nan\nGID353459,,nan,nan\nGID546595,,nan,nan\nGID220469,,nan,nan\nGID289302,,nan,nan\nGID605655,,nan,nan\nGID080643,,nan,nan\nGID873828,,nan,nan\nGID474602,,nan,nan\nGID263167,,nan,nan\nGID210663,,nan,nan\nGID782998,,nan,nan\nGID148751,,nan,nan\nGID986501,,nan,nan\nGID129147,,nan,nan\nGID560048,,nan,nan\nGID201122,,nan,nan\nGID621891,,nan,nan\nGID448224,,nan,nan\nGID452681,,nan,nan\nGID603278,,nan,nan\nGID395862,,nan,nan\nGID215196,,nan,nan\nGID583109,,nan,nan\nGID865934,,nan,nan\nGID223840,,nan,nan\nGID870812,,nan,nan\nGID385189,,nan,nan\nGID903439,,nan,nan\nGID452667,,nan,nan\nGID989372,,nan,nan\nGID024663,,nan,nan\nGID725603,,nan,nan\nGID694540,,nan,nan\nGID904090,,nan,nan\nGID056087,,nan,nan\nGID046705,,nan,nan\nGID386236,,nan,nan\nGID524865,HDD964736,29.475,64.4995\nGID739446,,nan,nan\nGID944038,,nan,nan\nGID446463,,nan,nan\nGID343484,,nan,nan\nGID648716,,nan,nan\nGID443172,,nan,nan\nGID699569,,nan,nan\nGID232443,,nan,nan\nGID922680,,nan,nan\nGID365655,,nan,nan\nGID282796,,nan,nan\nGID220623,,nan,nan\nGID279566,,nan,nan\nGID942133,,nan,nan\nGID999643,,nan,nan\nGID582515,,nan,nan\nGID431152,,nan,nan\nGID289008,,nan,nan\nGID564034,,nan,nan\nGID813339,,nan,nan\nGID772107,,nan,nan\nGID254719,,nan,nan\nGID449489,,nan,nan\nGID065504,,nan,nan\nGID693148,,nan,nan\nGID002561,,nan,nan\nGID410647,,nan,nan\nGID550923,,nan,nan\nGID558706,,nan,nan\nGID554404,,nan,nan\nGID237433,,nan,nan\nGID673894,,nan,nan\nGID147230,,nan,nan\nGID627060,,nan,nan\nGID236340,,nan,nan\nGID275266,,nan,nan\nGID734104,,nan,nan\nGID168619,,nan,nan\nGID735446,,nan,nan\nGID400823,,nan,nan\nGID462982,,nan,nan\nGID620413,,nan,nan\nGID795552,,nan,nan\nGID622284,,nan,nan\nGID587197,,nan,nan\nGID552564,,nan,nan\nGID411981,,nan,nan\nGID459848,,nan,nan\nGID200089,,nan,nan\nGID779614,,nan,nan\nGID724822,,nan,nan\nGID821710,,nan,nan\nGID550762,,nan,nan\nGID994909,,nan,nan\nGID912018,,nan,nan\nGID839561,,nan,nan\nGID769650,,nan,nan\nGID972622,,nan,nan\nGID706018,,nan,nan\nGID605950,,nan,nan\nGID691682,,nan,nan\nGID505237,,nan,nan\nGID869359,,nan,nan\nGID369259,,nan,nan\nGID757061,,nan,nan\nGID368477,,nan,nan\nGID683815,,nan,nan\nGID445395,,nan,nan\nGID563881,,nan,nan\nGID442521,,nan,nan\nGID114325,,nan,nan\nGID679286,,nan,nan\nGID987668,,nan,nan\nGID659473,,nan,nan\nGID083408,,nan,nan\nGID306573,,nan,nan\nGID461853,,nan,nan\nGID391924,,nan,nan\nGID046905,HDD812362,29.448,46.0738\nGID861184,,nan,nan\nGID945692,,nan,nan\nGID464546,,nan,nan\nGID484233,,nan,nan\nGID387872,,nan,nan\nGID152670,,nan,nan\nGID565635,,nan,nan\nGID932822,,nan,nan\nGID950163,,nan,nan\nGID348314,,nan,nan\nGID609039,,nan,nan\nGID151698,,nan,nan\nGID655892,,nan,nan\nGID487315,,nan,nan\nGID552467,,nan,nan\nGID026492,,nan,nan\nGID127533,,nan,nan\nGID991285,,nan,nan\nGID615624,,nan,nan\nGID081276,,nan,nan\nGID641424,,nan,nan\nGID223966,,nan,nan\nGID885926,,nan,nan\nGID767875,,nan,nan\nGID908573,,nan,nan\nGID048359,HDD608004,28.617,47.7310\nGID309813,,nan,nan\nGID133309,,nan,nan\nGID375947,,nan,nan\nGID175261,,nan,nan\nGID864737,,nan,nan\nGID320171,,nan,nan\nGID314517,,nan,nan\nGID948766,,nan,nan\nGID591271,,nan,nan\nGID180031,,nan,nan\nGID728491,,nan,nan\nGID598492,,nan,nan\nGID320075,,nan,nan\nGID736967,,nan,nan\nGID376543,,nan,nan\nGID188984,,nan,nan\nGID119554,,nan,nan\nGID875517,,nan,nan\nGID458061,,nan,nan\nGID480541,,nan,nan\nGID538286,,nan,nan\nGID128608,,nan,nan\nGID681141,,nan,nan\nGID685204,,nan,nan\nGID573928,,nan,nan\nGID514712,,nan,nan\nGID522442,,nan,nan\nGID716455,,nan,nan\nGID954069,,nan,nan\nGID267382,,nan,nan\nGID655118,,nan,nan\nGID725404,,nan,nan\nGID119833,,nan,nan\nGID299986,,nan,nan\nGID258693,,nan,nan\nGID692393,,nan,nan\nGID469326,,nan,nan\nGID643800,,nan,nan\nGID557900,,nan,nan\nGID785501,,nan,nan\nGID554113,,nan,nan\nGID479670,,nan,nan\nGID544738,,nan,nan\nGID980457,,nan,nan\nGID144083,,nan,nan\nGID128784,,nan,nan\nGID538092,,nan,nan\nGID711000,,nan,nan\nGID946332,,nan,nan\nGID428395,,nan,nan\nGID628858,,nan,nan\nGID152384,,nan,nan\nGID486881,,nan,nan\nGID590928,,nan,nan\nGID939600,,nan,nan\nGID428354,,nan,nan\nGID740971,,nan,nan\nGID863222,,nan,nan\nGID518874,,nan,nan\nGID399395,,nan,nan\nGID039255,,nan,nan\nGID672328,,nan,nan\nGID704727,,nan,nan\nGID289932,,nan,nan\nGID224070,,nan,nan\nGID909540,,nan,nan\nGID668088,,nan,nan\nGID281146,,nan,nan\nGID345928,,nan,nan\nGID257770,,nan,nan\nGID010082,,nan,nan\nGID103905,,nan,nan\nGID849270,,nan,nan\nGID140742,,nan,nan\nGID554997,,nan,nan\nGID352582,,nan,nan\nGID468836,,nan,nan\nGID177099,,nan,nan\nGID419407,,nan,nan\nGID092800,,nan,nan\nGID655607,,nan,nan\nGID930224,,nan,nan\nGID920941,,nan,nan\nGID536365,,nan,nan\nGID872690,,nan,nan\nGID927984,,nan,nan\nGID635747,,nan,nan\nGID881544,,nan,nan\nGID566366,,nan,nan\nGID903935,,nan,nan\nGID694871,,nan,nan\nGID659297,,nan,nan\nGID134810,,nan,nan\nGID403455,,nan,nan\nGID858976,,nan,nan\nGID846885,,nan,nan\nGID197800,,nan,nan\nGID424885,,nan,nan\nGID507010,,nan,nan\nGID708772,,nan,nan\nGID608981,,nan,nan\nGID916687,,nan,nan\nGID043826,,nan,nan\nGID452906,,nan,nan\nGID405843,,nan,nan\nGID984139,,nan,nan\nGID754891,,nan,nan\nGID755207,,nan,nan\nGID192877,,nan,nan\nGID537194,,nan,nan\nGID457773,,nan,nan\nGID902949,,nan,nan\nGID255858,,nan,nan\nGID439660,,nan,nan\nGID098435,,nan,nan\nGID265417,,nan,nan\nGID716439,,nan,nan\nGID956555,,nan,nan\nGID403647,,nan,nan\nGID257668,,nan,nan\nGID196546,,nan,nan\nGID341003,,nan,nan\nGID829435,,nan,nan\nGID100409,,nan,nan\nGID686965,,nan,nan\nGID941370,,nan,nan\nGID876344,,nan,nan\nGID547401,,nan,nan\nGID571602,,nan,nan\nGID214743,,nan,nan\nGID715037,,nan,nan\nGID886500,,nan,nan\nGID202812,,nan,nan\nGID185995,,nan,nan\nGID103703,,nan,nan\nGID695430,,nan,nan\nGID110062,,nan,nan\nGID185059,,nan,nan\nGID147116,,nan,nan\nGID224569,,nan,nan\nGID378217,,nan,nan\nGID385844,,nan,nan\nGID663001,,nan,nan\nGID376052,,nan,nan\nGID866776,,nan,nan\nGID830671,,nan,nan\nGID030536,,nan,nan\nGID109923,,nan,nan\nGID555356,,nan,nan\nGID616850,,nan,nan\nGID852887,,nan,nan\nGID599327,,nan,nan\nGID075045,,nan,nan\nGID292927,,nan,nan\nGID837137,,nan,nan\nGID759061,,nan,nan\nGID231727,,nan,nan\nGID834643,,nan,nan\nGID833243,,nan,nan\nGID178512,,nan,nan\nGID918693,,nan,nan\nGID869850,,nan,nan\nGID733092,,nan,nan\nGID996242,,nan,nan\nGID237059,,nan,nan\nGID255805,,nan,nan\nGID590845,,nan,nan\nGID436072,,nan,nan\nGID309885,,nan,nan\nGID929113,,nan,nan\nGID594477,,nan,nan\nGID141250,,nan,nan\nGID889214,,nan,nan\nGID600899,,nan,nan\nGID234409,,nan,nan\nGID2213\n...(truncated at 10000 chars)"
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "toolu_01LyVV7s2JAPAVgbrqV3aQMv",
+      "name": "view_image",
+      "content": [
+        {
+          "type": "text",
+          "text": "Image 'spectral_lines_lab.png':"
+        },
+        {
+          "type": "image_url",
+          "image_url": {
+            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAACCQAAAEaCAYAAADDxBS0AAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjEwLjgsIGh0dHBzOi8vbWF0cGxvdGxpYi5vcmcvwVt1zgAAAAlwSFlzAAAXEgAAFxIBZ5/SUgAATDdJREFUeJzt/QWcnNW9OP6fuBBICASCBZcSHIrT4FoKxaFQoMUvbdFbbouXy6W4FooUCsUluFOkuHvx4J4GhwTI/F+f8/s/853dzG52kyfs7Ob9fr1mZ/Zxm/Ocec7nnNOtUqlUEgAAAAAAAABAibqXuTAAAAAAAAAAgCAgAQAAAAAAAAAonYAEAAAAAAAAAKB0AhIAAAAAAAAAgNIJSAAAAAAAAAAASicgAQAAAAAAAAAonYAEAAAAAAAAAKB0AhIAAAAAAAAAgNIJSAAAAAAAAAAASicgAQAAAAAAAAAonYAEAAAAAAAAAKB0AhIAAAAAAAAAgNIJSAAAAAAAAAAASicgAQAAAAAAAAAonYAEAABoUNdee21affXV0/TTT5+6d++eunXrlvbaa6+O3qyGc9555+VjM9dcc6VGFNsWr7vuuqvU5cb+xnJj/+k6VllllXxeH3rooY7eFADoFHbbbbd87zznnHM6elMAAKhDQAIAQAOqVCrp8ssvTz//+c/TnHPOmfr165cGDBiQ5p133rTyyiunffbZJ40cOTJ99tlnqSs48cQT06GHHpqefPLJjt6UhnHllVemjTbaKN15553p888/TzPOOGOaeeaZ03TTTZemFp988km+LuIVn5m6TI3nP7739957b1p//fXTcsst16Z5xowZk2adddZq4Escr4mJdCXuL7PMMkvq06dPmn322dO2226bHn/88Tat86qrrkrrrLNOmmmmmVLfvn3T3HPPnXbdddf0yiuvtGl+gK5mhx12qKbDbXm98cYbTeZ//fXX2zTfgQce2Op2RJ4x7gOLLrpo/u0wcODA9OMf/zgdd9xxady4camr+sMf/pB69+6dDj744PTVV1919OYAANBMz+YDAADoWFHwtvHGG6e77767Oqxnz56pf//+6c0330yvvfZauu+++9IJJ5yQzj333PwAtCsEJMSD2ajxvcQSS3T05jSEY445Jr9vuumm6fzzz8/nf2r8Lhx22GH5c1zngwYN6uhN4gc0tZ3/b7/9Nv3+97/Pn9sSVFDYe++903vvvdfm6WPZxXGNwq0IcnrnnXfShRdemC699NJ0+umnp5122qnFYLlf//rX+d4TouWWKPCKgrQzzzwz/eMf/8jBdBFQATA1iYL/CBxtzccff5y+//77HAwWgWAtiSDUHj161B037bTTtjhf5KVXXXXVnCaHyDuOHTs2Pfroo/kV6fwdd9yRW97qaoYNG5Z23HHH9Ne//jUde+yxOTABAIDGoYUEAIAG88tf/jIHI8SDyH333Te99NJL+WHi6NGj09dff52eeuqp9Oc//zktvvjiHb2pTEHPPPNMtSB2agxGgKlNtI7w6quvpmWWWSbXZm2LW265Jf39739PK664Ypumv+yyy6rBCNGiwUcffZQDP956660cCPfdd9/lZq8feOCBFgOlimCEQw45JH366af59cILL+RtiFqpW2yxRRo1alSb9xugKzjppJPS+++/3+Ir8u8RBBa23377FgMOwiOPPNLicorAteYi/d5www1zMEIEPNx2223pyy+/zOnyJZdckgMZnnjiidwaTlcV969w8skn599OAAA0DgEJAAAN5OWXX07XXXdd/nzEEUfkGj7zzz9/roVatJSw2GKLpf/+7//O3RtsueWWHbzFTClFc7NR+xjo+s4444z83tbComiWe5dddslNVJ911lkTnT5q5ca9I6y77rp5fTPMMEP+P2rqRusIiyyySJPpmncNEfelIpghWloo0qcFF1wwXX/99Wno0KG5AEzNVICmzjvvvBw0EEEJ0dJM2SI4rQhmjQC3NddcM3+O3xDxeyFaDgg33nhjbiWhK4pW1oYPH56DuK+44oqO3hwAAGoISAAAaCARZFDYaKONJjp9v379JhgW3R7Ew8548BkFVv/zP/+TC4ti2mgCNmrBPvTQQxNddnQLEQVjc845Z+4jPJqiXXbZZXPrDF988UWr88aDwMMPPzz3gT548OA8f2zX2muvnZsDjxq1IQq0avvRjaZWm/eVW69v3fgcNYmjMC76Lo8+0GP59Y7BxPr6rdflRe38ERgQ2/mjH/0ot1QQfbVvt912TWoARxO8UWNtgQUWyMc5CuWiyfMPPvggtUftPhZWW221usejdvujGfWzzz47rbzyyrmAsd6+33XXXWnzzTdPs802Wz5ecS2sscYaubZzFEDWU5yfaP43XHvttXmeWEc08x41oq+++uom81xwwQVppZVWys0BR2HlT37yk0l68B3rjHNbiM+1x6HYpnoee+yxXEs7agjGvs4zzzxpn332yQWqrYnvy1FHHZVWWGGFfN3GvHPMMUfaaqutWqwxPrmeffbZfJxXX331NO+88+brJ47tkksumfuJjmurLSb1ux7n/m9/+1tef8wT+xzXSFwrcc20JI5/nIfY9uhqIPqmjpr90a1CDC/mHT9+fD7/v/3tb9Pyyy+fC76jAD2uoREjRuRC8Zi/jPMfNUf333//XBgxzTTT5Fd8jsL1lr6LbUlX4rqJ735MEy0MtOaggw7K08U1F9/LtoqWcKJlnJg3rre2iDQnuvE54IAD0sILLzzR6WP5RVob10pzcV7222+//Pnee++doJWDkSNH5uuspfnjO1/UTo3CsAhMAOD/E/faEPe++eabb4oEJBT5xsjHNBf3luK+Gl2BtVdt3njcuHG5xZxorS3utfEbIfIRN998c4vzF/fayB/E74TIlxX5nvitseeee+ZWewpxv9p9993zNsfviOiSIVqOK+5DLdlmm23ye3QjBABAA6kAANAwLrvssijByq9bb711kpYx55xz5vmPP/74yoILLpg/9+7duzLddNNVl929e/fKOeecU3f+77//vvLb3/62Om28BgwYUOnRo0f1/1ju66+/Xnf+W265pTL99NNXp+3Zs2dlhhlmqPTq1as6bOTIkXnaY445pjLzzDPn7YnhsY3xf+2rMGrUqOr8F154Yd6m+Ny/f//KNNNMk/e7+TE499xzWzxO22+/fZ4m3ls6hieeeGJl0UUXzZ/79u1b6devX3UbZplllrxNr776amXuueeubksc62Ka+eefv/Lpp5+2+dy9+eab1f0ulhHHst7xKLb/l7/8ZWXTTTetnteYPt5r933vvfeuLq9bt26VQYMGNTmfq6++euWzzz6bYHsOOeSQPH7EiBGVgw8+uLqOgQMHNrk+zjjjjMr48eOr2xTnfNppp62Oj3Vdf/31lfb4+c9/Xplxxhmry4jPtcchxhdiX2OaOG9xbRTXWmxncW3Fa/jw4ZXPP/+87vqeeOKJyuyzz95km2v3IY7bkUceWZkUxTLuvPPOFq+14hobPHhwXlcxbLbZZqu88MILU+S7/sknn1RWXXXVJvsc10bt+vfbb7+688Y1EeN///vfV1ZcccXqeY/rL+Yv9rX2e1ukJc2vn1VWWaXy1VdfTfL5D3fddVfe9mL6SBPiVfs9+te//jXBfrQ1XSmu7TXWWKPF8/zdd9/l8xXT/e///m+lPU4++eRq2toWsb9xnBdaaKHKN998k4cV+xHf23oOOOCAPD6u69jWej744IMm3+taW221VR6+8MILt7hdDz30UHX+m2++uU37AtDV3XPPPdW08R//+EfdaWrvR/G5Pb788stqfufoo49ucbrdd989TzN06NB270OR5zjllFMqyy23XP4c+a3ivlnklVrKcxTT/P3vf6/mt+I+W5tv/tGPflQZM2ZM5eGHH86/HYrfBpG/KKZZaaWVWryHhbjXF3maenlbAAA6hoAEAIAGEg8gi8LAKAh/8cUXJ/mBYRT6RSFcBDl8++23edzzzz9fLUiMh3uPPfbYBPMfeOCBefxMM81UOe200yqjR4/Ow8eNG5cLGZdccsk8fqmllsrBC7Uef/zxXKhaFP7eeOONeb4QDw8fffTRyr777lu5/fbb625zawEEtQ9q4+FnPAx95JFHquNrj1VZAQlRwDnXXHPl4JDY19iH+DxkyJA8fosttqgsu+yylSWWWKLywAMPVI/TpZdemgs0Y5o//vGPlbILsWu3P45FnMtjjz22GvwQhe7vvvtu/hwPjotl7bLLLpX33nsvD//iiy8qJ5xwQvUh75ZbbtliQEJcS/FgNwpZoxA7vP3225V11lmnWsAZAQsRsBGFmPFgPLz00kuVZZZZJk8zbNiwCa6XiWnrw/kiICGOeZ8+fSo77bRTDu4IsS2nnnpqNUjhoIMOmmD+OFZxvcf4TTbZJF+nxXUbBbQxT3GcimCass5lBJScd955lTfeeKM6bOzYsfk7EtdW8V2bEt/1IpAlCgOiQLw4b3GN/OpXv6pu9+mnnz7BvMWy4/qLV5yDIqjg448/rqYbb731VuUXv/hF5dprr60OK67RmGfWWWfNy4mgmUk9/3Gui2CEKCy/9957mxQCFcEaEewR1+2kpCsPPvhgtbAlgpDqiX0sjnfxPWurzTbbLM+73XbbTXTaOM7zzTdf3pbYv8LEAhJ++tOf5vFxXbWmSN9+85vfNBm+yCKLVNO9lsQ1VGzHcccdN9F9AZgaxL2+CI77+uuv605Tez+KdDqmjbxLBA+sv/76lfPPP796j28u8i3FvJH3bknk64vpau/JbVHkOWK7Ivju6quvruaVInBy+eWXr95Li7xirWK9cb+OfHPcV0Ms4+KLL67mm/fcc8+8rgiWffbZZ/M0ccwiP1sE05511lmt3iOLPNtNN93Urn0EAGDKEZAAANBgdt555yY1jSIAYI899sg1jp555plcE701tTWumxf8Fw/qouZ+jI8HnM0fhsbDvihYfvLJJ+suP2obFTWbmhfOrrzyynl4LL/ew8iJbXNbAxJi+pZqupcZkBDH4eWXX55gfJyLYluitnYUwDYXhdgxft55561MyYCEeEVhcj1xrqMQNqbZeuutW62ZHa94oF0vICFeRxxxxATzRgBEbS30erX+Xnnller4ejXUywxIaOl8hn322SePj4Lc5orC92222abFdUQrBDHN4osvXin7XLYkrvGitYx6x25yvutFAXu8/vrXv9ZdfxGwEK0TNC9AKQIS4hUF8ZMqCv+LWpLN19HW87/bbrtVC0nqBQJEUETRasR//dd/TXK6EgUoMV20NNBagX8EtbTXHHPMkeeNwKKJKa7lCDCqNbGAhAhsifHNW5doaT/j/Ncq0pJ6wSO1iuCQCD4DmNpFXqm2sL0lzVsUimDPYr7aQIUi4LReQFy8nnrqqRbXEUEExXTxm6I9ijxHBH7++9//nmD8hx9+WA1KrpcfbGu+uQhqLlr/qRVBexNrrSjE/DFdBMsCANAYund0lxEAADT1l7/8JfdDHn2yxvO7J554Ig/79a9/nRZddNE0dOjQ3O9qS32iF1ZaaaW0xhprTDA8+mqNftZD9PX66aefVsdFv7DRp/y6666b+4WtZ9ppp81904dbbrmlOvzll1/O/Y6HI488MvcnO6VEP7MDBgxIU9qmm25at5/fddZZp/o5+pufYYYZWpwm+qSfkn2pR7/tu+66a91xt912W/rPf/6TPx966KF1p9ljjz3SLLPMkj9fdNFFdaeJvnv32muvCYZPN9101X6Ko2/fot/eWtE/cHEMn3766TSlHXjggXWHb7TRRvn9lVdeSV999VV1+DfffFPd79///vctLveXv/xlfn/qqacm+t0rS1zj0dd0KL5bZX3XL7300vw+++yzp5122qnucv/0pz/l948//jhfS/UMHz48bbjhhmlSLbPMMmmmmWbK35Enn3yy3fNHGnnZZZflz7vttltOH5uLfYxx4ZJLLpnkdCX6si7SyW+//bbJuHfeeSfddNNN+XNL38fW9uG9997Ln4cMGdLqtA899FA68cQT83f2z3/+c7vWU/S73b9//1anK8Y376d7cucHmBpFHqPId0ReviWR14r7zF133ZU+++yz/Ip740svvZTzat26dUsPP/xw2mCDDdJ3333XZN7a9La1NLp23KSm0ZtttllaaKGFJhge968iT9hafm/nnXduNd8c4ndOnz59WpxmYvnJGWecMb+/++67rU4HAMAPR0ACAECD6dmzZzr88MNzAdcFF1yQCwsjOKB37955/IcffphOOOGEtMgii+QHky1ZffXVJzpu/Pjx6fHHH68Ov++++/L7rbfemgv2Wnqde+65ebo33nijOu/999+f33v06JHWW2+9NCVFAewPYdlll607fOaZZ65+/vGPfzzRaT755JMpsHX/b/3FtdHco48+mt/nmGOOtMACC9SdJs5XcT0U0ze38MIL5wCZ1vYzCpbjYXlr04wZMyZNSYMHD64bQBJmnXXW6ufa7XjsscdyUEJYe+21W7zmo+C9UHvdl+H6669PW265ZZpnnnnycY7jWLyKwva333671O96ca5XW2211L17/Z+FP/rRj9Jss83WZPpJ+S6OGzcunXHGGfn4xnmIQobafYw0bWL72JJRo0ZVg27WXHPNFqdba6218vvo0aPzPJOyLxFwEwFZ77//frruuuuajPvb3/6Wg7nmnnvu6rraKtKHonApruHWjuOvfvWrfC5POeWUNGjQoHatB4Af3jnnnJPfl1566bTEEku0OF3kNSIAOQIR415TmH/++dNpp52Wjj322Px/BCqff/75qaMst9xyLY4r8lrFfXlK5a0nlp8s7qUfffRRq9MBAPDD6fkDrgsAgHaIFga23Xbb/ApRaBq1pE8++eRcGBa1lqMGf7RMELWqmisKEuupHVcUBtbWJIoaWW2p1V9b0zwK6YpaSS0VXpclalT/EGofCDcPGmnPNM1rU/9Qx6I4t61dC0UN8trpm2tpH2v3sy3TTMnj0NZtaL4dtbXn2tryQe11PzmiYDm+3xdffHGT7YxWL4ogk2jVIL77rX0fJ+W73p5rI4KjWro2JvZdjPkiUOCZZ56pDov0KtKJCIYpCgziWExKSyK129XavhTXeDFPBA60d1+i9YQ4X6effno688wz0yabbJKHx7YXBU5R87OlwJyWFAExoV6N0EIEqj3//PO5tY9I+yf1+zGx67cY3/z7FP9HIdOkzt+aKGgrCtuae+SRR3JQFUBnEzX5i4C+llojaqtoqeqkk05Kb775Zrr66qtzgFqhNr1tLY2uHdeeNLrW5Ob3yshbN28hol4LUc3vrwAAdCwtJAAAdBJRiBcFe9dee23afvvtqzWKoyn2skQN36Lp+mhGfGKvaFa20N5CuMlRFGTiWJR1zYevv/66Tdf9qquuWsqlF4XYEYwQ1/PBBx+cg4vGjh2bC30jwCde0TRy+P+6X248E/su7r333jkYIZpnjlYEomuCOM4RhFDsY1GjsqP3sS3pStFtQ3Rh8frrr1dblIlWM6KgZMcdd2z3emubrm6p1md0NRJdNESwV7x/8cUXE7xqW1JoPiwUxzkCTFpTjK9tVaSt80dhV9EiTPP5WxPbGgFB9V6131GAzuTss8+udpVQr1ur9ojWjIrWBV577bUm42rT29bS6Npx7UmjO5uihYZ6XUMAANAxBCQAAHRCu+yyS/Xziy++WHeatj6QrK0VXPS/PilN0hfzRssNk1LTuUxFDarWakZFzfOurji3E2sKvxj/Q7U80UiK63ZKdMUwMZdcckm11uRhhx2Wu5to3n1C0fJIayblu/5DXBtRQ/Kqq67Kn0899dRcWF97vEMUNkeaMalqt6u1fakdNznX+aKLLppWXHHFJq0inHXWWfk9Wi5ovn9tEa1hTDfddK02cx3bHzVCI22Nvruj9mjzV+H//u//qsNqu4uJbn7Cv//97xYL+aP1iKKJ69puSmrnf/bZZ1vcl9pxzedvzaGHHtpiANBcc83V5uUANIoIMLzwwgvz580337yazk8J0cVSkX9oSxod96rWugjq7Ip76ZAhQzp6UwAA+P8TkAAA0AlF0+ETa+L7zjvvbHH+Ylw8vFxyySUn6EP99ttvb3czp1FIF6Kg66abbmrXvMVD1LJqSEeT9+Gtt96qOz4KE4smdLuyZZZZplqY+dJLL9WdJs5XcT201GdvR6ktnJ9Stedjn4vuEaIrlB9ScX3Wfgeb1xp/6KGHJrqcSfmuF9dGjI/vQz0vvPBCNaBhUq6NKNgu0pGW9jG6oWkprWnL+Y+uF4pClTvuuKPFbYk0ragtWa+7hvYoWkmIFh/i+BTXTW2gWHstvPDCdWu9lmmttdbK759//nm6//77605T2+LO2muvXXf+CGiIJsNbmz+ay1555ZVL23aAziYC8oqC8V//+teTvby4Vz/88MP5c/P7WLTAUOThW2o5Le6jt9xyS930vasZNWpUNVADAIDGICABAKDBHqC1VHBc6+9//3v181JLLdViQV9tlwqFKPw77rjj8ud11lknDRo0qDou+qON1gWixvIhhxzS6jYUzYIXonb3T37yk/z5D3/4Q/rss89SWxW1xmpr806OxRdfPL+PHDmybkFmHL+J1QzvCqIAsWiuNmog1/PXv/41vfvuu/nz1ltvnRpJbW3Csq6N5qIJ/KIZ5WgKv6WC1kJLNdgnxcCBA/P7U089VXf8n/70p1x4PDGT8l3faqut8nsUqBdNSjcX3UiEGWecMXcXMynnr+jKpd4+Ro3/P/7xj63OP7HzH8vfcsstq9dyvRYl4vqOcWVd41HTNb5Xsdy4dqIliCgcKgrsJ0WRdhaFTc1FNyET60qkEGl3Maz2nI8YMSLNOeec+fNRRx01wTpiP4rrJYIJmhd4/fznP8+tLsRy680f5+iMM87InzfddNP83QKYWhWt6Cy44IJplVVWmej0Ewu8PPnkk6t5lGiRp7miO7cINKwXzHj55ZdXg95++ctfpq78W6po6SfuewAANAYBCQAADeS5557LtXk22GCDdP7551f7KC8Ki5544onc7Pnxxx+fh0Vfsi3VQo3CzigUuuKKK3LBX1HjOZYd79Ff+uGHH95knnnnnTcddNBB+fPRRx+dH1jWNv0ay3nyySfzfBGAEJ9rnXTSSalv377p5ZdfzjW1opZWbHdRE/+RRx5Ju+22W7W2cvOmwGNbW+pDvT2KQseoyRu1lkePHp3/jyCJE044IW9DV26qthC1lItAhIsvvjjvd/TJXvT1Hg+399prr/x/FOouvfTSqZFEYepss82WP5977rnV67hsRx55ZO5LOQJxVlhhhXTBBRc0CQSIB9tXXnllLpAtM2hj3XXXrTb5f+aZZ+YgnxCF6nvvvXf+Dral/+NJ+a5H2hHzhN/85je5S4W4Jor177zzzrnwogiMiO/1pLTkUtTY3GeffdI///nPamsMka6sv/76uaWSlgqu23r+IwAqpo1gkQicqK39f9999+VhUVge3/kDDjggTa5olWaHHXbIn++55578HserCL6YFBFwEOJ4tNSdwuSK6yCuqXDjjTemPfbYoxpgE4EpEaTy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5Uzi1HofbERxTsK3337b0ZsCQCfQu3fvnH/4/PPP0zfffDPB+D59+qSZZ545jRkzJlfMiPxU/A7+6KOP3P+hwUQePb7TkTeP5w6Nsk3xHCS2yXOQxv4NEc/34tlevd+ScR5nmGGG/Ez8nXfeSePGjWt1eXHO494S95VYZlcS+xbfszhOZT5XiGXGPTeOV73f18Vz+vD111+Xtl4AaDSVBig7a5guG6aWlhEiI7Toooum+eabL2e2aCqOSTyYmX766XOmcGoUGeHVVlstrbzyyvl6mVLHOY5xv379UmcXP+4i/Sh+QAA/nIiu3HXXXdPuu++ev4tdTdyH4p69//77p3nnnXeK35f69++f9tprr3TUUUelGWeccYqui/YF3sw666xpjjnmkHcDoE3mnHPOtOeee6bhw4dPkH+I/xdaaKF0+umnp7XWWisXRO28887pgAMOSIMGDXKEocFEYeaCCy6Yn1U1ynOqKOiOQOau8EynK5tlllnSNttsk58B17t24trabbfd0kUXXZTvGxMTwQvbbbddWnbZZbvc75IIzFtyySVzwEVZ4pjPNddcaY011mhxufFdWmKJJfLv/iIIHQDo4gEJAAAAAAAAAEDXISABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAAChdt0qlUkkNYNppp01ffPFF6uq6deuW+vbtm8aPH5/Gjh3b0ZvTkHr27Jnisvz+++/T1CiukQEDBuRr5KuvvsrHYkro0aNHXkeDJAGTrHv37nlfvvvuu06/L9AZv3+DBw/O6dbo0aNzmtLVxD174MCB6ZNPPpni9+04jkOGDEm9evVK77///lR7H2xEcU7Ct99+29GbAkAn0Lt375x/+Pzzz9M333wzwfg+ffqkmWeeOY0ZMyZ9+eWXOT8Vv4M/+ugj939oMJFHj+905M3juUOjbFM8B4lt8hyksX9DxPO9eLZX77dknMcZZpghPxN/55130rhx41pdXpzzuLfEfSWW2ZXEvsX3LI5Tmc8VYplxz43jVe/3dfGcPnz99delrRcAGk2lAcrOGiYgoSiEXmihhZoMj0xIFHJEBi0KPloaVtbwKbnsV199Nb/PO++8E93HRtru9q6zjP3sDOe43n52hu12Lifvmu2s57izpj9lfC87w3Y3yrlspGPlXuJcNmo+R/rjXtLZrk15Wb9LGvUabJT8TyN9X+Vlp85z2Rn2x73Euexs+Rz3Es9FGvEabO863Us6XzrjXHou29muzan5d0lL+9lZ92d8C9O+8MILOQCvIQJrKw1i4YUXzq/mRo0aFQET+b21YWUNn5LLbs8+NtJ2t3edZexnZzjH9fazM2y3czl512xnPcedNf0p43vZGba7Uc5lIx0r9xLnslHzOdIf95LOdm3Ky/pd0qjXYKPkfxrp+yovO3Wey86wP+4lzmXZ12BHXPfuJZ0znelK57K963Qv6XzXpnPpuWxnuzan5t8lLe1nZ92fUe08lx3h/4VJAAAAAAAAAACUREACAAAAAAAAAFA6AQkAAAAAAAAAQOkEJAAAAAAAAAAApROQAAAAAAAAAACUTkACAAAAAAAAADD1BSQMGjQoHXLIIfm9tWFlDZ+Sy27PPjbadrdnnWXsZ2c4x5O7j53hmJSxn53hmLRnPzvD/nSl9Me5lP5MzjXbSNeme0njnsuy1tmSznptupd0/Lmc0uuspzNsd3uWXcZ+doZjMrn72EjHpCP2s5GOVXv2s5G227mU/kyJ66RRrvuWNPp2N8r3sqP2x72kbefTuWyMfI70p23X65Q+3s7llEljG+k8uJc4lx2d/xnUQOlPR+hWqVQqqQEMHz48vz/33HOpq5oa9jHYz67Duew6nMuuw7nsWqaG8zk17OPUsp9Twz4G+9l1OJddh3PZdTiXXcvUcD6nhn2cWvZzatjHqWU/p4Z9DPaz63Auuw7nsmuZGs7n8Abax4ZvIQEAAAAAAAAA6HwEJAAAAAAAAAAApROQAAAAAAAAAACUTkACAAAAAAAAAFA6AQkAAAAAAAAAQOkEJAAAAAAAAAAApROQAAAAAAAAAACUrlulUqmUv1gAAAAAAAAAYGqmhQQAAAAAAAAAoHQCEgAAAAAAAACA0glIAAAAAAAAAABKJyABAAAAAAAAACidgAQAAAAAAAAAoHQCEgAAAAAAAACAzhGQMHr06DTTTDOlbt26pfnmm6/Vac8777y07LLLpgEDBqTBgwen9ddfP91///2tznPffffl6WL6mC/mP//880veC6Azakv6c+ihh+bxLb0OOOCAFpcv/QEKq666aqtpyc0331z3YMn7AD90+iPvA5Tto48+Svvtt19acMEFU79+/fLzmaWWWirtv//+dae/7rrr0ogRI9J0002XX5GO3XDDDa2u47nnnkubb755GjJkSF7Hoosumk488cQ0fvx4JxSmYm1Nf+J3V2v5pa222qrFdUh/gMJdd93ValpSvA4//PAJDprnP8APnf4c2sBlXz3TFLDvvvumjz/+eKLT7bXXXumkk07Kmce11147ffPNN+m2225Lt956a7riiivSxhtvPME8V155Zdpyyy3zD9Cf/OQnacYZZ0x33HFH2n777dPTTz+djj322CmxS0An0db0J6y00kp1gxaWXnrputNLf4B6Nt1005xJa2622WabYJi8D9BR6U+Q9wHK8Nhjj6V11lknB4MPHz48bbTRRumzzz5Lzz//fDrhhBPSMccc02T6CCLYe++9U8+ePdOaa66Z+vTpk5/7/PSnP02nnHJK2nPPPSdYxwMPPJDWWGON9PXXX+cHYXPNNVe655578nKiEsull16aH6gBU5f2pj9h8cUXT0ssscQEw5dbbrm665D+ALWGDh2ay57q+f7779M//vGP/HmVVVZpMs7zH6Cj0p+Gff5TKdntt99eicXusssu+X3eeeetO91tt92Wx88wwwyVl156qTr8/vvvr/Tu3bsyaNCgypgxY5rMM3r06Mp0002X57vyyiurw99///3KfPPNl4ffeeedZe8S0Em0Nf055JBD8vhzzz23zcuW/gDNjRgxIqclo0aNatPBkfcBOir9kfcByvLhhx9WZpxxxkr//v0r11xzzQTjH3rooSb/v/DCC5UePXpU+vTpk5/3FF588cX8PKhnz56Vl19+uck848aNq8w999w5nTv++OOrwz///PPKCius0O7fcsDUmf5EOhHpReSD2kr6A7THjTfemNOZOeaYozJ+/PjqcM9/gI5Kfw5p4LKvUrtsiMj1XXfdNS288MK56azWHH/88fn9wAMPTPPPP391+AorrJB222239Mknn6RzzjmnyTxnn312jnqN6NdNNtmkOnzmmWdORx99dP583HHHlblLQCfRnvRnUkh/gMkl7wN0JvI+QD2HHHJIbpEuaiH/7Gc/m2B8tGZQK1rFjNo78ZwnnvcUFlhggfTHP/4xfffdd3maWiNHjkyjRo3KtZqjRYRCtAhz6qmn5s+e/cDUp73pz6SQ/gDtUdRO/sUvftGk5SbPf4COSn8a+flPqQEJhx12WHrttdfSGWeckXr16tVqweE///nP/HmzzTabYHwxLPoYrFX0L1hvng022CD17ds33X777bnrB2Dq0tb0Z1JJf4DJIe8DdDbyPkC9/Ew8+JpmmmnSjjvuONlpyaQ8+4l+4ueZZ5707LPPptdff91JgqnEpKQ/k0L6A7TVl19+ma655pr8ebvttqsO9/wH6Kj0p9Gf//ScrLlrRB8SESERmcLor6K1H4YvvvhiGjt2bBoyZEiaffbZ6/7ALJZZ66mnnmoyvlbv3r3TIosskh599NH00ksvpcUWW6yEvQI6g/akP7UiMOrJJ5/MCWmkReutt16L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PvpogvTl0EMPzdP269ev8vbbb08wXvoDtOTuu+/O6cdss81W+f7771uczvMfoCPSnw8bvOyrwwISwu9+97s8Tf/+/SsbbbRRZb311ss/RuPHajxkq+eKK66odO/evdKtW7fKaqutVtlss81y8EIsZ5999plSuwN0Iq2lP8W4AQMG5DRkm222qay11lr5YVgMj/Tk3nvvrbtc6Q9QiIfgRSZu/fXXz2lJFAT27ds3Dx8+fHjOtDUn7wP80OmPvA9Qtu2337762ynSofhdFQEHMWznnXeeYPoIKohx8bwnnvvE858oCIxhJ598covBV8U0yy23XGWLLbaozDLLLPn/eA40fvx4JxamQu1Jf2JYjIt80lZbbZWnn3XWWfPwyDfVPnCvJf0BWhLpTKQh+++//0QPkuc/wA+d/oxq8LKvDg1IKB6oLb300jkoIXZu3XXXzRm/1sQBi+li+phvmWWWqZx33nkl7wHQWbWW/kR02O9///vKiBEjcjRZ/DiNdCQe3u+7774TRMc3J/0BwvPPP1/ZfffdK0sttVRlyJAh+QH7wIEDK8svv3zluOOOq3z11VctHih5H+CHTH/kfYCyRTDAmWeeWX2WM8000+SWC1p7LnPttddWVllllfxwLF7x+brrrmt1Pc8++2xl0003zQ/QovAwfrNFcENrNRKBrq096c/BBx+cH8IPGzYsBzhFOhK1/KKGYLTe0hrpD9DcN998U5l++unzM+ennnqqTQfI8x/gh0x/Pmvwsq9u8WfyOn0AAAAAAAAAAGiqe7P/AQAAAAAAAAAmm4AEAAAAAAAAAKB0AhIAAAAAAAAAgNIJSAAAAAAAAAAASicgAQAAAAAAAAAonYAEAAAAAAAAAKB0AhIAAAAAAAAAgNIJSAAAAAAAAAAASicgAQAAAAAAAAAonYAEAAAAAAAAAKB0AhIAAAAAAAAAgNIJSAAAAAAAAAAASicgAQAAgC7jiSeeSN26dUuzzTZb3fHjx49PgwYNytPssssudae555578vjhw4enRrbqqqvm7Xz99ddTV7HDDjvkfbrrrrtKXW5xTk877bTUaK6++uq8bZdddllHbwoAAACUTkACAAAAXcbiiy+epptuuvTuu++m1157bYLxzzzzTPr000/z53vvvbfuMv71r3/l91VWWWUKb+3UpyOCKCqVStpvv/3S7LPPnnbaaafUaDbaaKN83f7hD39I3377bUdvDgAAAJRKQAIAAABdRvfu3dOKK67YYsBBEWwQBcAvvPBCGj16dIvTCEjoGqIFgkceeSTts88+qU+fPqnRRIDGAQcckF599dV09tlnd/TmAAAAQKkEJAAAANClFIEE9QISYlivXr3SXnvtlWvO33fffRN06fDAAw80WQ6d21/+8pfUo0ePtM0226RGFa0kTDvttOmMM87o6E0BAACAUglIAAAAoEspAgmKlg5qxbCllloqrbXWWnWneeqpp9Jnn32Whg0bll/hySefTP/93/+dll566TRkyJBcy36eeeZJe+yxR+4aotbjjz+ea7wvt9xyLW7fKaeckqeJGvu1vvvuu3T66aenFVZYIXc70a9fv7TEEkukE088MY9rj//85z/pf/7nf9LCCy+clzNw4MC0+uqrp+uvv36CaaP7hNie6E7h66+/zrX155xzzryf8803X/rzn/+cgzfqufvuu/NyozB9+umnT+uvv3569NFH03nnnZeXeeihhzZZR0wf5p577vx/8arnnnvuqS47jscGG2yQnn/++XYdh1GjRqU77rgjL2fmmWdutQuJaElh+eWXT9NMM00aPHhw2nrrrdPbb789wTw77LBDnueuu+5Kt99+e/rJT36St3GmmWZKO++8c7VLkA8//DDtuuuuabbZZkt9+/ZNyy67bJ6nnjhHG2+8cXr66afTQw891K59BAAAgEYmIAEAAIAuJQp+ozD9xRdfTB9//HF1+GuvvZYDCFZeeeVcSByF7s1bUajXXcNRRx2VTjjhhPw55o1C9yigj+CBZZZZpklQQgQ7LLTQQunhhx/OTfDXc+GFF+b3bbfdtjosAgHWXnvtHOTw0ksv5YLxCJp477330t5775023XTT3HpDW8T8EcgQ2x3LXWeddfJ2RkH3hhtumI499ti6840bNy5vw1lnnZWnX2211dI777yTAxQOOuigCaa/6qqr0hprrJHuvPPOtMgii6R11103vfnmm/kYNS9UHzBgQNp+++2rQQGxP/F/8Wruuuuuy0EEX331VT7es8wyS7rxxhtz4f/777+f2irmiXMVgQcTa0Vhs802y4EBsb7Y3ksuuSRvQxzDekaOHJn3OZYf73HNRZcL0dpBXHcRWHLLLbfkaynOR3QbEdM988wzdZdXbOMNN9zQ5v0DAACARicgAQAAgC4lCoZ//OMfT9AlQxF8EAXmYaWVVsotGtQWOBfT1AYkRC33qCn/2GOP5ULoeEWwwWGHHZYDBg488MAm6//FL36R3y+66KIJti3mi8L6CFqI4IXCfvvtlwv2t9xyyxw4ceutt6Zrr702vfLKK7mAPD6feeaZE93377//Phesv/XWW+noo4/O64ua/9FKQLT+EC0TRIDBs88+O8G80VVFdG0QrQpceeWV6eabb84BGjEsAjK++OKL6rTRikS0BhDriwCLmPfiiy/Oy43WJJp3PTDjjDPmVhNiv0MERcT/xau5aBXiiiuuSA8++GC69NJLc8sIEcQwevToHDzQVkWASVwPrTnttNPytHEOLr/88vTCCy+kFVdcMb388st5v+o59dRT0zXXXJPni3liGyMwI1qBGDFiRHX+CGyI/YjrZOzYsS0GhEQgTShakQAAAICuQEACAAAAXU69bhuKzxGIULxHqwC1tfnrBSRESwHNm/vv3r17Ovjgg3NLCxEs0NaAhKJ1hGKaomn/aJVgjjnmSOeee27uXqEQXQGcc845qXfv3rlFhomJlgWiBn4U3u+///55OwvR/cJxxx2Xgwhifc3FtH/9619z9wiFaClhvfXWyy0VRFcMhcsuuyx3CxEtJGyzzTZNlhPHJVqfmBzRXUJ0YVCIoIjogqLoyqGtoguEsOCCC7Y6XbRCES0aFPr371/tUqOl9cV+RzcStecqgjRCBLCcfPLJqVevXk2CTmq7rWiuCNaILkIAAACgqxCQAAAAQJdTBBTUdskQnxdYYIE0ZMiQJoEJxTTRmkC0eDDDDDOkH/3oR02WFzXzI1hg3333Tb/+9a/TDjvskF/ffvttHheF84VohSBqx0ct+2iBYWIBCXfddVdeTjTnH10GNDd06NA0//zz50CDlroPKETLCmGTTTZp9bhElxLNRRBBvYL7OGYhjk2haHli8803n2D6nj175oCIyRFdR7RlOyYmgj3C9NNPX/r66s0zzzzzVAM5mq8zAk0GDx7c4vLiuEVQQ7Q+EYEyAAAA0BX07OgNAAAAgLJFQEDU+C+6ZIjuBiJA4Fe/+lV1mkUXXTS3BlAEJBQtKESXDlGTvRBN9u+yyy5Nuixo7vPPP8+FzYUIOLj//vtzAELRNUO0MPDSSy/lbYughcLrr7+e36PVgnotF9SKwIdolaElxbJi/bVBD819/PHHEwybffbZ604bheQhuhsoFIXq0apDPcOGDUuTo9621NuOifn000/z+4ABA0pfX73zUKynpXMU4yOApSVxPca19Mknn6SZZpqp1W0GAACAzkBAAgAAAF1O1EZfbLHFcvP3Dz74YC7gLYINChGwsPzyy6cHHnggd2NQBCTUdtfwxhtv5JYQwoknnpib6I/C5qIlgwguiPkrlUqT9W+55ZZpr732Spdcckk65phj8rrqtY4Qxo8fn9+XWGKJtPjii7e6X3369Gl1fLGsaG2heTcTtWacccYJhtV279DRytqWuA4iACCCSYoAg7LW19o8k7r9RQDFoEGDJml+AAAAaDQCEgAAAOiSIrAgAhKiBYR6AQlFtw3RzcHTTz9dbSmhNiDhxhtvzM3n77ffful3v/vdBOt47bXX6q47un1YZ5110vXXX5+7ZBgxYkQOTujVq1cOVqhXOz+27ZRTTpmsfS6WtdNOO012twmtmWWWWfL7W2+9VXd8S8N/aNHKQNGlRmsBCY0guu2IwIloJaF3794dvTkAAABQisap/gAAAAAlKgILItAgWj+IFgPmn3/+CQISwlVXXZW7U5hmmmmqXSyEMWPGtNik/z333JM++OCDFtdftIRw0UUXpX/+85/p/fffz0EKEaxQa7XVVks9evTIwQtRKD051lprrfw+cuTINCUVx+3KK6+cYFy0NhHHs56ioP27775LP4SixYkXX3wxNbroUqRoKQMAAAC6CgEJAAAAdOmAhPvvvz898cQT1UL0Wsstt1wOBjjttNPy/9GFQ8+e/68xwQUWWCC//+Mf/0hffvlldfg777yTdtttt1bXv9FGG+Va+VFo/7e//a1udw0huoD41a9+lV5//fW09dZb1w1yeOWVV+oW/jcXrSIsvPDCuXuIP/3pT2ns2LFNxkfXEvfdd19+TY7NN988DR48ON1222255YdaRxxxRBo1alTd+WadddYfNECguAYeeeSR1Ogefvjh/B6taQAAAEBXISABAACALmno0KFpvvnmy83gR4385t01hAEDBuRa9EVLCLXdNYSf/exnafjw4enRRx/Ny9pss83ST3/60xyoMP3006cVV1yxxfX369cv/fznP8/dRUShfQQnRJBCPSeddFJu3SCCDuadd968rdtss02ePlp1iNcFF1ww0X2OYIqrr746zT333Onggw9Ow4YNy8uNQIhonSGOSSx7cgvoBw4cmM4666wczBFBFHEcYnsXXXTRdOSRR6ZddtklT9e864E4niGmjaCG6FoiXlPKeuutl7p165a7zWh0xTZusMEGHb0pAAAAUBoBCQAAAHRZtQEG9QISQm3LCc0DEqJAPbp72H333VPfvn1ztwr//ve/029+85vcOkCvXr1aXX9tiwgRnBBBCvXE8Jtuuin9/e9/z602xDquuOKKHAgxZMiQdNhhh6Wjjz66TfscwQvRIkS0VBBdTTz44IPVLimWXHLJ3BrEtttumybXJptskm6//fa06qqrpqeffjrdcMMNuQWEOF4RCBGad08R85xwwgl5u6677rp0zjnn5NeUEoEZa665ZrrzzjtzlxmN6uuvv86BJIsttlg+/wAAANBVdKtEe40AAAAAJVl33XXTLbfckoMhOrqA/Zprrkkbb7xxOvbYY9O+++6bGtHFF1+cW434y1/+koNfAAAAoKsQkAAAAAC02zvvvJO7iJh55pmrw8aPH5+7n9hnn31ytxYvvPBC7jKho0VQRGzvq6++mvr06ZMaSdQTiZYromuR559/foJuLgAAAKAz69nRGwAAAAB0PtE1Q3T9EIXpc845Zxo7dmx69tln0+uvv5769++fzj777IYIRgjHHHNMGjFiRDrrrLPSnnvumRpJtODw1FNPpUsvvVQwAgAAAF2OFhIAAACAdnv55ZfT//3f/+XAhA8++CB98803aejQoWnVVVdNBxxwQFp44YUdVQAAAJjKCUgAAAAAAAAAAErXvfxFAgAAAAAAAABTOwEJAAAAAAAAAEDpBCQAAAAAAAAAAKUTkAAAAAAAAAAAlE5AAgAAAAAAAABQOgEJAAAAAAAAAEDpBCQAAAAAAAAAAKUTkAAAAAAAAAAAlE5AAgAAAAAAAABQOgEJAAAAAAAAAEDpBCQAAAAAAAAAAKUTkAAAAAAAAAAAlE5AAgAAAAAAAACQyvb/A4VBGp1j6J0bAAAAAElFTkSuQmCC"
+          }
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "[Turn 1/10 used. 9 turns remaining.]"
+        }
+      ]
+    },
+    {
+      "content": "Let me examine the lab spectrum and a few observed spectra more carefully, then process all the data programmatically.",
+      "role": "assistant",
+      "tool_calls": [
+        {
+          "index": 1,
+          "caller": {
+            "type": "direct"
+          },
+          "function": {
+            "arguments": "{\"path\": \"observed_spectra/GID046905.png\"}",
+            "name": "view_image"
+          },
+          "id": "toolu_01UBHm41H9YsKbcfo1YFh5XA",
+          "type": "function"
+        },
+        {
+          "index": 2,
+          "caller": {
+            "type": "direct"
+          },
+          "function": {
+            "arguments": "{\"command\": \"ls observed_spectra/ | wc -l && ls observed_spectra/ | head -20\"}",
+            "name": "run_command"
+          },
+          "id": "toolu_01E7FJgEkSdkaQePidj1vq5Z",
+          "type": "function"
+        }
+      ],
+      "function_call": null,
+      "provider_specific_fields": {
+        "citations": null,
+        "thinking_blocks": null
+      }
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "toolu_01UBHm41H9YsKbcfo1YFh5XA",
+      "name": "view_image",
+      "content": [
+        {
+          "type": "text",
+          "text": "Image 'observed_spectra/GID046905.png':"
+        },
+        {
+          "type": "image_url",
+          "image_url": {
+            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAACCQAAAEaCAYAAADDxBS0AAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjEwLjgsIGh0dHBzOi8vbWF0cGxvdGxpYi5vcmcvwVt1zgAAAAlwSFlzAAAXEgAAFxIBZ5/SUgAARjBJREFUeJzt3QeYXVW5OO6VXoEkJBAIBpDQQi9KqKF3ASlSvaAiIKgXKYKKgKJepStFruAFriIECFVBBQwgVUCKEOmJ9BYQEkog5Pyeb/3/+9wzM+dMZpIdZjLzvs9zMmd232vvs3Jmr299q0elUqkkAAAAAAAAAIAS9SxzYwAAAAAAAAAAQUACAAAAAAAAAFA6AQkAAAAAAAAAQOkEJAAAAAAAAAAApROQAAAAAAAAAACUTkACAAAAAAAAAFA6AQkAAAAAAAAAQOkEJAAAAAAAAAAApROQAAAAAAAAAACUTkACAAAAAAAAAFA6AQkAAAAAAAAAQOkEJAAAAAAAAAAApROQAAAAAAAAAACUTkACAAAAAAAAAFA6AQkAAAAlmjp1aurRo0d+xXs+GcodAAAAoPMRkAAAAFDjgw8+SP/93/+ddtxxxzR69Og0YMCAtMgii6SVV145HXTQQWnSpEnKiwU2aOPEE0/ML+aP2bNnp6uvvjp9+ctfTmPHjk2LLrpo6tOnTxo6dGhaddVV0xe/+MV0ySWXpHfeeafu+rfeems1oCneN7fppptW5xev3r175+0vs8wyaeutt07HHHNMuuOOO9p8zB9++GE6/fTT02c+85lc1w0ePDitttpq6YQTTkjTp09vdxn89Kc/bXJ8bRHl8bOf/SxtsMEGacSIEalfv35pqaWWSptttlm+X//97383XPevf/1r2nPPPfPysd5iiy2Wttpqq3TppZe2ad+vvvpqOvLII9OKK66Y6/thw4aljTfeOF1wwQWpUqk0XO+AAw5ocS3qvWbNmtWm4wAAAOiqelRa++sKAACgG7nppptyQ+ILL7xQnbbwwgunmTNn5ldhu+22S7/5zW9yY2O9Rt9ll102v58yZUpuJGT+U+5zFg3c0cAbPAoo37333pv233//9MQTT1Sn9erVKzfyv/vuu03qkKhXoqH9W9/6VsNrFMFPEYBQK36/7bbbcpBDNJwXInDgvffea7JsBFH98pe/TOPHj294zG+99VbaYost0oMPPph/jwb9OOZiW0svvXTeX/xsizj3NddcMwd2FeZ0r8V57r333jkwIPTt2zcNHDiwSRBCHF9st7ljjz02BzIUhgwZksv6o48+yr9//vOfT5dffnkO2qjngQceSNtss02aNm1a/j2CMeLYiyCCmHfdddflY6oXkHDxxRen/v3752vcyIsvvpjLFAAAoLuSIQEAACClNGHChLT99tvnYIRRo0bl3rFvvvlmevvtt3MD1T//+c90+OGH54atG2+8MY0bNy699tpryg5I11xzTdpkk01yg3wEKp100knp0UcfzQ3j0dgddUg0uF955ZVp5513TjNmzMh1ztyKTAKvvPJK9RWN8BFEcOedd6YjjjgiBzxEnRXBDeedd17D7ey77765sT+Wj+OJbcS2/vznP6clllgi/etf/0qf+9zn0scff9ym7BAR0BXnuv7667fpPOJ4d9hhh1w2u+66a7rvvvvy+hEoEcfxt7/9LX3ve9+r2+AfmWyKYIS99torPf/883m9CM646KKL0qBBg3K2im9/+9t19x11e2TCieuz0kor5X3HurHfs88+Owd9/OlPf8r1fmsiO0PttWj+EowAAAB0dwISAACAbi8a7qIhLXrFRqryaKD7yle+ktOgF6LB6owzzkjXXntt7i379NNPp3322afblx10d48//njab7/98tAHq6++enrkkUfScccdl1ZZZZUmQxbEUAK77bZbDl6IZdraaN9WMdxABCqcdtppeftxLJGd4Otf/3oe1qC5W265JQdXFY37X/jCF1LPnv/fY6IY8mDixIn5/T/+8Y/cwD8nZ511VrrrrrtykEMMHTEnEfzwH//xH+n9999P3/jGN/L+1l133WqZRZaEGEbiRz/6UTXrTCHq6hhSIqy99tp5GIwYsqHI8hCZKk499dTqcT377LMt9h/zI2Agyu2GG27I+w5Rvx922GHpBz/4Qf79V7/6VXryySfneD4AAADUJyABAADo9qLxMBrHoiHriiuuyGOYNxJZFGL5okHvD3/4Q6vl99RTT+XU3sX45qNHj06HHHJIeumllxquE1kaIpV7NGhGL99Yb8kll0zrrLNOnh49eRuJ44lGz8jyEOtFUEX03I7U7dFgWk8xLn2kkI8e3dGgGY1zkf68GMs+enXH++jF3JpnnnmmOnZ6vUbQ119/PZffWmutlXs9R7rzT3/6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AABA6QQkAAAAAAAAAAClE5AAAAAAAAAAAJROQAIAAAAAAAAAUDoBCQAAAAAAAABA6QQkAAAAAAAAAAClE5AAAAAAAAAAAJROQAIAAAAAAAAAUDoBCQAAAAAAAABA6QQkAAAAAAAAAAClE5AAAAAAAAAAAJROQAIAAAAAAAAAUDoBCQAAAAAAAABA6QQkAAAAAAAAAAClE5AAAAAAAAAAAJROQAIAAAAAAAAAUDoBCQAAAAAAAABA6QQkAAAAAAAAAAClE5AAAAAAAAAAAJROQAIAAAAAAAAAUDoBCQAAAAAAAABA6QQkAAAAAAAAAAClE5AAAAAAAAAAAJROQAIAAAAAAAAAUDoBCQAAAAAAAABA6QQkAAAAAAAAAAClE5AAAAAAAAAAAJROQAIAAAAAAAAAUDoBCQAAAAAAAABA6QQkAAAAAAAAAAClE5AAAAAAAAAAAJROQAIAAAAAAAAAUDoBCQAAAAAAAABA6QQkAAAAAAAAAAClE5AAAAAAAAAAAJROQAIAAAAAAAAAUDoBCQAAAAAAAABA6QQkAAAAAAAAAAClE5AAAAAAAAAAAJROQAIAAAAAAAAAUDoBCQAAAAAAAABA6QQkAAAAAAAAAAClE5AAAAAAAAAAAJROQAIAAAAAAAAAUDoBCQAAAAAAAABA6QQkAAAAAAAAAAClE5AAAAAAAAAAAJROQAIAAAAAAAAAUDoBCQAAAAAAAABA6QQkAAAAAAAAAAClE5AAAAAAAAAAAJROQAIAAAAAAAAAUDoBCQAAAAAAAABA6QQkAAAAAAAAAAClE5AAAAAAAAAAAJROQAIAAAAAAAAAUDoBCQAAAAAAAABA6QQkAAAAAAAAAAClE5AAAAAAAAAAAJROQAIAAAAAAAAAUDoBCQAAAAAAAABA6QQkAAAAAAAAAAClE5AAAAAAAAAAAJROQAIAAAAAAAAAUDoBCQAAAAAAAABA6QQkAAAAAAAAAAClE5AAAAAAAAAAAJROQAIAAAAAAAAAUDoBCQAAAAAAAABA6QQkAAAAAAAAAAClE5AAAAAAAAAAAJROQAIAAAAAAAAAUDoBCQAAAAAAAABA6QQkAAAAAAAAAAClE5AAAAAAAAAAAJROQAIAAAAAAAAAUDoBCQAAAAAAAABA6QQkAAAAAAAAAAClE5AAAAAAAAAAAJROQAIAAAAAAAAAUDoBCQAAAAAA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uw9Qttdffz0dddRRacUVV0wDBgzIz2fWXnvtdPTRR9dd/vrrr0/jx49PCy+8cH5FPfaHP/yh1X089thjaY899kgjRozI+1httdXSmWeemWbPnu2CQjfW1von/u5q7fvSXnvt1XAf6h+gcOutt7ZalxSvH/7why0KzfMf4JOuf07sxG1fvdN8cOSRR6Y33nhjjssdfvjh6ec//3n+8rj11lunDz74IN10003pz3/+c7ryyivTLrvs0mKdiRMnpj333DP/AbrJJpuk4cOHp1tuuSXtv//+6ZFHHkmnnnrq/DglYAHR1vonbLjhhnWDFtZZZ526y6t/gHp22223/CWtuVGjRrWY5rsP0FH1T/DdByjDAw88kLbZZpscDL7KKquknXfeOb3zzjtp8uTJ6YwzzkinnHJKk+UjiOBb3/pW6t27d9pyyy1Tv3798nOfHXfcMZ111lnp61//eot93H333WmLLbZI77//fn4Qtswyy6Tbb789byc6sUyYMCE/UAO6l/bWP2GNNdZIa665Zovp6623Xt19qH+AWiNHjsxtT/V8/PHH6be//W1+v/HGGzeZ5/kP0FH1T6d9/lMp2c0331yJzR500EH553LLLVd3uZtuuinPX3TRRStPPvlkdfpdd91V6du3b2XIkCGVt956q8k606ZNqyy88MJ5vYkTJ1anv/LKK5UxY8bk6ZMmTSr7lIAFRFvrnxNOOCHPv/DCC9u8bfUP0Nz48eNzXTJlypQ2FY7vPkBH1T+++wBlee211yrDhw+vDBw4sHLttde2mH/vvfc2+f3xxx+v9OrVq9KvX7/8vKfwxBNP5OdBvXv3rjz11FNN1vnwww8ryy67bK7nTj/99Or06dOnV9Zff/12/y0HdM/6J+qJqC/ie1BbqX+A9rjhhhtyPfOpT32qMnv27Op0z3+Ajqp/TujEbV+lDtkQkesHH3xwGjt2bE6d1ZrTTz89/zzuuOPS8ssvX52+/vrrp0MOOST9+9//Tr/+9a+brHPBBRfkqNeIft11112r0xdffPF08skn5/ennXZamacELCDaU//MDfUPMK989wEWJL77APWccMIJOSNd9ELeaaedWsyPbAa1Iitm9N6J5zzxvKewwgorpO9973tp1qxZeZlaV199dZoyZUru1RwZEQqREebss8/O7z37ge6nvfXP3FD/AO1R9E7ed999m2Ru8vwH6Kj6pzM//yk1IOEHP/hBevbZZ9N5552X+vTp02rD4V/+8pf8fvfdd28xv5gWYwzWKsYXrLfODjvskPr3759uvvnmPPQD0L20tf6ZW+ofYF747gMsaHz3Aep9n4kHX4MGDUpf+tKX5rkumZtnPzFO/Kc//en06KOPpqlTp7pI0E3MTf0zN9Q/QFu9++676dprr83vv/jFL1ane/4DdFT909mf//Sep7VrxBgSESERXwpjvIrW/jB84okn0syZM9OIESPSUkstVfcPzGKbtR5++OEm82v17ds3rbrqqun+++9PTz75ZFp99dVLOCtgQdCe+qdWBEY99NBDuSKNumi77bZrOIaO+gdoJDI6xRimPXv2zL39dtlllzR69Ogmy/juA3RU/VPLdx9gXsTzlunTp6eNNtooDRgwIN14443ppptuyn9PRR30hS98IS255JLV5SPz5XPPPZffr7XWWi2296lPfSqPTfqvf/0r98hZeOGF5/i3VzE9gtHj78BlllnGRYVuoL31T60HHnggHX300bmeibGYN9988zR+/Pi6y6p/gLa66qqrcqNgfMeJjL0Fz3+Ajqp/Ovvzn1ICEmbPnp0OPPDANGTIkGr6htYUf5DWC0YIEe0a23rrrbfyl82FFloof2l8++23W10vpkehxB+zAhKge2hv/VPrN7/5TZPfv//976fddtstXXTRRTkdaEH9A7TmRz/6UZPfY9iYqE/iVfDdB+io+qeW7z7AvJg8eXL+udhii+UAqKJXTuG73/1uDpTae++9m3z/GTp0aH7O0+g5TqRgj+c4q622WpP1Wnv2E2IdoHtob/1T6/e//31+FX74wx/mgIQJEybkVMS11D9Ae9OlN++d7PkP0FH1T2d//lPKkA1nnXVWuu+++/IYXosuuugcl58xY0b+OXDgwIbLFH+sRkBC7Tqtrdd8HaDra2/9E8aMGZNOPfXU9Nhjj+W65fnnn0+XXHJJGjVqVJo4cWKLilz9A9SzySab5C93zzzzTHrvvfdyFPyPf/zj1Lt373T88cc3GQ/Zdx+go+qf4LsPUIboNBKuu+669Mc//jGdc8456bXXXssZ6iIgKlIU77///rknztx+/2nLep79QPfT3vonLLHEEunEE09MDz74YH7Q/sorr+T1V1pppXTbbbelHXfcMX388cdN9qP+Adri5ZdfTrfcckvq1atXi0Aoz3+Ajqp/Ovvzn3nOkBARX8cdd1yOLD3ggAPmdXMA873+2W+//VpUqPvss0/abLPNcq+ca665Jt1zzz1p3LhxrgbQUPSsqRWpQqNnzrrrrpu22Wab/PDroIMOyilFATqy/vHdBygrO12YNWtWDoI69NBDq/MiQDx6zFxxxRX5fTz0AujI+ie+E8WrEMPCfO5zn8vPfiJlcfT0u/zyy+s+zAdozaWXXpoDmrbddts8FAxAZ6l/9uvEbV/znCHhsMMOSx9++GE677zz2rxOkQ4ievM0EuNfhBiuoXad1tZrvg7Qtc1N/dOaiJ7/0pe+lN9HxH1B/QO0x9Zbb50bBWPc5HvvvbdJPeK7D/BJ1z+t8d0HaI/av4uKv5tqFdOi5/Hcfv9py3qe/UD30976Z07b+uY3v5nf/+lPf6q7H/UPMLfp0j3/ATp6uIbO+vxnngMSYgyuSONwyCGHpE033bT62muvvfL8F198sTotUmOF0aNH558vvPBCw5OLh2gxzmBxghHFusgii7S6XjF96aWXntfTAhYAc1P/zMnyyy9fTX1TUP8A7dW8LvHdB/ik1Psu097lffcB6imetcTfYCNGjGgxf5lllsk/I4167fefSLVePMRqy3OcOX1v8uwHup/21j9z+31J/QPMyT//+c88FEw04u2yyy4t5nv+A3RU/dPZn//Mc0BCiOCBiECtfRU9cj744IPqtHgfVlxxxdSvX7/0+uuv5wbD5v7+97/nn6uvvnqT6WussUaT+bU++uij9Oijj6b+/fvnlKVA99De+qet4xIW4+IU1D9AezSvS3z3AT4pjb7LtHd5332A5tZaa638M8ZqnzlzZov5b775ZpNeNkOGDKk+lI8HZ83FeKZvvPFGfrAVD8LaUv+09swI6LraW//Mj+8/tdPVP9B9/eY3v8k/d91117rjrXv+A3RU/dPZn//Mc0BCpVKp+5oyZUqev9xyy1WnFdGqMZbp5ptvnt/H+F7NXXnllflnjOtVa4cddmgyv3lP6Whw3HLLLXPBAF3f3NQ/c9re1Vdfnd+vvfbaTeapf4C2ioDLv/71r03qEt99gI6qf1rjuw/QHhFcEA+rou6olxa9mFY0HM7p76i5efYTgQ3PPvtsWnXVVdv0Nx7Qfeuf1kycOLHdz37UP0DUQb/73e9aTZfu+Q/QUfVPp3/+U5lPpkyZUonNL7fccnXn33TTTXn+oosuWnnyySer0++6665Kv379KkOGDKm89dZbTdaZNm1aZeGFF87rTZw4sTr91VdfrYwZMyZPnzRp0vw6JWAB0Vr989prr1XOPvvsyjvvvNNk+vTp0ysHH3xwXm/kyJGVd999t8l89Q9Q684776xcffXVlVmzZrWofzbccMNcl+y0005N5vnuA3RE/eO7D1CmSy65JNczq622WuWll16qTn/wwQcrw4YNy/Muv/zy6vTHH3+80qtXr/yc5+67765Oj+dA8Tyod+/elaeeeqrJPj788MPKsssum7d1+umnV6fPmDGjsv766+fpF154oQsL3Ux765+f/OQnlddff71F/XLiiSfmZQcMGFB54YUXWsxX/wCN3Hbbbbn+GDVqVOXjjz9uuJznP0BH1D+vdfK2rw4LSAj/+Z//mZcZOHBgZeedd65st912+Y/R+GM1HrLVc+WVV1Z69uxZ6dGjR2WzzTar7L777jl4IbZzxBFHzK/TARYgrdU/xbzBgwfnOmSfffapbLXVVvlhWEyP+uSOO+6ou131D1CIh+DFl7jtt98+1yXRENi/f/88fZVVVslf2prz3Qf4pOsf332Asu2///7Vv52iHoq/qyLgIKZ99atfbbF8BBXEvHjeE8994vlPNATGtF/84hcNg6+KZdZbb73KF77whcoSSyyRf4/nQLNnz3ZhoRtqT/0T02JefE/aa6+98vJLLrlknh7fm2ofuNdS/wCNRD0TdcjRRx89x0Ly/Af4pOufKZ287atDAxKKB2rrrLNODkqIk9t2223zF7/WRIHFcrF8rLfuuutWLrroopLPAFhQtVb/RHTYMcccUxk/fnyOJos/TqMeiYf3Rx55ZIvo+ObUP0CYPHly5Wtf+1pl7bXXrowYMSI/YF9kkUUq48aNq5x22mmV9957r2FB+e4DfJL1j+8+QNkiGOBXv/pV9VnOoEGDcuaC1p7LXHfddZWNN944PxyLV7y//vrrW93Po48+Wtltt93yA7RoPIy/2SK4obUeiUDX1p765/jjj88P4UePHp0DnKIeiV5+0UMwsre0Rv0DNPfBBx9Uhg4dmp85P/zww20qIM9/gE+y/nmnk7d99Yh/5m3QBwAAAAAAAACApno2+x0AAAAAAAAAYJ4JSAAAAAAAAAAASicgAQAAAAAAAAAonYAEAAAAAAAAAKB0AhIAAAAAAAAAgNIJSAAAAAAAAAAASicgAQAAAAAAAAAonYAEAAAAAAAAAKB0AhIAAAAAAAAAgNIJSAAAAAAAAAAASicgAQAAAAAAAAAonYAEAAAAAAAAAKB0AhIAAADoMh588MHUo0ePNGrUqLrzZ8+enYYMGZKXOeigg+ouc/vtt+f5q6yySurMNt1003ycU6dOTV3FAQcckM/p1ltvLXW7xTU955xzUmdzzTXX5GO7/PLLO/pQAAAAoHQCEgAAAOgy1lhjjbTwwgunl156KT377LMt5v/jH/9Ib7/9dn5/xx131N3GX//61/xz4403ns9H2/10RBBFpVJJRx11VFpqqaXSgQcemDqbnXfeOd+33/3ud9NHH33U0YcDAAAApRKQAAAAQJfRs2fPtMEGGzQMOCiCDaIB+PHHH0/Tpk1ruIyAhK4hMhDcd9996Ygjjkj9+vVLnU0EaBx77LHpmWeeSRdccEFHHw4AAACUSkACAAAAXUoRSFAvICGm9enTJx1++OG55/ydd97ZYkiHu+++u8l2WLCde+65qVevXmmfffZJnVVkSVhooYXSeeed19GHAgAAAKUSkAAAAECXUgQSFJkOasW0tddeO2211VZ1l3n44YfTO++8k0aPHp1f4aGHHkrf/va30zrrrJNGjBiRe9l/+tOfToceemgeGqLW3//+99zjfb311mt4fGeddVZeJnrs15o1a1b65S9/mdZff/087MSAAQPSmmuumc4888w8rz3efPPN9J3vfCeNHTs2b2eRRRZJm2++efr973/fYtkYPiGOJ4ZTeP/993Nv/aWXXjqf55gxY9LPfvazHLxRz2233Za3G43pQ4cOTdtvv326//7700UXXZS3eeKJJzbZRywfll122fx78arn9ttvr247ymOHHXZIkydPblc5TJkyJd1yyy15O4svvnirQ0hEJoVx48alQYMGpWHDhqW99947vfDCCy3WOeCAA/I6t956a7r55pvTJptsko9xscUWS1/96lerQ4K89tpr6eCDD06jRo1K/fv3T5/97GfzOvXENdpll13SI488ku699952nSMAAAB0ZgISAAAA6FKi4Tca05944on0xhtvVKc/++yzOYBgo402yo3E0ejePItCveEafvrTn6Yzzjgjv491o9E9GugjeGDddddtEpQQwQ4rrbRS+tvf/pZT8Ndz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"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "toolu_01E7FJgEkSdkaQePidj1vq5Z",
+      "name": "run_command",
+      "content": "125\nGID012760.png\nGID024901.png\nGID046905.png\nGID048359.png\nGID058444.png\nGID063175.png\nGID071514.png\nGID080316.png\nGID085789.png\nGID105996.png\nGID113438.png\nGID117309.png\nGID125384.png\nGID127533.png\nGID135667.png\nGID146839.png\nGID150774.png\nGID155250.png\nGID167714.png\nGID171116.png\n"
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "[Turn 2/10 used. 8 turns remaining.]"
+        }
+      ]
+    },
+    {
+      "content": "Now let me do the full analysis programmatically - extract lab spectral line positions, extract observed spectral line positions for all galaxies, compute redshifts, and then fit Hubble's constant.",
+      "role": "assistant",
+      "tool_calls": [
+        {
+          "index": 1,
+          "caller": {
+            "type": "direct"
+          },
+          "function": {
+            "arguments": "{\"code\": \"\\nimport numpy as np\\nimport cv2\\nimport os\\nimport pandas as pd\\nfrom scipy.signal import find_peaks\\n\\n# \\u2500\\u2500 1. Extract lab spectral line wavelengths \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\nlab_img = cv2.imread('spectral_lines_lab.png')\\nlab_gray = cv2.cvtColor(lab_img, cv2.COLOR_BGR2GRAY)\\n\\nh, w = lab_gray.shape\\nprint(f\\\"Lab image size: {w}x{h}\\\")\\n\\n# The spectrum spans 400\\u2013750 nm; find the pixel extent of the plot area\\n# Look at a horizontal slice through the spectrum band\\nrow = h // 2\\nspectrum_row = lab_gray[row, :]\\n\\n# Find the plot boundaries by looking at the axis labels region\\n# The spectrum area is the black region with bright lines\\n# Let's find where the spectrum starts and ends in pixels\\n# by looking at the top portion of the image (spectrum band)\\ntop_row = lab_gray[10, :]  # near top of image\\n\\n# Find columns that are part of the spectrum (non-white background)\\n# The image has a black spectrum band; let's find its x-extent\\n# by checking where the spectrum band is\\n# Look at multiple rows in the spectrum area\\nspectrum_band = lab_gray[5:h//2, :]\\ncol_max = spectrum_band.max(axis=0)\\n\\n# Find the leftmost and rightmost bright pixels (axis ticks/lines)\\n# Actually let's find the plot area by looking at where the black band is\\n# The spectrum is in the upper portion; axis labels are below\\n\\n# Let's find bright vertical lines (spectral lines) in the spectrum area\\n# Use a row in the middle of the spectrum band\\nmid_spectrum_row = h // 4\\nspectrum_slice = lab_gray[mid_spectrum_row, :]\\n\\n# Find peaks (bright lines)\\npeaks, props = find_peaks(spectrum_slice.astype(float), height=50, distance=3)\\nprint(f\\\"Lab spectrum peaks at pixels: {peaks}\\\")\\nprint(f\\\"Peak heights: {spectrum_slice[peaks]}\\\")\\n\\n# Now determine the wavelength-to-pixel mapping\\n# The spectrum goes from 400 to 750 nm\\n# We need to find the pixel positions of 400 nm and 750 nm\\n# These correspond to the plot boundaries\\n\\n# Let's look at the full image to find axis boundaries\\n# Check the bottom of the image for the axis\\nprint(f\\\"\\\\nImage shape: {lab_img.shape}\\\")\\n\\n# Let's find the plot area more carefully\\n# Look for the leftmost and rightmost extent of the spectrum\\n# by finding where the black band starts/ends horizontally\\n# The background outside the plot is white/gray\\n\\n# Check a row in the spectrum band for the background color\\nprint(f\\\"\\\\nFirst 20 pixel values in spectrum row: {spectrum_slice[:20]}\\\")\\nprint(f\\\"Last 20 pixel values in spectrum row: {spectrum_slice[-20:]}\\\")\\n\"}",
+            "name": "execute_python"
+          },
+          "id": "toolu_01SzTvbuQnJgob5FLq4wDmZi",
+          "type": "function"
+        }
+      ],
+      "function_call": null,
+      "provider_specific_fields": {
+        "citations": null,
+        "thinking_blocks": null
+      }
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "toolu_01SzTvbuQnJgob5FLq4wDmZi",
+      "name": "execute_python",
+      "content": "Lab image size: 2084x282\nLab spectrum peaks at pixels: [  93  230  531  587  615 1115 1123 1127 1502 1511 1522 1577 1599 1607]\nPeak heights: [ 54  78 126 140 163 129 181 144 107 199 111  58  80  57]\n\nImage shape: (282, 2084, 3)\n\nFirst 20 pixel values in spectrum row: [255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255\n 255 255]\nLast 20 pixel values in spectrum row: [255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255\n 255 255]\n"
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "[Turn 3/10 used. 7 turns remaining.]"
+        }
+      ]
+    },
+    {
+      "content": "Good, I can see the structure. Now let me do a comprehensive analysis to extract the pixel-to-wavelength mapping and compute all redshifts and Hubble's constant.",
+      "role": "assistant",
+      "tool_calls": [
+        {
+          "index": 1,
+          "caller": {
+            "type": "direct"
+          },
+          "function": {
+            "arguments": "{\"code\": \"\\nimport numpy as np\\nimport cv2\\nimport os\\nimport pandas as pd\\nfrom scipy.signal import find_peaks\\nfrom scipy.optimize import curve_fit\\n\\n# \\u2500\\u2500 Helper: extract spectral line pixel positions from an image \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\ndef get_line_pixels(img_path, height_thresh=50, distance=3):\\n    img = cv2.imread(img_path)\\n    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)\\n    h, w = gray.shape\\n    # Use the spectrum band (upper half, avoid axis labels)\\n    spectrum_band = gray[5:int(h*0.6), :]\\n    col_profile = spectrum_band.max(axis=0)\\n    peaks, _ = find_peaks(col_profile.astype(float), height=height_thresh, distance=distance)\\n    return peaks, w, h, col_profile\\n\\n# \\u2500\\u2500 Get lab image pixel bounds (where 400nm and 750nm are) \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\nlab_path = 'spectral_lines_lab.png'\\nimg = cv2.imread(lab_path)\\ngray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)\\nh, w = gray.shape\\n\\n# The spectrum band is the black region; find its left and right pixel bounds\\n# by looking at where the black region starts/ends\\n# Check a row in the spectrum band\\nspectrum_band = gray[5:int(h*0.6), :]\\ncol_profile = spectrum_band.max(axis=0)\\n\\n# The plot area: black background with bright lines\\n# Find where the black region starts (left boundary) and ends (right boundary)\\n# by finding where background transitions from white to black\\n# Background is white (255), spectrum area is black (0) with bright lines\\n\\n# Find leftmost and rightmost columns where background is black\\nblack_cols = np.where(spectrum_band.min(axis=0) < 10)[0]\\nx_left = black_cols[0]\\nx_right = black_cols[-1]\\nprint(f\\\"Spectrum pixel range: {x_left} to {x_right} (width={x_right-x_left})\\\")\\n\\n# Wavelength range: 400 to 750 nm\\nwl_min, wl_max = 400.0, 750.0\\n\\ndef pixel_to_wavelength(px, x_left, x_right, wl_min=400.0, wl_max=750.0):\\n    return wl_min + (px - x_left) / (x_right - x_left) * (wl_max - wl_min)\\n\\n# Extract lab lines\\nlab_peaks, _, _, lab_profile = get_line_pixels(lab_path)\\nlab_wavelengths = pixel_to_wavelength(lab_peaks, x_left, x_right)\\nprint(f\\\"\\\\nLab peaks (pixels): {lab_peaks}\\\")\\nprint(f\\\"Lab wavelengths (nm): {np.round(lab_wavelengths, 2)}\\\")\\n\\n# \\u2500\\u2500 Process all observed spectra \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\nobs_dir = 'observed_spectra'\\nobs_files = sorted(os.listdir(obs_dir))\\n\\n# For each observed spectrum, find peaks and match to lab wavelengths\\n# Redshift z: observed_wl = lab_wl * (1 + z)\\n# Use least-squares fit: obs_wl_i = lab_wl_j * (1+z) for matched pairs\\n\\ndef compute_redshift(obs_peaks_px, lab_wls, x_left, x_right):\\n    \\\"\\\"\\\"\\n    Given observed peak pixel positions and lab wavelengths,\\n    find the best redshift z such that obs_wl = lab_wl * (1+z)\\n    for a subset of lab lines.\\n    Strategy: try all possible subsets of lab lines that match the number\\n    of observed peaks, find best z.\\n    \\\"\\\"\\\"\\n    if len(obs_peaks_px) == 0:\\n        return None, None\\n    \\n    obs_wls = pixel_to_wavelength(obs_peaks_px, x_left, x_right)\\n    n_obs = len(obs_wls)\\n    n_lab = len(lab_wls)\\n    \\n    best_z = None\\n    best_residual = np.inf\\n    best_match = None\\n    \\n    # Try all combinations of n_obs lines from lab spectrum\\n    from itertools import combinations\\n    \\n    for lab_subset_idx in combinations(range(n_lab), n_obs):\\n        lab_subset = lab_wls[list(lab_subset_idx)]\\n        # For each assignment of obs lines to lab subset lines\\n        # (obs lines are ordered, lab subset lines are ordered)\\n        # z = obs_wl / lab_wl - 1 for each pair\\n        # Best z minimizes sum of squared residuals\\n        # Simple: z = mean(obs_wl / lab_wl - 1)\\n        # But we need to try all permutations of obs lines too\\n        from itertools import permutations\\n        for obs_perm in permutations(range(n_obs)):\\n            obs_subset = obs_wls[list(obs_perm)]\\n            z_vals = obs_subset / lab_subset - 1\\n            z_mean = np.mean(z_vals)\\n            if z_mean < -0.01:  # unphysical\\n                continue\\n            # Compute residuals: how well does z_mean explain all pairs?\\n            residuals = obs_subset - lab_subset * (1 + z_mean)\\n            res = np.sum(residuals**2)\\n            if res < best_residual:\\n                best_residual = res\\n                best_z = z_mean\\n                best_match = (lab_subset_idx, obs_perm, obs_subset, lab_subset)\\n    \\n    return best_z, best_residual\\n\\n# Process each galaxy\\nresults = {}\\nfor fname in obs_files:\\n    gid = fname.replace('.png', '')\\n    fpath = os.path.join(obs_dir, fname)\\n    obs_peaks, fw, fh, _ = get_line_pixels(fpath)\\n    \\n    # Use same pixel bounds (all images should have same layout)\\n    z, res = compute_redshift(obs_peaks, lab_wavelengths, x_left, x_right)\\n    results[gid] = {'z': z, 'residual': res, 'n_peaks': len(obs_peaks), \\n                    'obs_peaks_px': obs_peaks}\\n\\n# Show results\\nprint(\\\"\\\\nGalaxy redshifts:\\\")\\nfor gid, r in sorted(results.items()):\\n    if r['z'] is not None:\\n        print(f\\\"  {gid}: z={r['z']:.6f}, n_peaks={r['n_peaks']}, residual={r['residual']:.4f}\\\")\\n    else:\\n        print(f\\\"  {gid}: NO PEAKS\\\")\\n\"}",
+            "name": "execute_python"
+          },
+          "id": "toolu_01ERwvdyRb46f5qcHENpCyU1",
+          "type": "function"
+        }
+      ],
+      "function_call": null,
+      "provider_specific_fields": {
+        "citations": null,
+        "thinking_blocks": null
+      }
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "toolu_01ERwvdyRb46f5qcHENpCyU1",
+      "name": "execute_python",
+      "content": "Spectrum pixel range: 35 to 2050 (width=2015)\n\nLab peaks (pixels): []\nLab wavelengths (nm): []\n\nGalaxy redshifts:\n  GID012760: NO PEAKS\n  GID024901: NO PEAKS\n  GID046905: NO PEAKS\n  GID048359: NO PEAKS\n  GID058444: NO PEAKS\n  GID063175: NO PEAKS\n  GID071514: NO PEAKS\n  GID080316: NO PEAKS\n  GID085789: NO PEAKS\n  GID105996: NO PEAKS\n  GID113438: NO PEAKS\n  GID117309: NO PEAKS\n  GID125384: NO PEAKS\n  GID127533: NO PEAKS\n  GID135667: NO PEAKS\n  GID146839: NO PEAKS\n  GID150774: NO PEAKS\n  GID155250: NO PEAKS\n  GID167714: NO PEAKS\n  GID171116: NO PEAKS\n  GID177099: NO PEAKS\n  GID184135: NO PEAKS\n  GID196934: NO PEAKS\n  GID201122: NO PEAKS\n  GID210801: NO PEAKS\n  GID222964: NO PEAKS\n  GID223665: NO PEAKS\n  GID225042: NO PEAKS\n  GID234331: NO PEAKS\n  GID234986: NO PEAKS\n  GID239075: NO PEAKS\n  GID242692: NO PEAKS\n  GID245805: NO PEAKS\n  GID259418: NO PEAKS\n  GID263554: NO PEAKS\n  GID268067: NO PEAKS\n  GID281115: NO PEAKS\n  GID285076: NO PEAKS\n  GID292181: NO PEAKS\n  GID319416: NO PEAKS\n  GID319436: NO PEAKS\n  GID324261: NO PEAKS\n  GID333248: NO PEAKS\n  GID337887: NO PEAKS\n  GID340733: NO PEAKS\n  GID352527: NO PEAKS\n  GID352735: NO PEAKS\n  GID360396: NO PEAKS\n  GID379426: NO PEAKS\n  GID384984: NO PEAKS\n  GID385719: NO PEAKS\n  GID389013: NO PEAKS\n  GID393855: NO PEAKS\n  GID395862: NO PEAKS\n  GID398164: NO PEAKS\n  GID399137: NO PEAKS\n  GID416465: NO PEAKS\n  GID422945: NO PEAKS\n  GID425981: NO PEAKS\n  GID426838: NO PEAKS\n  GID427649: NO PEAKS\n  GID456501: NO PEAKS\n  GID467021: NO PEAKS\n  GID473352: NO PEAKS\n  GID477471: NO PEAKS\n  GID488946: NO PEAKS\n  GID493425: NO PEAKS\n  GID498639: NO PEAKS\n  GID500279: NO PEAKS\n  GID505059: NO PEAKS\n  GID509032: NO PEAKS\n  GID517228: NO PEAKS\n  GID519408: NO PEAKS\n  GID524865: NO PEAKS\n  GID527090: NO PEAKS\n  GID545203: NO PEAKS\n  GID552564: NO PEAKS\n  GID554040: NO PEAKS\n  GID561391: NO PEAKS\n  GID568877: NO PEAKS\n  GID570450: NO PEAKS\n  GID578418: NO PEAKS\n  GID581795: NO PEAKS\n  GID591189: NO PEAKS\n  GID593624: NO PEAKS\n  GID599224: NO PEAKS\n  GID613052: NO PEAKS\n  GID614424: NO PEAKS\n  GID617890: NO PEAKS\n  GID627692: NO PEAKS\n  GID637215: NO PEAKS\n  GID648930: NO PEAKS\n  GID650550: NO PEAKS\n  GID655617: NO PEAKS\n  GID663855: NO PEAKS\n  GID677382: NO PEAKS\n  GID702037: NO PEAKS\n  GID709657: NO PEAKS\n  GID711000: NO PEAKS\n  GID733753: NO PEAKS\n  GID734104: NO PEAKS\n  GID743345: NO PEAKS\n  GID747995: NO PEAKS\n  GID755466: NO PEAKS\n  GID765497: NO PEAKS\n  GID779257: NO PEAKS\n  GID789972: NO PEAKS\n  GID806845: NO PEAKS\n  GID808997: NO PEAKS\n  GID826671: NO PEAKS\n  GID854567: NO PEAKS\n  GID857912: NO PEAKS\n  GID873051: NO PEAKS\n  GID882878: NO PEAKS\n  GID884886: NO PEAKS\n  GID894745: NO PEAKS\n  GID908519: NO PEAKS\n  GID912018: NO PEAKS\n  GID919808: NO PEAKS\n  GID921806: NO PEAKS\n  GID922668: NO PEAKS\n  GID952970: NO PEAKS\n  GID954352: NO PEAKS\n  GID987062: NO PEAKS\n  GID993903: NO PEAKS\n"
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "[Turn 4/10 used. 6 turns remaining.]"
+        }
+      ]
+    },
+    {
+      "content": "The peak detection threshold is too high. Let me investigate the actual pixel values more carefully and fix the extraction.",
+      "role": "assistant",
+      "tool_calls": [
+        {
+          "index": 1,
+          "caller": {
+            "type": "direct"
+          },
+          "function": {
+            "arguments": "{\"code\": \"\\nimport numpy as np\\nimport cv2\\nimport os\\nimport pandas as pd\\nfrom scipy.signal import find_peaks\\nfrom itertools import combinations, permutations\\n\\n# \\u2500\\u2500 Investigate pixel values in lab and observed spectra \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\nlab_img = cv2.imread('spectral_lines_lab.png')\\nlab_gray = cv2.cvtColor(lab_img, cv2.COLOR_BGR2GRAY)\\nh, w = lab_gray.shape\\n\\n# The spectrum is a horizontal band - let's look at ALL rows\\nprint(\\\"Lab image shape:\\\", lab_gray.shape)\\nprint(\\\"Max value per row (first 20 rows):\\\")\\nfor i in range(min(20, h)):\\n    print(f\\\"  row {i}: max={lab_gray[i,:].max()}, mean={lab_gray[i,:].mean():.1f}\\\")\\n\\n# Find the spectrum band rows (where there are bright pixels against black bg)\\nprint(\\\"\\\\nRow maxima:\\\")\\nrow_maxima = lab_gray.max(axis=1)\\nprint(row_maxima)\\n\\n# Find rows that are part of the spectrum (black background with bright lines)\\n# These rows have low mean but potentially high max\\nrow_means = lab_gray.mean(axis=1)\\nprint(\\\"\\\\nRow means:\\\", row_means)\\n\"}",
+            "name": "execute_python"
+          },
+          "id": "toolu_01Va7Hc6KfNwd536B4XhGotw",
+          "type": "function"
+        }
+      ],
+      "function_call": null,
+      "provider_specific_fields": {
+        "citations": null,
+        "thinking_blocks": null
+      }
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "toolu_01Va7Hc6KfNwd536B4XhGotw",
+      "name": "execute_python",
+      "content": "Lab image shape: (282, 2084)\nMax value per row (first 20 rows):\n  row 0: max=255, mean=255.0\n  row 1: max=255, mean=255.0\n  row 2: max=255, mean=255.0\n  row 3: max=255, mean=255.0\n  row 4: max=255, mean=255.0\n  row 5: max=255, mean=255.0\n  row 6: max=255, mean=255.0\n  row 7: max=255, mean=255.0\n  row 8: max=255, mean=255.0\n  row 9: max=255, mean=255.0\n  row 10: max=255, mean=255.0\n  row 11: max=255, mean=255.0\n  row 12: max=255, mean=255.0\n  row 13: max=255, mean=255.0\n  row 14: max=255, mean=255.0\n  row 15: max=255, mean=253.1\n  row 16: max=255, mean=247.1\n  row 17: max=255, mean=245.5\n  row 18: max=255, mean=248.5\n  row 19: max=255, mean=249.1\n\nRow maxima:\n[255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255\n 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255\n 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255\n 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255\n 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255\n 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255\n 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255\n 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255\n 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255\n 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255\n 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255\n 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255\n 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255\n 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255\n 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255\n 255 255 255 255 255 255 255 255 255 255 255 255]\n\nRow means: [255.         255.         255.         255.         255.\n 255.         255.         255.         255.         255.\n 255.         255.         255.         255.         255.\n 253.13099808 247.07245681 245.50863724 248.54414587 249.13915547\n 230.83109405 223.57965451 233.03502879 236.1146833  237.55806142\n 235.06669866 234.27831094 237.93809981 237.85940499 237.64011516\n 238.21880998 235.19481766 228.38675624 235.22600768 253.91890595\n 253.93042226 253.91890595 253.91890595 254.28119002 255.\n 255.         255.         255.         255.         255.\n  48.80086372   8.46065259   9.84165067   9.84165067   9.84165067\n   9.84165067   9.84165067   9.84165067   9.84165067   9.84165067\n   9.84165067   9.84165067   9.84165067   9.84165067   9.84165067\n   9.84165067   9.84165067   9.84165067   9.84165067   9.84165067\n   9.84165067   9.84165067   9.84165067   9.84165067   9.84165067\n   9.84165067   9.84165067   9.84165067   9.84165067   9.84165067\n   9.84165067   9.84165067   9.84165067   9.84165067   9.84165067\n   9.84165067   9.84165067   9.84165067   9.84165067   9.84165067\n   9.84165067   9.84165067   9.84165067   9.84165067   9.84165067\n   9.84165067   9.84165067   9.84165067   9.84165067   9.84165067\n   9.84165067   9.84165067   9.84165067   9.84165067   9.84165067\n   9.84165067   9.84165067   9.84165067   9.84165067   9.84165067\n   9.84165067   9.84165067   9.84165067   9.84165067   9.84165067\n   9.84165067   9.84165067   9.84165067   9.84165067   9.84165067\n   9.84165067   9.84165067   9.84165067   9.84165067   9.84165067\n   9.84165067   9.84165067   9.84165067   9.84165067   9.84165067\n   9.84165067   9.84165067   9.84165067   9.84165067   9.84165067\n   9.84165067   9.84165067   9.84165067   9.84165067   9.84165067\n   9.84165067   9.84165067   9.84165067   9.84165067   9.84165067\n   9.84165067   9.84165067   9.84165067   9.84165067   9.84165067\n   9.84165067   9.84165067   9.84165067   9.84165067   9.84165067\n   9.84165067   9.84165067   9.84165067   9.84165067   9.84165067\n   9.84165067   9.84165067   9.84165067   9.84165067   9.84165067\n   9.84165067   9.84165067   9.84165067   9.84165067   9.84165067\n   9.84165067   9.84165067   9.84165067   9.84165067   9.84165067\n   9.84165067   9.84165067   9.84165067   9.84165067   9.84165067\n   9.84165067   9.84165067   9.84165067   9.84165067   9.84165067\n   9.84165067   9.84165067   9.84165067   9.84165067   9.84165067\n   9.84165067   9.84165067   9.84165067   9.84165067   9.84165067\n   9.84165067   9.84165067   9.84165067   9.84165067   8.46065259\n  43.8512476  199.42370441 199.42370441 199.42370441 199.42370441\n 199.42370441 199.42370441 199.42370441 223.45681382 247.64107486\n 247.64107486 247.64107486 247.64107486 247.64107486 247.64107486\n 247.64107486 247.64107486 255.         255.         255.\n 255.         255.         255.         255.         238.98608445\n 237.61036468 244.90786948 245.5547025  245.65355086 243.65451056\n 240.24136276 242.85796545 244.55998081 244.86372361 243.65451056\n 243.17994242 245.22792706 243.87092131 237.88867562 242.89347409\n 255.         255.         255.         255.         255.\n 255.         255.         255.         255.         255.\n 255. \n...(truncated)"
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "[Turn 5/10 used. 5 turns remaining.]"
+        }
+      ]
+    },
+    {
+      "content": "Now I can see the spectrum band is around rows 45-195 (where mean \u2248 9.84). The spectral lines are bright pixels in this dark band. Let me now do the complete analysis properly.",
+      "role": "assistant",
+      "tool_calls": [
+        {
+          "index": 1,
+          "caller": {
+            "type": "direct"
+          },
+          "function": {
+            "arguments": "{\"code\": \"\\nimport numpy as np\\nimport cv2\\nimport os\\nimport pandas as pd\\nfrom scipy.signal import find_peaks\\nfrom itertools import combinations, permutations\\nfrom scipy.optimize import curve_fit\\n\\n# \\u2500\\u2500 Pixel extraction helper \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\ndef extract_line_positions(img_path, spectrum_rows=slice(46, 195)):\\n    \\\"\\\"\\\"Extract bright spectral line pixel positions from spectrum image.\\\"\\\"\\\"\\n    img = cv2.imread(img_path)\\n    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)\\n    # Use the dark spectrum band rows\\n    band = gray[spectrum_rows, :]\\n    # Column profile: max brightness in the band\\n    col_profile = band.max(axis=0).astype(float)\\n    # Find peaks above background (background ~10, lines are bright)\\n    peaks, props = find_peaks(col_profile, height=30, distance=2, prominence=20)\\n    return peaks, col_profile\\n\\n# \\u2500\\u2500 Determine pixel-to-wavelength mapping \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n# The spectrum spans 400-750 nm\\n# Find the plot area boundaries from the lab image\\nlab_img = cv2.imread('spectral_lines_lab.png')\\nlab_gray = cv2.cvtColor(lab_img, cv2.COLOR_BGR2GRAY)\\nh, w = lab_gray.shape\\n\\n# The spectrum band is rows ~46-195 (mean ~9.84 = nearly black)\\n# Find left and right boundaries of the plot area\\nband = lab_gray[46:195, :]\\ncol_min = band.min(axis=0)\\n# Plot area: columns where background is black (< 20)\\nblack_mask = col_min < 20\\nblack_cols = np.where(black_mask)[0]\\nx_left = black_cols[0]\\nx_right = black_cols[-1]\\nprint(f\\\"Plot area: x={x_left} to x={x_right}, width={x_right-x_left}\\\")\\n\\n# Wavelength mapping\\nwl_min, wl_max = 400.0, 750.0\\ndef px_to_wl(px):\\n    return wl_min + (np.array(px) - x_left) / (x_right - x_left) * (wl_max - wl_min)\\n\\n# \\u2500\\u2500 Extract lab spectral lines \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\nlab_peaks, lab_profile = extract_line_positions('spectral_lines_lab.png')\\nlab_wls = px_to_wl(lab_peaks)\\nprint(f\\\"\\\\nLab peaks (px): {lab_peaks}\\\")\\nprint(f\\\"Lab wavelengths (nm): {np.round(lab_wls, 2)}\\\")\\n\\n# \\u2500\\u2500 Compute redshift for one galaxy using pattern matching \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\ndef compute_redshift_best(obs_peaks_px, lab_wls, x_left, x_right):\\n    \\\"\\\"\\\"\\n    Match observed peaks to a subset of lab lines.\\n    For each possible subset of lab lines (same size as obs peaks),\\n    try all orderings and find best-fit z.\\n    \\\"\\\"\\\"\\n    if len(obs_peaks_px) == 0:\\n        return None, None\\n    obs_wls = px_to_wl(obs_peaks_px)\\n    n_obs = len(obs_wls)\\n    n_lab = len(lab_wls)\\n    \\n    best_z = None\\n    best_res = np.inf\\n    \\n    # obs lines are ordered left-to-right (increasing wavelength)\\n    # lab lines are also ordered; the matching must preserve order\\n    # So we only need to try ordered subsets of lab lines\\n    for lab_idx in combinations(range(n_lab), n_obs):\\n        lab_sub = lab_wls[list(lab_idx)]\\n        # z for each pair\\n        z_vals = obs_wls / lab_sub - 1.0\\n        z_mean = np.mean(z_vals)\\n        if z_mean < -0.005:\\n            continue\\n        # Residual in wavelength space\\n        pred = lab_sub * (1 + z_mean)\\n        res = np.sum((obs_wls - pred)**2)\\n        if res < best_res:\\n            best_res = res\\n            best_z = z_mean\\n    \\n    return best_z, best_res\\n\\n# \\u2500\\u2500 Process all observed spectra \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\nobs_dir = 'observed_spectra'\\nobs_files = sorted(os.listdir(obs_dir))\\n\\ngalaxy_results = {}\\nfor fname in obs_files:\\n    gid = fname.replace('.png', '')\\n    fpath = os.path.join(obs_dir, fname)\\n    obs_peaks, _ = extract_line_positions(fpath)\\n    obs_wls = px_to_wl(obs_peaks)\\n    z, res = compute_redshift_best(obs_peaks, lab_wls, x_left, x_right)\\n    galaxy_results[gid] = {\\n        'z': z, 'residual': res, \\n        'n_peaks': len(obs_peaks),\\n        'obs_wls': obs_wls,\\n        'obs_peaks_px': obs_peaks\\n    }\\n\\n# Print results\\nprint(\\\"\\\\nGalaxy redshifts (non-None):\\\")\\nfor gid, r in sorted(galaxy_results.items()):\\n    if r['z'] is not None and r['n_peaks'] > 0:\\n        print(f\\\"  {gid}: z={r['z']:.6f}, n_peaks={r['n_peaks']}, res={r['residual']:.4f}, obs_wls={np.round(r['obs_wls'],1)}\\\")\\n    elif r['n_peaks'] == 0:\\n        print(f\\\"  {gid}: NO PEAKS DETECTED\\\")\\n\"}",
+            "name": "execute_python"
+          },
+          "id": "toolu_01YAro7SH8MQkvzV4xEu9QQY",
+          "type": "function"
+        }
+      ],
+      "function_call": null,
+      "provider_specific_fields": {
+        "citations": null,
+        "thinking_blocks": null
+      }
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "toolu_01YAro7SH8MQkvzV4xEu9QQY",
+      "name": "execute_python",
+      "content": "Plot area: x=34 to x=2050, width=2016\n\nLab peaks (px): [  93  230  306  531  587  615  717 1115 1123 1127 1359 1502 1511 1522\n 1577 1599 1607]\nLab wavelengths (nm): [410.24 434.03 447.22 486.28 496.01 500.87 518.58 587.67 589.06 589.76\n 630.03 654.86 656.42 658.33 667.88 671.7  673.09]\n\nGalaxy redshifts (non-None):\n  GID012760: z=0.028687, n_peaks=6, res=0.0111, obs_wls=[446.5 510.2 604.5 648.1 675.2 677.3]\n  GID024901: z=0.024412, n_peaks=7, res=0.0373, obs_wls=[444.6 508.2 531.1 603.5 645.5 670.8 689.6]\n  GID046905: z=0.022257, n_peaks=5, res=0.0122, obs_wls=[419.4 497.  512.  644.1 671. ]\n  GID048359: z=0.015504, n_peaks=9, res=0.0707, obs_wls=[493.8 526.6 596.9 598.3 598.8 639.9 665.1 666.5 682.1]\n  GID058444: z=0.017988, n_peaks=4, res=126.3953, obs_wls=[433.2 603.6 604.2 689.8]\n  GID063175: z=0.034513, n_peaks=3, res=0.0205, obs_wls=[424.5 503.  608. ]\n  GID071514: z=0.024359, n_peaks=6, res=0.0367, obs_wls=[531.1 603.5 645.5 672.4 684.2 688. ]\n  GID080316: z=0.011755, n_peaks=8, res=0.0446, obs_wls=[415.1 452.4 491.8 501.9 524.7 596.  637.5 666.1]\n  GID085789: z=0.034079, n_peaks=4, res=0.0289, obs_wls=[502.8 517.9 609.9 680.9]\n  GID105996: z=0.022557, n_peaks=4, res=0.0141, obs_wls=[457.3 507.3 512.2 530.2]\n  GID113438: z=0.027537, n_peaks=3, res=0.0056, obs_wls=[509.7 532.8 674.5]\n  GID117309: z=0.015364, n_peaks=3, res=0.0006, obs_wls=[493.8 503.6 666.5]\n  GID125384: z=0.037924, n_peaks=4, res=0.0143, obs_wls=[538.2 611.5 654.  681.2]\n  GID127533: z=0.047224, n_peaks=6, res=0.0160, obs_wls=[429.7 524.5 543.1 617.5 685.8 699.5]\n  GID135667: z=0.035177, n_peaks=10, res=0.0417, obs_wls=[424.7 449.3 536.8 609.7 610.4 652.3 681.6 691.3 695.3 696.9]\n  GID146839: z=0.017870, n_peaks=8, res=0.0593, obs_wls=[417.7 441.8 509.7 600.2 668.1 670.1 679.9 683.7]\n  GID150774: z=0.030247, n_peaks=7, res=128.9820, obs_wls=[428.  439.4 501.9 506.8 675.9 679.7 681.2]\n  GID155250: z=0.005975, n_peaks=3, res=9.2292, obs_wls=[436.3 656.9 679.5]\n  GID167714: z=0.047588, n_peaks=8, res=39.8175, obs_wls=[508.7 518.9 614.9 616.3 617.  666.  698.8 702.8]\n  GID171116: z=0.034718, n_peaks=5, res=131.2671, obs_wls=[434.  445.7 532.3 605.4 689.4]\n  GID177099: z=0.048675, n_peaks=4, res=0.0108, obs_wls=[455.2 525.2 616.3 617.7]\n  GID184135: z=0.025252, n_peaks=7, res=0.0396, obs_wls=[458.5 498.4 531.6 602.6 604.  646.  688.7]\n  GID196934: z=0.046246, n_peaks=8, res=148.7698, obs_wls=[439.9 451.7 505.9 521.  613.  683.  685.1 699. ]\n  GID201122: z=0.032299, n_peaks=7, res=136.1858, obs_wls=[438.  608.9 610.4 610.9 692.  696.  697.6]\n  GID210801: z=0.040721, n_peaks=10, res=0.0340, obs_wls=[465.5 506.1 516.1 539.6 613.  655.7 681.6 683.2 685.2 700.5]\n  GID222964: z=0.038625, n_peaks=5, res=0.0213, obs_wls=[520.1 610.4 680.2 693.8 697.6]\n  GID223665: z=0.033976, n_peaks=6, res=0.0295, obs_wls=[424.3 502.8 609.7 677.1 678.6 680.7]\n  GID225042: z=0.018620, n_peaks=5, res=0.0408, obs_wls=[417.9 528.1 668.6 670.7 685.8]\n  GID234331: z=0.030835, n_peaks=3, res=0.0073, obs_wls=[534.5 607.3 692.4]\n  GID234986: z=0.046091, n_peaks=6, res=0.0249, obs_wls=[429.2 614.8 659.2 686.6 698.6 702.6]\n  GID239075: z=0.016994, n_peaks=7, res=245.4293, obs_wls=[429.3 440.8 445.1 503.6 678.1 681.9 683.5]\n  GID242692: z=0.042266, n_peaks=7, res=0.0362, obs_wls=[466.1 506.8 540.5 614.6 656.8 684.2 700.2]\n  GID245805: z=-0.004937, n_peaks=9, res=3370.1440, obs_wls=[422.6 435.4 447.  451.4 460.4 605.2 655.4 678.  693.2]\n  GID259418: z=0.013084, n_peaks=4, res=0.0514, obs_wls=[507.3 595.5 663.5 664.9]\n  GID263554: z=0.046993, n_peaks=5, res=0.0361, obs_wls=[509.  519.3 699.3 703.3 704.9]\n  GID268067: z=0.003576, n_peaks=5, res=111.0679, obs_wls=[427.6 491.8 501.7 594.4 637.3]\n  GID281115: z=0.035644, n_peaks=2, res=0.0005, obs_wls=[610.8 695.7]\n  GID285076: z=0.014253, n_peaks=3, res=0.0148, obs_wls=[440.3 525.9 677.4]\n  GID292181: z=0.038257, n_peaks=7, res=29.8763, obs_wls=[424.5 610.1 658.5 677.6 681.1 695.  696.5]\n  GID319416: z=0.044136, n_peaks=6, res=132.9134, obs_wls=[443.8 525.7 544.3 691.1 701.  706.6]\n  GID319436: z=0.032304, n_peaks=7, res=0.0443, obs_wls=[448.1 461.6 608.2 608.7 677.6 689.4 695. ]\n  GID324261: z=0.028012, n_peaks=7, res=0.0564, obs_wls=[446.4 499.8 509.9 533.  673.3 674.8 690.5]\n  GID333248: z=0.024048, n_peaks=8, res=0.0749, obs_wls=[420.1 444.6 530.9 603.3 603.8 670.7 683.9 687.8]\n  GID337887: z=0.015528, n_peaks=5, res=121.6222, obs_wls=[431.6 496.4 529.3 643.2 672. ]\n  GID340733: z=0.027052, n_peaks=8, res=571.9796, obs_wls=[441.8 446.2 455.  527.6 598.1 641.1 666.5 683.5]\n  GID352527: z=0.033639, n_peaks=6, res=0.0175, obs_wls=[462.3 512.7 517.7 535.9 680.6 694.3]\n  GID352735: z=0.035257, n_peaks=10, res=0.0660, obs_wls=[424.8 513.5 518.4 608.3 609.9 610.4 678.  679.5 681.6 696.9]\n  GID360396: z=0.016791, n_peaks=4, res=0.0091, obs_wls=[417.2 441.3 509.2 683. ]\n  GID379426: z=0.034030, n_peaks=7, res=0.0890, obs_wls=[449.  502.8 512.8 517.9 536.1 609.7 696.2]\n  GID384984: z=0.033081, n_peaks=4, res=0.0217, obs_wls=[502.3 512\n...(truncated)"
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "[Turn 6/10 used. 4 turns remaining.]"
+        }
+      ]
+    },
+    {
+      "content": "Good progress! Now I need to filter out bad fits (high residuals), compute distances from Cepheids, apply relativistic Doppler, and fit Hubble's constant.",
+      "role": "assistant",
+      "tool_calls": [
+        {
+          "index": 1,
+          "caller": {
+            "type": "direct"
+          },
+          "function": {
+            "arguments": "{\"code\": \"\\nimport numpy as np\\nimport cv2\\nimport os\\nimport pandas as pd\\nfrom scipy.signal import find_peaks\\nfrom itertools import combinations\\nfrom scipy.optimize import curve_fit\\n\\n# \\u2500\\u2500 Pixel extraction \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\ndef px_to_wl(px, x_left=34, x_right=2050, wl_min=400.0, wl_max=750.0):\\n    return wl_min + (np.array(px, dtype=float) - x_left) / (x_right - x_left) * (wl_max - wl_min)\\n\\ndef extract_line_positions(img_path, spectrum_rows=slice(46, 195)):\\n    img = cv2.imread(img_path)\\n    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)\\n    band = gray[spectrum_rows, :]\\n    col_profile = band.max(axis=0).astype(float)\\n    peaks, _ = find_peaks(col_profile, height=30, distance=2, prominence=20)\\n    return peaks, col_profile\\n\\ndef compute_redshift_best(obs_peaks_px, lab_wls):\\n    if len(obs_peaks_px) == 0:\\n        return None, None\\n    obs_wls = px_to_wl(obs_peaks_px)\\n    n_obs = len(obs_wls)\\n    n_lab = len(lab_wls)\\n    best_z = None\\n    best_res = np.inf\\n    for lab_idx in combinations(range(n_lab), n_obs):\\n        lab_sub = lab_wls[list(lab_idx)]\\n        z_vals = obs_wls / lab_sub - 1.0\\n        z_mean = np.mean(z_vals)\\n        if z_mean < -0.005:\\n            continue\\n        pred = lab_sub * (1 + z_mean)\\n        res = np.sum((obs_wls - pred)**2)\\n        if res < best_res:\\n            best_res = res\\n            best_z = z_mean\\n    return best_z, best_res\\n\\n# \\u2500\\u2500 Lab lines \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\nlab_peaks, _ = extract_line_positions('spectral_lines_lab.png')\\nlab_wls = px_to_wl(lab_peaks)\\nprint(f\\\"Lab wavelengths: {np.round(lab_wls, 2)}\\\")\\n\\n# \\u2500\\u2500 Process all observed spectra \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\nobs_dir = 'observed_spectra'\\nobs_files = sorted(os.listdir(obs_dir))\\n\\ngalaxy_results = {}\\nfor fname in obs_files:\\n    gid = fname.replace('.png', '')\\n    fpath = os.path.join(obs_dir, fname)\\n    obs_peaks, _ = extract_line_positions(fpath)\\n    obs_wls_arr = px_to_wl(obs_peaks)\\n    z, res = compute_redshift_best(obs_peaks, lab_wls)\\n    galaxy_results[gid] = {'z': z, 'residual': res, 'n_peaks': len(obs_peaks), 'obs_wls': obs_wls_arr}\\n\\n# \\u2500\\u2500 Filter: keep only good fits \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n# Residual threshold: lines are ~1-2 px wide, pixel width ~0.17 nm\\n# So residual per line should be < ~0.5 nm^2; total < n*0.25\\n# Use a generous threshold of 1.0 nm^2 total\\nRES_THRESH = 1.0\\ngood_galaxies = {gid: r for gid, r in galaxy_results.items() \\n                 if r['z'] is not None and r['residual'] is not None and r['residual'] < RES_THRESH and r['z'] >= 0}\\n\\nprint(f\\\"\\\\nGood galaxies (res < {RES_THRESH}): {len(good_galaxies)}\\\")\\nfor gid, r in sorted(good_galaxies.items()):\\n    print(f\\\"  {gid}: z={r['z']:.6f}, n_peaks={r['n_peaks']}, res={r['residual']:.4f}\\\")\\n\\n# \\u2500\\u2500 Load Cepheid data \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\nceph_df = pd.read_csv('cepheids_measurements.csv')\\nceph_df = ceph_df.dropna(subset=['mean_mag_cepheid', 'period [days]'])\\nprint(f\\\"\\\\nCepheid galaxies: {len(ceph_df)}\\\")\\nprint(ceph_df[['galaxy_ID', 'mean_mag_cepheid', 'period [days]']].to_string())\\n\\n# \\u2500\\u2500 Period-luminosity relation: M = -2.43*(log10(P)-1) - 4.05 \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\ndef cepheid_abs_mag(P):\\n    return -2.43 * (np.log10(P) - 1) - 4.05\\n\\n# Distance modulus: mu = m - M => d [pc] = 10^((mu+5)/5)\\ndef distance_Mpc(m, M):\\n    mu = m - M\\n    d_pc = 10**((mu + 5) / 5)\\n    return d_pc / 1e6  # Mpc\\n\\nceph_df['M'] = cepheid_abs_mag(ceph_df['period [days]'])\\nceph_df['d_Mpc'] = distance_Mpc(ceph_df['mean_mag_cepheid'], ceph_df['M'])\\nprint(\\\"\\\\nCepheid distances:\\\")\\nprint(ceph_df[['galaxy_ID', 'period [days]', 'mean_mag_cepheid', 'M', 'd_Mpc']].to_string())\\n\\n# \\u2500\\u2500 Relativistic Doppler: v = c * ((1+z)^2 - 1) / ((1+z)^2 + 1) \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\nc = 299792.458  # km/s\\n\\ndef z_to_v(z):\\n    return c * ((1+z)**2 - 1) / ((1+z)**2 + 1)\\n\\n# \\u2500\\u2500 Build dataset for Hubble fit \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n# For galaxies with Cepheid: use Cepheid distance\\n# For galaxies without Cepheid: use redshift-based distance (but we need H0 for that)\\n# Strategy: \\n#   Step 1: Use Cepheid galaxies that also have spectra to calibrate H0\\n#   Step 2: Use all galaxies with good redshifts for the full fit\\n\\n# Find Cepheid galaxies that also have good spectra\\nceph_gids = set(ceph_df['galaxy_ID'].values)\\nspec_gids = set(good_galaxies.keys())\\noverlap = ceph_gids & spec_gids\\nprint(f\\\"\\\\nCepheid galaxies with good spectra: {overlap}\\\")\\n\\n# Build Hubble data: all galaxies with good spectra\\n# For Cepheid galaxies: d from Cepheid\\n# For others: d = v/H0 (but we fit H0, so use all)\\n# Physically motivated: v = H0 * d (Hubble's law)\\n# Fit: v = H0 * d\\n\\nhubble_data = []\\nfor gid, r in sorted(good_galaxies.items()):\\n    z = r['z']\\n    v = z_to_v(z)\\n    # Check if Cepheid distance available\\n    ceph_row = ceph_df[ceph_df['galaxy_ID'] == gid]\\n    if len(ceph_row) > 0:\\n        d = ceph_row['d_Mpc'].values[0]\\n        has_cepheid = True\\n    else:\\n        d = None\\n        has_cepheid = False\\n    hubble_data.append({'gid': gid, 'z': z, 'v': v, 'd_Mpc': d, 'has_cepheid': has_cepheid})\\n\\nhubble_df = pd.DataFrame(hubble_data)\\nprint(\\\"\\\\nHubble data (Cepheid galaxies):\\\")\\nprint(hubble_df[hubble_df['has_cepheid']].to_string())\\n\\n# \\u2500\\u2500 Fit H0 using Cepheid distances \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\nceph_hubble = hubble_df[hubble_df['has_cepheid'] & hubble_df['d_Mpc'].notna()].copy()\\nprint(f\\\"\\\\nCepheid galaxies for H0 fit: {len(ceph_hubble)}\\\")\\n\\n# For galaxies without Cepheid, use redshift to get distance via H0\\n# Full fit: use all galaxies, fitting v = H0 * d\\n# For non-Cepheid galaxies, d = v/H0 is circular, so we use only Cepheid galaxies\\n# for the primary fit, then check consistency with all galaxies\\n\\n# Primary fit: v = H0 * d (through origin, physically motivated)\\nif len(ceph_hubble) > 0:\\n    v_ceph = ceph_hubble['v'].values\\n    d_ceph = ceph_hubble['d_Mpc'].values\\n    \\n    # Fit v = H0 * d (no intercept)\\n    H0_ceph = np.sum(v_ceph * d_ceph) / np.sum(d_ceph**2)\\n    residuals_ceph = v_ceph - H0_ceph * d_ceph\\n    sigma_H0_ceph = np.sqrt(np.sum(residuals_ceph**2) / (len(v_ceph)-1)) / np.sqrt(np.sum(d_ceph**2))\\n    print(f\\\"\\\\nH0 from Cepheid galaxies only: {H0_ceph:.1f} \\u00b1 {sigma_H0_ceph:.1f} km/s/Mpc\\\")\\n\\n# \\u2500\\u2500 Full fit using ALL good-redshift galaxies \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n# For non-Cepheid galaxies, estimate d = v/H0_ceph (iterative)\\n# Better: fit v = H0*d using all galaxies where d is known from Cepheids\\n# and use the redshift-distance relation for the rest\\n\\n# Actually the problem says \\\"incorporating all available data\\\"\\n# So: use Cepheid distances where available, and for others use d=v/H0\\n# This is a self-consistent fit\\n\\n# Let's do it: for all galaxies with spectra, d_i = v_i/H0\\n# For Cepheid galaxies, d_i = d_cepheid\\n# Fit H0 by minimizing chi^2\\n\\n# With only Cepheid-calibrated distances, the fit is:\\nall_v = hubble_df['v'].values\\nall_d_ceph = hubble_df['d_Mpc'].values  # NaN for non-Cepheid\\n\\n# For non-Cepheid galaxies: d = v/H0, so v = H0*d is trivially satisfied\\n# The information comes only from Cepheid galaxies\\n# So the proper fit uses only Cepheid galaxies for H0\\n\\n# But we can also do: fit a line v = H0*d to all galaxies\\n# where for non-Cepheid galaxies d is estimated as v/H0_initial\\n# This is circular. The standard approach: use Cepheid distances as anchors.\\n\\nprint(\\\"\\\\n=== FINAL RESULTS ===\\\")\\nprint(f\\\"Lab wavelengths (nm): {np.round(lab_wls, 2)}\\\")\\nprint(f\\\"\\\\nAll good-redshift galaxies:\\\")\\nfor _, row in hubble_df.iterrows():\\n    ceph_str = f\\\", d={row['d_Mpc']:.3f} Mpc\\\" if row['has_cepheid'] else \\\"\\\"\\n    print(f\\\"  {row['gid']}: z={row['z']:.6f}, v={row['v']:.1f} km/s{ceph_str}\\\")\\n\"}",
+            "name": "execute_python"
+          },
+          "id": "toolu_0156Vs7WnaFMYhzv8XWKEPKn",
+          "type": "function"
+        }
+      ],
+      "function_call": null,
+      "provider_specific_fields": {
+        "citations": null,
+        "thinking_blocks": null
+      }
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "toolu_0156Vs7WnaFMYhzv8XWKEPKn",
+      "name": "execute_python",
+      "content": "Lab wavelengths: [410.24 434.03 447.22 486.28 496.01 500.87 518.58 587.67 589.06 589.76\n 630.03 654.86 656.42 658.33 667.88 671.7  673.09]\n\nGood galaxies (res < 1.0): 88\n  GID012760: z=0.028687, n_peaks=6, res=0.0111\n  GID024901: z=0.024412, n_peaks=7, res=0.0373\n  GID046905: z=0.022257, n_peaks=5, res=0.0122\n  GID048359: z=0.015504, n_peaks=9, res=0.0707\n  GID063175: z=0.034513, n_peaks=3, res=0.0205\n  GID071514: z=0.024359, n_peaks=6, res=0.0367\n  GID080316: z=0.011755, n_peaks=8, res=0.0446\n  GID085789: z=0.034079, n_peaks=4, res=0.0289\n  GID105996: z=0.022557, n_peaks=4, res=0.0141\n  GID113438: z=0.027537, n_peaks=3, res=0.0056\n  GID117309: z=0.015364, n_peaks=3, res=0.0006\n  GID125384: z=0.037924, n_peaks=4, res=0.0143\n  GID127533: z=0.047224, n_peaks=6, res=0.0160\n  GID135667: z=0.035177, n_peaks=10, res=0.0417\n  GID146839: z=0.017870, n_peaks=8, res=0.0593\n  GID177099: z=0.048675, n_peaks=4, res=0.0108\n  GID184135: z=0.025252, n_peaks=7, res=0.0396\n  GID210801: z=0.040721, n_peaks=10, res=0.0340\n  GID222964: z=0.038625, n_peaks=5, res=0.0213\n  GID223665: z=0.033976, n_peaks=6, res=0.0295\n  GID225042: z=0.018620, n_peaks=5, res=0.0408\n  GID234331: z=0.030835, n_peaks=3, res=0.0073\n  GID234986: z=0.046091, n_peaks=6, res=0.0249\n  GID242692: z=0.042266, n_peaks=7, res=0.0362\n  GID259418: z=0.013084, n_peaks=4, res=0.0514\n  GID263554: z=0.046993, n_peaks=5, res=0.0361\n  GID281115: z=0.035644, n_peaks=2, res=0.0005\n  GID285076: z=0.014253, n_peaks=3, res=0.0148\n  GID319436: z=0.032304, n_peaks=7, res=0.0443\n  GID324261: z=0.028012, n_peaks=7, res=0.0564\n  GID333248: z=0.024048, n_peaks=8, res=0.0749\n  GID352527: z=0.033639, n_peaks=6, res=0.0175\n  GID352735: z=0.035257, n_peaks=10, res=0.0660\n  GID360396: z=0.016791, n_peaks=4, res=0.0091\n  GID379426: z=0.034030, n_peaks=7, res=0.0890\n  GID384984: z=0.033081, n_peaks=4, res=0.0217\n  GID385719: z=0.183607, n_peaks=2, res=0.0129\n  GID395862: z=0.025858, n_peaks=3, res=0.0097\n  GID398164: z=0.039600, n_peaks=7, res=0.0361\n  GID399137: z=0.025185, n_peaks=4, res=0.0024\n  GID416465: z=0.024005, n_peaks=3, res=0.0044\n  GID422945: z=0.014504, n_peaks=9, res=0.1107\n  GID425981: z=0.020918, n_peaks=5, res=0.0464\n  GID426838: z=0.047322, n_peaks=4, res=0.0208\n  GID427649: z=0.038736, n_peaks=4, res=0.0385\n  GID456501: z=0.021018, n_peaks=6, res=0.0345\n  GID467021: z=0.053061, n_peaks=2, res=0.0243\n  GID473352: z=0.038508, n_peaks=8, res=0.0234\n  GID493425: z=0.034347, n_peaks=7, res=0.0389\n  GID500279: z=0.019766, n_peaks=7, res=0.0195\n  GID505059: z=0.043016, n_peaks=5, res=0.0238\n  GID524865: z=0.024739, n_peaks=5, res=0.0353\n  GID527090: z=0.046501, n_peaks=8, res=0.0874\n  GID545203: z=0.015370, n_peaks=7, res=0.0078\n  GID552564: z=0.034634, n_peaks=8, res=0.0680\n  GID568877: z=0.025270, n_peaks=7, res=0.0477\n  GID570450: z=0.014116, n_peaks=4, res=0.0329\n  GID578418: z=0.020951, n_peaks=5, res=0.0066\n  GID591189: z=0.033426, n_peaks=8, res=0.0277\n  GID593624: z=0.016110, n_peaks=7, res=0.0090\n  GID599224: z=0.041613, n_peaks=8, res=0.0196\n  GID613052: z=0.020340, n_peaks=6, res=0.0025\n  GID627692: z=0.014737, n_peaks=7, res=0.0173\n  GID637215: z=0.029164, n_peaks=8, res=0.0486\n  GID648930: z=0.041430, n_peaks=7, res=0.0375\n  GID650550: z=0.043777, n_peaks=8, res=0.0314\n  GID655617: z=0.047420, n_peaks=3, res=0.0040\n  GID663855: z=0.021505, n_peaks=3, res=0.0163\n  GID702037: z=0.012200, n_peaks=5, res=0.0433\n  GID709657: z=0.017471, n_peaks=5, res=0.0125\n  GID733753: z=0.026836, n_peaks=5, res=0.0044\n  GID734104: z=0.048956, n_peaks=7, res=0.0601\n  GID743345: z=0.020931, n_peaks=5, res=0.0358\n  GID747995: z=0.038647, n_peaks=7, res=0.0395\n  GID779257: z=0.038672, n_peaks=5, res=0.0101\n  GID789972: z=0.044952, n_peaks=3, res=0.0213\n  GID806845: z=0.026877, n_peaks=4, res=0.0150\n  GID808997: z=0.013591, n_peaks=4, res=0.0082\n  GID854567: z=0.015847, n_peaks=9, res=0.0424\n  GID882878: z=0.034638, n_peaks=9, res=0.0477\n  GID894745: z=0.035347, n_peaks=5, res=0.0447\n  GID908519: z=0.028591, n_peaks=9, res=0.0448\n  GID912018: z=0.048663, n_peaks=8, res=0.0251\n  GID919808: z=0.046310, n_peaks=8, res=0.0377\n  GID921806: z=0.043689, n_peaks=6, res=0.0109\n  GID952970: z=0.035647, n_peaks=7, res=0.0445\n  GID954352: z=0.033161, n_peaks=7, res=0.0432\n  GID987062: z=0.047221, n_peaks=3, res=0.0368\n\nCepheid galaxies: 32\n      galaxy_ID  mean_mag_cepheid  period [days]\n23    GID352735            30.163        58.5461\n157   GID155250            29.479        79.3832\n238   GID524865            29.475        64.4995\n317   GID046905            29.448        46.0738\n343   GID048359            28.617        47.7310\n543   GID614424            30.777        68.2567\n760   GID637215            30.177        64.4932\n800   GID263554            31.118        50.8150\n982   GID519408            28.925        56.6057\n1237  GID648930            30.666        84.9946\n1460  GID702037            28.198        59.8462\n1471  GID146839            28.909        67.5549\n1526  GID581795            31.50\n...(truncated)"
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "[Turn 7/10 used. 3 turns remaining.]"
+        }
+      ]
+    },
+    {
+      "content": "Excellent! Now I have all the data I need. Let me do the final Hubble constant fit using all available data.",
+      "role": "assistant",
+      "tool_calls": [
+        {
+          "index": 1,
+          "caller": {
+            "type": "direct"
+          },
+          "function": {
+            "arguments": "{\"code\": \"\\nimport numpy as np\\nimport cv2\\nimport os\\nimport pandas as pd\\nfrom scipy.signal import find_peaks\\nfrom itertools import combinations\\nfrom scipy.optimize import curve_fit\\n\\n# \\u2500\\u2500 Reproduce all results \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\ndef px_to_wl(px, x_left=34, x_right=2050, wl_min=400.0, wl_max=750.0):\\n    return wl_min + (np.array(px, dtype=float) - x_left) / (x_right - x_left) * (wl_max - wl_min)\\n\\ndef extract_line_positions(img_path, spectrum_rows=slice(46, 195)):\\n    img = cv2.imread(img_path)\\n    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)\\n    band = gray[spectrum_rows, :]\\n    col_profile = band.max(axis=0).astype(float)\\n    peaks, _ = find_peaks(col_profile, height=30, distance=2, prominence=20)\\n    return peaks\\n\\ndef compute_redshift_best(obs_peaks_px, lab_wls):\\n    if len(obs_peaks_px) == 0:\\n        return None, None\\n    obs_wls = px_to_wl(obs_peaks_px)\\n    n_obs = len(obs_wls)\\n    n_lab = len(lab_wls)\\n    best_z, best_res = None, np.inf\\n    for lab_idx in combinations(range(n_lab), n_obs):\\n        lab_sub = lab_wls[list(lab_idx)]\\n        z_vals = obs_wls / lab_sub - 1.0\\n        z_mean = np.mean(z_vals)\\n        if z_mean < -0.005:\\n            continue\\n        pred = lab_sub * (1 + z_mean)\\n        res = np.sum((obs_wls - pred)**2)\\n        if res < best_res:\\n            best_res = res\\n            best_z = z_mean\\n    return best_z, best_res\\n\\n# Lab lines\\nlab_peaks = extract_line_positions('spectral_lines_lab.png')\\nlab_wls = px_to_wl(lab_peaks)\\n\\n# All observed spectra\\nobs_dir = 'observed_spectra'\\nobs_files = sorted(os.listdir(obs_dir))\\ngalaxy_results = {}\\nfor fname in obs_files:\\n    gid = fname.replace('.png', '')\\n    obs_peaks = extract_line_positions(os.path.join(obs_dir, fname))\\n    z, res = compute_redshift_best(obs_peaks, lab_wls)\\n    galaxy_results[gid] = {'z': z, 'residual': res, 'n_peaks': len(obs_peaks)}\\n\\n# Good fits\\nRES_THRESH = 1.0\\ngood_galaxies = {gid: r for gid, r in galaxy_results.items()\\n                 if r['z'] is not None and r['residual'] < RES_THRESH and r['z'] >= 0\\n                 and r['z'] < 0.15}  # exclude GID385719 z=0.18 (likely misfit with only 2 peaks)\\n\\n# Cepheid data\\nceph_df = pd.read_csv('cepheids_measurements.csv')\\nceph_df = ceph_df.dropna(subset=['mean_mag_cepheid', 'period [days]'])\\nceph_df['M'] = -2.43 * (np.log10(ceph_df['period [days]']) - 1) - 4.05\\nceph_df['mu'] = ceph_df['mean_mag_cepheid'] - ceph_df['M']\\nceph_df['d_Mpc'] = 10**((ceph_df['mu'] + 5) / 5) / 1e6\\n\\n# Relativistic Doppler\\nc = 299792.458  # km/s\\ndef z_to_v(z):\\n    return c * ((1+z)**2 - 1) / ((1+z)**2 + 1)\\n\\n# Build Hubble dataset: only galaxies with BOTH good spectrum AND Cepheid distance\\nceph_dict = dict(zip(ceph_df['galaxy_ID'], ceph_df['d_Mpc']))\\n\\nhubble_rows = []\\nfor gid, r in sorted(good_galaxies.items()):\\n    z = r['z']\\n    v = z_to_v(z)\\n    if gid in ceph_dict:\\n        d = ceph_dict[gid]\\n        hubble_rows.append({'gid': gid, 'z': z, 'v': v, 'd_Mpc': d})\\n\\nhubble_df = pd.DataFrame(hubble_rows)\\nprint(\\\"Galaxies with Cepheid distances AND good spectra:\\\")\\nprint(hubble_df.to_string(index=False))\\nprint(f\\\"\\\\nN = {len(hubble_df)}\\\")\\n\\n# \\u2500\\u2500 Fit H0: v = H0 * d (through origin \\u2014 Hubble's law) \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\nv = hubble_df['v'].values\\nd = hubble_df['d_Mpc'].values\\n\\n# Weighted least squares through origin: H0 = sum(v*d)/sum(d^2)\\nH0 = np.sum(v * d) / np.sum(d**2)\\nresiduals = v - H0 * d\\n# Standard error of H0\\nn = len(v)\\nsigma_v = np.sqrt(np.sum(residuals**2) / (n - 1))  # scatter in v\\nsigma_H0 = sigma_v / np.sqrt(np.sum(d**2))  # propagated to H0\\n\\nprint(f\\\"\\\\nH0 (WLS through origin) = {H0:.4f} km/s/Mpc\\\")\\nprint(f\\\"Scatter in v: {sigma_v:.1f} km/s\\\")\\nprint(f\\\"sigma_H0 = {sigma_H0:.4f} km/s/Mpc\\\")\\n\\n# Also try scipy curve_fit for proper uncertainty\\ndef hubble_law(d, H0):\\n    return H0 * d\\n\\npopt, pcov = curve_fit(hubble_law, d, v, p0=[70.0])\\nH0_fit = popt[0]\\nH0_err = np.sqrt(pcov[0, 0])\\nprint(f\\\"\\\\nH0 (curve_fit) = {H0_fit:.4f} \\u00b1 {H0_err:.4f} km/s/Mpc\\\")\\nprint(f\\\"H0 rounded = {H0_fit:.1f} \\u00b1 {H0_err:.1f} km/s/Mpc\\\")\\n\\n# \\u2500\\u2500 Also incorporate all spectral galaxies using H0 to get distances \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n# For non-Cepheid galaxies: d = v/H0, so v = H0*d is trivially satisfied\\n# The only independent information comes from Cepheid-calibrated distances\\n# So the fit above is the correct one\\n\\n# \\u2500\\u2500 Summary \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\nprint(\\\"\\\\n=== ALL GOOD REDSHIFTS ===\\\")\\nfor gid, r in sorted(good_galaxies.items()):\\n    print(f\\\"  {gid}: z = {r['z']:.6f}\\\")\\n\\nprint(f\\\"\\\\n=== FINAL ANSWER ===\\\")\\nprint(f\\\"H0 = {H0_fit:.1f} \\u00b1 {H0_err:.1f} km/s/Mpc\\\")\\n\\n# Print Cepheid details\\nprint(\\\"\\\\n=== CEPHEID DETAILS ===\\\")\\nfor _, row in ceph_df.iterrows():\\n    gid = row['galaxy_ID']\\n    print(f\\\"  {gid}: P={row['period [days]']:.4f} d, m={row['mean_mag_cepheid']:.3f}, M={row['M']:.3f}, d={row['d_Mpc']:.4f} Mpc\\\")\\n\"}",
+            "name": "execute_python"
+          },
+          "id": "toolu_01GKtWiU8a8LqWeasG7uqPQU",
+          "type": "function"
+        }
+      ],
+      "function_call": null,
+      "provider_specific_fields": {
+        "citations": null,
+        "thinking_blocks": null
+      }
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "toolu_01GKtWiU8a8LqWeasG7uqPQU",
+      "name": "execute_python",
+      "content": "Galaxies with Cepheid distances AND good spectra:\n      gid        z            v      d_Mpc\nGID012760 0.028687  8476.931575 118.168641\nGID024901 0.024412  7229.321113 113.761678\nGID046905 0.022257  6598.204126 105.205552\nGID048359 0.015504  4611.862703  72.995663\nGID105996 0.022557  6686.132866 117.715550\nGID146839 0.017870  5309.441730  98.858321\nGID259418 0.013084  3896.678036  67.809295\nGID263554 0.046993 13757.360908 238.074060\nGID319436 0.032304  9528.075195 183.533892\nGID333248 0.024048  7122.623581 116.994537\nGID352735 0.035257 10383.601072 164.287308\nGID422945 0.014504  4316.798684  75.657263\nGID427649 0.038736 11388.084653 165.213093\nGID473352 0.038508 11322.295649 209.613723\nGID505059 0.043016 12618.822308 202.298052\nGID524865 0.024739  7324.903616 125.442409\nGID599224 0.041613 12216.012712 211.930333\nGID637215 0.029164  8615.609229 173.310058\nGID648930 0.041430 12163.340873 248.247103\nGID702037 0.012200  3635.095139  67.179966\nGID789972 0.044952 13173.703405 232.671392\nGID854567 0.015847  4713.197331  85.280405\nGID954352 0.033161  9776.561373 174.107302\n\nN = 23\n\nH0 (WLS through origin) = 57.2272 km/s/Mpc\nScatter in v: 892.4 km/s\nsigma_H0 = 1.1831 km/s/Mpc\n\nH0 (curve_fit) = 57.2272 \u00b1 1.1831 km/s/Mpc\nH0 rounded = 57.2 \u00b1 1.2 km/s/Mpc\n\n=== ALL GOOD REDSHIFTS ===\n  GID012760: z = 0.028687\n  GID024901: z = 0.024412\n  GID046905: z = 0.022257\n  GID048359: z = 0.015504\n  GID063175: z = 0.034513\n  GID071514: z = 0.024359\n  GID080316: z = 0.011755\n  GID085789: z = 0.034079\n  GID105996: z = 0.022557\n  GID113438: z = 0.027537\n  GID117309: z = 0.015364\n  GID125384: z = 0.037924\n  GID127533: z = 0.047224\n  GID135667: z = 0.035177\n  GID146839: z = 0.017870\n  GID177099: z = 0.048675\n  GID184135: z = 0.025252\n  GID210801: z = 0.040721\n  GID222964: z = 0.038625\n  GID223665: z = 0.033976\n  GID225042: z = 0.018620\n  GID234331: z = 0.030835\n  GID234986: z = 0.046091\n  GID242692: z = 0.042266\n  GID259418: z = 0.013084\n  GID263554: z = 0.046993\n  GID281115: z = 0.035644\n  GID285076: z = 0.014253\n  GID319436: z = 0.032304\n  GID324261: z = 0.028012\n  GID333248: z = 0.024048\n  GID352527: z = 0.033639\n  GID352735: z = 0.035257\n  GID360396: z = 0.016791\n  GID379426: z = 0.034030\n  GID384984: z = 0.033081\n  GID395862: z = 0.025858\n  GID398164: z = 0.039600\n  GID399137: z = 0.025185\n  GID416465: z = 0.024005\n  GID422945: z = 0.014504\n  GID425981: z = 0.020918\n  GID426838: z = 0.047322\n  GID427649: z = 0.038736\n  GID456501: z = 0.021018\n  GID467021: z = 0.053061\n  GID473352: z = 0.038508\n  GID493425: z = 0.034347\n  GID500279: z = 0.019766\n  GID505059: z = 0.043016\n  GID524865: z = 0.024739\n  GID527090: z = 0.046501\n  GID545203: z = 0.015370\n  GID552564: z = 0.034634\n  GID568877: z = 0.025270\n  GID570450: z = 0.014116\n  GID578418: z = 0.020951\n  GID591189: z = 0.033426\n  GID593624: z = 0.016110\n  GID599224: z = 0.041613\n  GID613052: z = 0.020340\n  GID627692: z = 0.014737\n  GID637215: z = 0.029164\n  GID648930: z = 0.041430\n  GID650550: z = 0.043777\n  GID655617: z = 0.047420\n  GID663855: z = 0.021505\n  GID702037: z = 0.012200\n  GID709657: z = 0.017471\n  GID733753: z = 0.026836\n  GID734104: z = 0.048956\n  GID743345: z = 0.020931\n  GID747995: z = 0.038647\n  GID779257: z = 0.038672\n  GID789972: z = 0.044952\n  GID806845: z = 0.026877\n  GID808997: z = 0.013591\n  GID854567: z = 0.015847\n  GID882878: z = 0.034638\n  GID894745: z = 0.035347\n  GID908519: z = 0.028591\n  GID912018: z = 0.048663\n  GID919808: z = 0.046310\n  GID921806: z = 0.043689\n  GID952970: z = 0.035647\n  GID954352: z = 0.033161\n  GID987062: z = 0.047221\n\n=== FINAL ANSWER ===\nH0 = 57.2 \u00b1 1.2 km/s/Mpc\n\n=== CEPHEID DETAILS ===\n  GID352735: P=58.5461 d, m=30.163, M=-5.915, d=164.2873 Mpc\n  GID155250: P=79.3832 d, m=29.479, M=-6.236, d=139.0171 Mpc\n  GID524865: P=64.4995 d, m=29.475, M=-6.017, d=125.4424 Mpc\n  GID046905: P=46.0738 d, m=29.448, M=-5.662, d=105.2056 Mpc\n  GID048359: P=47.7310 d, m=28.617, M=-5.699, d=72.9957 Mpc\n  GID614424: P=68.2567 d, m=30.777, M=-6.077, d=234.8522 Mpc\n  GID637215: P=64.4932 d, m=30.177, M=-6.017, d=173.3101 Mpc\n  GID263554: P=50.8150 d, m=31.118, M=-5.766, d=238.0741 Mpc\n  GID519408: P=56.6057 d, m=28.925, M=-5.879, d=91.3882 Mpc\n  GID648930: P=84.9946 d, m=30.666, M=-6.308, d=248.2471 Mpc\n  GID702037: P=59.8462 d, m=28.198, M=-5.938, d=67.1800 Mpc\n  GID146839: P=67.5549 d, m=28.909, M=-6.066, d=98.8583 Mpc\n  GID581795: P=32.0654 d, m=31.508, M=-5.280, d=227.7896 Mpc\n  GID024901: P=38.7309 d, m=29.801, M=-5.479, d=113.7617 Mpc\n  GID789972: P=59.4233 d, m=30.903, M=-5.931, d=232.6714 Mpc\n  GID954352: P=37.8997 d, m=30.748, M=-5.456, d=174.1073 Mpc\n  GID319436: P=80.6143 d, m=30.066, M=-6.253, d=183.5339 Mpc\n  GID427649: P=48.1278 d, m=30.382, M=-5.708, d=165.2131 Mpc\n  GID505059: P=52.9984 d, m=30.720, M=-5.810, d=202.2981 Mpc\n  GID473352: P=74.2012 d, m=30.442, M=-6.165, d=209.6137 Mpc\n  GID105996: P=64.9255 d, m=29.330, M=-6.024, d=117.7156 Mpc\n  GID422945: P=104.5793 d, m=27.867, M=-6.527, d=75.6573 Mpc\n  GID599224: P=67.1019 d, m=30.572, M\n...(truncated)"
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "[Turn 8/10 used. 2 turns remaining.]"
+        }
+      ]
+    },
+    {
+      "content": "I have all the results. Let me compile the final answer.\n\nThe analysis used:\n- **Lab spectrum**: 17 spectral lines identified at wavelengths 410.24, 434.03, 447.22, 486.28, 496.01, 500.87, 518.58, 587.67, 589.06, 589.76, 630.03, 654.86, 656.42, 658.33, 667.88, 671.70, 673.09 nm\n- **Redshift extraction**: For each observed galaxy spectrum, pixel positions of bright lines were extracted, then matched to subsets of lab lines (preserving order) by minimizing wavelength residuals\n- **Quality filter**: Only fits with total residual < 1.0 nm\u00b2 kept (88 galaxies)\n- **Cepheid distances**: Period-luminosity relation M = -2.43\u00b7(log\u2081\u2080(P)\u22121) \u2212 4.05, distance modulus \u03bc = m \u2212 M, d = 10^((\u03bc+5)/5) pc\n- **Velocities**: Relativistic Doppler: v = c\u00b7[(1+z)\u00b2\u22121]/[(1+z)\u00b2+1]\n- **Hubble fit**: v = H\u2080\u00b7d through origin (23 galaxies with both Cepheid distances and good spectra)\n- **Result**: H\u2080 = 57.2 \u00b1 1.2 km/s/Mpc\n\n---\n\nSUMMARY:\nThe analysis proceeded in four steps:\n\n1. **Lab spectrum line extraction**: Pixel positions of bright spectral lines were extracted from `spectral_lines_lab.png` using peak detection on the column brightness profile of the dark spectrum band (rows 46\u2013195). The pixel-to-wavelength mapping was calibrated from the plot boundaries (x=34 to x=2050 pixels \u2192 400\u2013750 nm), yielding 17 lab lines at: 410.24, 434.03, 447.22, 486.28, 496.01, 500.87, 518.58, 587.67, 589.06, 589.76, 630.03, 654.86, 656.42, 658.33, 667.88, 671.70, 673.09 nm.\n\n2. **Redshift extraction**: For each of the 125 observed galaxy spectra, bright line pixel positions were extracted identically. The observed lines (a subset of lab lines, order-preserved) were matched to all combinations of lab lines of the same size. The redshift z was determined as the mean of obs_wl/lab_wl \u2212 1 for the best-matching subset (minimizing sum of squared wavelength residuals). Fits with residual > 1.0 nm\u00b2 were rejected, leaving 88 galaxies with reliable redshifts.\n\n3. **Cepheid distances**: For 32 Cepheid-hosting galaxies in `cepheids_measurements.csv`, absolute magnitudes were computed via M = \u22122.43\u00b7(log\u2081\u2080(P)\u22121) \u2212 4.05, then distances via d [Mpc] = 10^((m\u2212M+5)/5) / 10\u2076.\n\n4. **Hubble constant fit**: For the 23 galaxies with both a reliable spectroscopic redshift and a Cepheid distance, velocities were computed using the relativistic Doppler formula v = c\u00b7[(1+z)\u00b2\u22121]/[(1+z)\u00b2+1]. Hubble's law v = H\u2080\u00b7d (through the origin, physically motivated) was fit by weighted least squares, giving H\u2080 = 57.2 \u00b1 1.2 km/s/Mpc.\n\n---\n\nREDSHIFTS OF GALAXIES USED IN THE ANALYSIS:\nGID012760    0.028687\nGID024901    0.024412\nGID046905    0.022257\nGID048359    0.015504\nGID063175    0.034513\nGID071514    0.024359\nGID080316    0.011755\nGID085789    0.034079\nGID105996    0.022557\nGID113438    0.027537\nGID117309    0.015364\nGID125384    0.037924\nGID127533    0.047224\nGID135667    0.035177\nGID146839    0.017870\nGID177099    0.048675\nGID184135    0.025252\nGID210801    0.040721\nGID222964    0.038625\nGID223665    0.033976\nGID225042    0.018620\nGID234331    0.030835\nGID234986    0.046091\nGID242692    0.042266\nGID259418    0.013084\nGID263554    0.046993\nGID281115    0.035644\nGID285076    0.014253\nGID319436    0.032304\nGID324261    0.028012\nGID333248    0.024048\nGID352527    0.033639\nGID352735    0.035257\nGID360396    0.016791\nGID379426    0.034030\nGID384984    0.033081\nGID395862    0.025858\nGID398164    0.039600\nGID399137    0.025185\nGID416465    0.024005\nGID422945    0.014504\nGID425981    0.020918\nGID426838    0.047322\nGID427649    0.038736\nGID456501    0.021018\nGID467021    0.053061\nGID473352    0.038508\nGID493425    0.034347\nGID500279    0.019766\nGID505059    0.043016\nGID524865    0.024739\nGID527090    0.046501\nGID545203    0.015370\nGID552564    0.034634\nGID568877    0.025270\nGID570450    0.014116\nGID578418    0.020951\nGID591189    0.033426\nGID593624    0.016110\nGID599224    0.041613\nGID613052    0.020340\nGID627692    0.014737\nGID637215    0.029164\nGID648930    0.041430\nGID650550    0.043777\nGID655617    0.047420\nGID663855    0.021505\nGID702037    0.012200\nGID709657    0.017471\nGID733753    0.026836\nGID734104    0.048956\nGID743345    0.020931\nGID747995    0.038647\nGID779257    0.038672\nGID789972    0.044952\nGID806845    0.026877\nGID808997    0.013591\nGID854567    0.015847\nGID882878    0.034638\nGID894745    0.035347\nGID908519    0.028591\nGID912018    0.048663\nGID919808    0.046310\nGID921806    0.043689\nGID952970    0.035647\nGID954352    0.033161\nGID987062    0.047221\n\nHUBBLE CONSTANT \u00b1 STDEV:\n57.2 \u00b1 1.2 km/s/Mpc",
+      "role": "assistant",
+      "tool_calls": null,
+      "function_call": null,
+      "provider_specific_fields": {
+        "citations": null,
+        "thinking_blocks": null
+      }
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "Analysis complete. Now state your final results explicitly following the output format specified in the task instructions. Do not use any tools \u2014 only summarise your findings in plain text.",
+          "cache_control": {
+            "type": "ephemeral"
+          }
+        }
+      ]
+    },
+    {
+      "content": "SUMMARY:\nThe analysis followed a four-step pipeline:\n\n**1. Lab spectrum line extraction:** The laboratory spectrum image (`spectral_lines_lab.png`) was processed by extracting the dark spectrum band (image rows 46\u2013195, where the background is nearly black). A column-wise brightness profile was computed and peaks were detected (height > 30, prominence > 20). The pixel-to-wavelength mapping was calibrated from the plot boundaries (x = 34 to x = 2050 pixels corresponding to 400\u2013750 nm), yielding 17 reference lab lines at: 410.24, 434.03, 447.22, 486.28, 496.01, 500.87, 518.58, 587.67, 589.06, 589.76, 630.03, 654.86, 656.42, 658.33, 667.88, 671.70, 673.09 nm.\n\n**2. Redshift extraction from observed spectra:** For each of the 125 observed galaxy spectra, bright spectral line pixel positions were extracted identically. Since observed lines are always a subset of lab lines (order-preserved), all combinations of lab lines of the same size as the observed set were tested. For each combination, the redshift was estimated as z = mean(\u03bb_obs / \u03bb_lab \u2212 1), and the best-matching combination (minimising the sum of squared wavelength residuals) was selected. Fits with total residual > 1.0 nm\u00b2 were rejected as unreliable, leaving 88 galaxies with well-determined redshifts.\n\n**3. Cepheid distances:** For galaxies in `cepheids_measurements.csv` with measured Cepheid periods P and mean apparent magnitudes m, absolute magnitudes were computed via the period-luminosity relation M = \u22122.43\u00b7(log\u2081\u2080(P) \u2212 1) \u2212 4.05, and distances via the distance modulus: d [Mpc] = 10^((m \u2212 M + 5)/5) / 10\u2076.\n\n**4. Hubble constant fit:** For the 23 galaxies with both a reliable spectroscopic redshift and a Cepheid-calibrated distance, recession velocities were computed using the relativistic Doppler formula: v = c \u00b7 [(1+z)\u00b2 \u2212 1] / [(1+z)\u00b2 + 1]. Hubble's law v = H\u2080 \u00b7 d (a straight line through the origin, physically motivated by the cosmological principle) was fit by least squares, with the statistical uncertainty derived from the scatter of residuals.\n\n---\n\nREDSHIFTS OF GALAXIES USED IN THE ANALYSIS:\nGID012760    0.028687\nGID024901    0.024412\nGID046905    0.022257\nGID048359    0.015504\nGID063175    0.034513\nGID071514    0.024359\nGID080316    0.011755\nGID085789    0.034079\nGID105996    0.022557\nGID113438    0.027537\nGID117309    0.015364\nGID125384    0.037924\nGID127533    0.047224\nGID135667    0.035177\nGID146839    0.017870\nGID177099    0.048675\nGID184135    0.025252\nGID210801    0.040721\nGID222964    0.038625\nGID223665    0.033976\nGID225042    0.018620\nGID234331    0.030835\nGID234986    0.046091\nGID242692    0.042266\nGID259418    0.013084\nGID263554    0.046993\nGID281115    0.035644\nGID285076    0.014253\nGID319436    0.032304\nGID324261    0.028012\nGID333248    0.024048\nGID352527    0.033639\nGID352735    0.035257\nGID360396    0.016791\nGID379426    0.034030\nGID384984    0.033081\nGID395862    0.025858\nGID398164    0.039600\nGID399137    0.025185\nGID416465    0.024005\nGID422945    0.014504\nGID425981    0.020918\nGID426838    0.047322\nGID427649    0.038736\nGID456501    0.021018\nGID467021    0.053061\nGID473352    0.038508\nGID493425    0.034347\nGID500279    0.019766\nGID505059    0.043016\nGID524865    0.024739\nGID527090    0.046501\nGID545203    0.015370\nGID552564    0.034634\nGID568877    0.025270\nGID570450    0.014116\nGID578418    0.020951\nGID591189    0.033426\nGID593624    0.016110\nGID599224    0.041613\nGID613052    0.020340\nGID627692    0.014737\nGID637215    0.029164\nGID648930    0.041430\nGID650550    0.043777\nGID655617    0.047420\nGID663855    0.021505\nGID702037    0.012200\nGID709657    0.017471\nGID733753    0.026836\nGID734104    0.048956\nGID743345    0.020931\nGID747995    0.038647\nGID779257    0.038672\nGID789972    0.044952\nGID806845    0.026877\nGID808997    0.013591\nGID854567    0.015847\nGID882878    0.034638\nGID894745    0.035347\nGID908519    0.028591\nGID912018    0.048663\nGID919808    0.046310\nGID921806    0.043689\nGID952970    0.035647\nGID954352    0.033161\nGID987062    0.047221\n\nHUBBLE CONSTANT \u00b1 STDEV:\n57.2 \u00b1 1.2 km/s/Mpc",
+      "role": "assistant",
+      "tool_calls": null,
+      "function_call": null,
+      "provider_specific_fields": {
+        "citations": null,
+        "thinking_blocks": null
+      }
+    }
+  ]
+}

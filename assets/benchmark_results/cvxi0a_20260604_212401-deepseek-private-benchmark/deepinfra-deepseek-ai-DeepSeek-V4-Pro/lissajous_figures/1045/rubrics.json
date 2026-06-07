@@ -1,0 +1,456 @@
+{
+  "task": "lissajous_figures",
+  "difficulty": "hard",
+  "seed": 1045,
+  "metarubrics": [
+    {
+      "key": "qa_section",
+      "name": "Included sections for QA",
+      "dimension": "instructions following",
+      "weight": 0.5,
+      "total": 1,
+      "rubrics": [
+        {
+          "id": 1,
+          "criterion": "Did the model include the DATA FOR QUALITY ASSURANCE  section?"
+        }
+      ]
+    },
+    {
+      "key": "faulty_supplies",
+      "name": "Listed faulty supplies",
+      "dimension": "data handling",
+      "weight": 2.0,
+      "total": 10,
+      "rubrics": [
+        {
+          "id": 1,
+          "criterion": "Did the model list supply 64729635 as faulty in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 2,
+          "criterion": "Did the model list supply 16978343 as faulty in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 3,
+          "criterion": "Did the model list supply 98037086 as faulty in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 4,
+          "criterion": "Did the model list supply 60416537 as faulty in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 5,
+          "criterion": "Did the model list supply 45686638 as faulty in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 6,
+          "criterion": "Did the model list supply 30772445 as faulty in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 7,
+          "criterion": "Did the model list supply 78673905 as faulty in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 8,
+          "criterion": "Did the model list supply 30569645 as faulty in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 9,
+          "criterion": "Did the model list supply 19418477 as faulty in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 10,
+          "criterion": "Did the model list supply 28036246 as faulty in DATA FOR QUALITY ASSURANCE  section?"
+        }
+      ]
+    },
+    {
+      "key": "notfaulty_supplies",
+      "name": "Skipped not faulty supplies",
+      "dimension": "data handling",
+      "weight": 2.0,
+      "total": 38,
+      "rubrics": [
+        {
+          "id": 1,
+          "criterion": "Did the model not include supply 57253320 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 2,
+          "criterion": "Did the model not include supply 25038230 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 3,
+          "criterion": "Did the model not include supply 02269881 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 4,
+          "criterion": "Did the model not include supply 97638961 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 5,
+          "criterion": "Did the model not include supply 50496330 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 6,
+          "criterion": "Did the model not include supply 05736255 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 7,
+          "criterion": "Did the model not include supply 25652254 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 8,
+          "criterion": "Did the model not include supply 03182207 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 9,
+          "criterion": "Did the model not include supply 99741319 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 10,
+          "criterion": "Did the model not include supply 47387201 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 11,
+          "criterion": "Did the model not include supply 93222662 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 12,
+          "criterion": "Did the model not include supply 76991683 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 13,
+          "criterion": "Did the model not include supply 54606665 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 14,
+          "criterion": "Did the model not include supply 07521116 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 15,
+          "criterion": "Did the model not include supply 13230012 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 16,
+          "criterion": "Did the model not include supply 78197748 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 17,
+          "criterion": "Did the model not include supply 47690596 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 18,
+          "criterion": "Did the model not include supply 96322352 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 19,
+          "criterion": "Did the model not include supply 72824613 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 20,
+          "criterion": "Did the model not include supply 06584228 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 21,
+          "criterion": "Did the model not include supply 00365150 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 22,
+          "criterion": "Did the model not include supply 19399556 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 23,
+          "criterion": "Did the model not include supply 49332599 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 24,
+          "criterion": "Did the model not include supply 86080890 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 25,
+          "criterion": "Did the model not include supply 11792989 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 26,
+          "criterion": "Did the model not include supply 16507525 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 27,
+          "criterion": "Did the model not include supply 70100235 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 28,
+          "criterion": "Did the model not include supply 27429650 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 29,
+          "criterion": "Did the model not include supply 26183960 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 30,
+          "criterion": "Did the model not include supply 03185186 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 31,
+          "criterion": "Did the model not include supply 53613537 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 32,
+          "criterion": "Did the model not include supply 61198961 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 33,
+          "criterion": "Did the model not include supply 43045006 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 34,
+          "criterion": "Did the model not include supply 21574883 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 35,
+          "criterion": "Did the model not include supply 28315850 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 36,
+          "criterion": "Did the model not include supply 53696075 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 37,
+          "criterion": "Did the model not include supply 27482874 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        },
+        {
+          "id": 38,
+          "criterion": "Did the model not include supply 10360535 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?"
+        }
+      ]
+    },
+    {
+      "key": "supplies_frequency",
+      "name": "Computed frequency of faulty supply",
+      "dimension": "image data extraction",
+      "weight": 8.0,
+      "total": 10,
+      "rubrics": [
+        {
+          "id": 1,
+          "criterion": "Did the model list that supply 64729635 has frequency 70.0 Hz in DATA FOR QUALITY ASSURANCE section, or an equivalent value when rounded to the closest integer?"
+        },
+        {
+          "id": 2,
+          "criterion": "Did the model list that supply 16978343 has frequency 70.0 Hz in DATA FOR QUALITY ASSURANCE section, or an equivalent value when rounded to the closest integer?"
+        },
+        {
+          "id": 3,
+          "criterion": "Did the model list that supply 98037086 has frequency 80.0 Hz in DATA FOR QUALITY ASSURANCE section, or an equivalent value when rounded to the closest integer?"
+        },
+        {
+          "id": 4,
+          "criterion": "Did the model list that supply 60416537 has frequency 90.0 Hz in DATA FOR QUALITY ASSURANCE section, or an equivalent value when rounded to the closest integer?"
+        },
+        {
+          "id": 5,
+          "criterion": "Did the model list that supply 45686638 has frequency 100.0 Hz in DATA FOR QUALITY ASSURANCE section, or an equivalent value when rounded to the closest integer?"
+        },
+        {
+          "id": 6,
+          "criterion": "Did the model list that supply 30772445 has frequency 66.6666 Hz in DATA FOR QUALITY ASSURANCE section, or an equivalent value when rounded to the closest integer?"
+        },
+        {
+          "id": 7,
+          "criterion": "Did the model list that supply 78673905 has frequency 90.0 Hz in DATA FOR QUALITY ASSURANCE section, or an equivalent value when rounded to the closest integer?"
+        },
+        {
+          "id": 8,
+          "criterion": "Did the model list that supply 30569645 has frequency 70.0 Hz in DATA FOR QUALITY ASSURANCE section, or an equivalent value when rounded to the closest integer?"
+        },
+        {
+          "id": 9,
+          "criterion": "Did the model list that supply 19418477 has frequency 66.6666 Hz in DATA FOR QUALITY ASSURANCE section, or an equivalent value when rounded to the closest integer?"
+        },
+        {
+          "id": 10,
+          "criterion": "Did the model list that supply 28036246 has frequency 100.0 Hz in DATA FOR QUALITY ASSURANCE section, or an equivalent value when rounded to the closest integer?"
+        }
+      ]
+    },
+    {
+      "key": "supply_batch",
+      "name": "Listed batch of supply",
+      "dimension": "data handling",
+      "weight": 4.0,
+      "total": 10,
+      "rubrics": [
+        {
+          "id": 1,
+          "criterion": "Did the model list that supply 64729635 was manufactured in batch d in DATA FOR QUALITY ASSURANCE section?"
+        },
+        {
+          "id": 2,
+          "criterion": "Did the model list that supply 16978343 was manufactured in batch b in DATA FOR QUALITY ASSURANCE section?"
+        },
+        {
+          "id": 3,
+          "criterion": "Did the model list that supply 98037086 was manufactured in batch b in DATA FOR QUALITY ASSURANCE section?"
+        },
+        {
+          "id": 4,
+          "criterion": "Did the model list that supply 60416537 was manufactured in batch b in DATA FOR QUALITY ASSURANCE section?"
+        },
+        {
+          "id": 5,
+          "criterion": "Did the model list that supply 45686638 was manufactured in batch a in DATA FOR QUALITY ASSURANCE section?"
+        },
+        {
+          "id": 6,
+          "criterion": "Did the model list that supply 30772445 was manufactured in batch a in DATA FOR QUALITY ASSURANCE section?"
+        },
+        {
+          "id": 7,
+          "criterion": "Did the model list that supply 78673905 was manufactured in batch e in DATA FOR QUALITY ASSURANCE section?"
+        },
+        {
+          "id": 8,
+          "criterion": "Did the model list that supply 30569645 was manufactured in batch a in DATA FOR QUALITY ASSURANCE section?"
+        },
+        {
+          "id": 9,
+          "criterion": "Did the model list that supply 19418477 was manufactured in batch a in DATA FOR QUALITY ASSURANCE section?"
+        },
+        {
+          "id": 10,
+          "criterion": "Did the model list that supply 28036246 was manufactured in batch b in DATA FOR QUALITY ASSURANCE section?"
+        }
+      ]
+    },
+    {
+      "key": "supply_manufacturing_machine",
+      "name": "Listed manufacturing machine of supply",
+      "dimension": "data handling",
+      "weight": 2.0,
+      "total": 10,
+      "rubrics": [
+        {
+          "id": 1,
+          "criterion": "Did the model list that supply 64729635 was manufactured by machine CuCy43 in DATA FOR QUALITY ASSURANCE section?"
+        },
+        {
+          "id": 2,
+          "criterion": "Did the model list that supply 16978343 was manufactured by machine ADUCuS in DATA FOR QUALITY ASSURANCE section?"
+        },
+        {
+          "id": 3,
+          "criterion": "Did the model list that supply 98037086 was manufactured by machine CuCy43 in DATA FOR QUALITY ASSURANCE section?"
+        },
+        {
+          "id": 4,
+          "criterion": "Did the model list that supply 60416537 was manufactured by machine 6YD00I in DATA FOR QUALITY ASSURANCE section?"
+        },
+        {
+          "id": 5,
+          "criterion": "Did the model list that supply 45686638 was manufactured by machine CuCy43 in DATA FOR QUALITY ASSURANCE section?"
+        },
+        {
+          "id": 6,
+          "criterion": "Did the model list that supply 30772445 was manufactured by machine 6YD00I in DATA FOR QUALITY ASSURANCE section?"
+        },
+        {
+          "id": 7,
+          "criterion": "Did the model list that supply 78673905 was manufactured by machine CuCy43 in DATA FOR QUALITY ASSURANCE section?"
+        },
+        {
+          "id": 8,
+          "criterion": "Did the model list that supply 30569645 was manufactured by machine 6YD00I in DATA FOR QUALITY ASSURANCE section?"
+        },
+        {
+          "id": 9,
+          "criterion": "Did the model list that supply 19418477 was manufactured by machine 6YD00I in DATA FOR QUALITY ASSURANCE section?"
+        },
+        {
+          "id": 10,
+          "criterion": "Did the model list that supply 28036246 was manufactured by machine 6YD00I in DATA FOR QUALITY ASSURANCE section?"
+        }
+      ]
+    },
+    {
+      "key": "management_section",
+      "name": "Included sections for management",
+      "dimension": "instructions following",
+      "weight": 0.5,
+      "total": 1,
+      "rubrics": [
+        {
+          "id": 1,
+          "criterion": "Did the model include the DATA FOR MANAGEMENT section?"
+        }
+      ]
+    },
+    {
+      "key": "faulty_machines",
+      "name": "Identified faulty machines",
+      "dimension": "data handling",
+      "weight": 2.0,
+      "total": 3,
+      "rubrics": [
+        {
+          "id": 1,
+          "criterion": "Did the model list machine 6YD00I as faulty in MACHINES(failure > 10%) in DATA FOR MANAGEMENT section?"
+        },
+        {
+          "id": 2,
+          "criterion": "Did the model list machine ADUCuS as faulty in MACHINES(failure > 10%) in DATA FOR MANAGEMENT section?"
+        },
+        {
+          "id": 3,
+          "criterion": "Did the model list machine CuCy43 as faulty in MACHINES(failure > 10%) in DATA FOR MANAGEMENT section?"
+        }
+      ]
+    },
+    {
+      "key": "not_faulty_machines",
+      "name": "Skipped not faulty machines",
+      "dimension": "data handling",
+      "weight": 2.0,
+      "total": 9,
+      "rubrics": [
+        {
+          "id": 1,
+          "criterion": "Did the model not include machine 2BImL6 in the MACHINES(failure > 10%) section?"
+        },
+        {
+          "id": 2,
+          "criterion": "Did the model not include machine 5P91RP in the MACHINES(failure > 10%) section?"
+        },
+        {
+          "id": 3,
+          "criterion": "Did the model not include machine 8Vqa6u in the MACHINES(failure > 10%) section?"
+        },
+        {
+          "id": 4,
+          "criterion": "Did the model not include machine EDeMhh in the MACHINES(failure > 10%) section?"
+        },
+        {
+          "id": 5,
+          "criterion": "Did the model not include machine PGKFoJ in the MACHINES(failure > 10%) section?"
+        },
+        {
+          "id": 6,
+          "criterion": "Did the model not include machine gHLmeb in the MACHINES(failure > 10%) section?"
+        },
+        {
+          "id": 7,
+          "criterion": "Did the model not include machine gpLneZ in the MACHINES(failure > 10%) section?"
+        },
+        {
+          "id": 8,
+          "criterion": "Did the model not include machine ofXNQb in the MACHINES(failure > 10%) section?"
+        },
+        {
+          "id": 9,
+          "criterion": "Did the model not include machine r53qFQ in the MACHINES(failure > 10%) section?"
+        }
+      ]
+    }
+  ]
+}

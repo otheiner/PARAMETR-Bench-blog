@@ -358,20 +358,18 @@ Models can issue multiple simultaneous tool calls within a single agentic turn. 
   images="/assets/images/PARAMETR-Bench/tool_usage_aggregated.png > Aggregated model tool use across public seeds [10, 11, 12, 13] and hard difficulty. All tasks had a limit of maximum of 10 agentic turns, where multiple parallel tool calls can be made within one turn.;
       "%}
 
-The next figure shows (click to zoom in) more detailed breakdown - the distribution of tool calls across the task instances presented above. White numbers indicate the total number of calls for a given tool, and the colour fraction corresponds to that tool's share of all tool calls in the given task instance.
+Notably, Gemini 3.1 Pro achieved results comparable to Claude Sonnet 4.6 with a significantly smaller total number of tool calls. Claude Sonnet 4.6 and DeepSeek V4 Pro also show a nearly identical aggregated tool-call count, yet DeepSeek performed considerably worse. That said, Sonnet's count is inflated by the 48 `view_image` calls on seed 13 of `lissajous_figures`. This can be seen from the next figure showing more detailed breakdown - the distribution of tool calls across the task instances presented above. White numbers indicate the total number of calls for a given tool, and the colour fraction corresponds to that tool's share of all tool calls in the given task instance.
 
  {% include gallery.html 
   type="justified" 
   images="/assets/images/PARAMETR-Bench/tool_usage_public.png > Model tool use across public seeds [10, 11, 12, 13] and hard difficulty. All tasks had a limit of maximum of 10 agentic turns, where multiple parallel tool calls can be made within one turn.;
       "%}
 
-The first interesting observation is that even though task instances across seeds are very similar — comparable amounts of data and the same noise effects — models sometimes adopted a different strategy on one seed compared to the others. For example, Sonnet did not use the `run_command` (bash) tool on seed 13 of the `cepheid_calibration` task. Even more striking is the 48 `view_image` calls on seed 13 of `lissajous_figures`, which is completely different from the model behaviour on seeds 10 and 11.
+Even though task instances across seeds are nearly identical — comparable data volumes and the same noise effects — models sometimes adopted a noticeably different strategy on one seed compared to the others. Sonnet, for example, skipped `run_command` entirely on seed 13 of `cepheid_calibration`, and made 48 `view_image` calls on seed 13 of `lissajous_figures` versus far fewer on seeds 10 and 11. Such within-task strategy shifts can partly explain the large score variance seen on individual tasks.
 
 A particularly surprising case is Gemini's strategy on `invariant_mass_reconstruction` for seed 11: the model never called `view_image`, despite the task including an image from which detector geometry is supposed to be read. Closer inspection of the model output revealed that Gemini reverse-engineered the detector geometry directly from the data — an approach that would rarely be viable in practice, but is entirely valid here because the task explicitly states a simplification that makes it tractable. I hadn't considered this approach at all when designing the task!
 
-Also noteworthy is DeepSeek's heavier reliance on `view_image` compared to the other models, suggesting it leaned more on its vision capabilities where other models turned to Python for image analysis. From all models DeepSeek had the worst score from tested models (excluding Qwen). 
-
-Notably, Gemini 3.1 Pro achieved results comparable to Claude Sonnet 4.6 with a significantly smaller total number of tool calls. Claude Sonnet 4.6 and DeepSeek V4 Pro also show a nearly identical aggregated tool-call count, yet DeepSeek performed considerably worse. That said, Sonnet's count is inflated by the 48 `view_image` calls on seed 13 of `lissajous_figures`; without that outlier, the two models would differ substantially.
+Also noteworthy is DeepSeek's heavier reliance on `view_image` compared to the other models, suggesting it leaned more on its vision capabilities where other models turned to Python for image analysis. From all models DeepSeek had the worst score from tested models (excluding Qwen).
   
 
 ### Judge Reliability
@@ -469,11 +467,15 @@ PARAMETR-Bench is presented as a methodology and proof of concept rather than a 
 
 ## Conclusion
 
-I started this project as a personal endeavour in LLM evaluation which grew into something bigger. PARAMETR-Bench is a working implementation of procedural benchmarking framework for evaluation of LLM agents on scientific tasks. It introduces a novel concept of metarubric (or concept I haven't seen elsewhere at least) which addresses the problem of rubric drifts on procedurally generated tasks. Even if this concept cannot be appliet ot every procedural task generation with LLM-as-judge, it is concept that is simple enough and could be possibly used by other evaluation work.
+What started as a personal curiosity project grew into a working implementation of a procedural benchmarking framework for agentic LLM evaluation on scientific tasks. PARAMETR-Bench introduces the concept of metarubrics — which, to my knowledge, has not appeared elsewhere — to address rubric drift on procedurally generated tasks. While not applicable to every procedural setup, the concept is simple enough to be useful in other evaluation work. Alongside metarubrics, I proposed a leak-detection experimental design that inverts the usual practice of minimizing contamination exposure, instead deliberately maximizing it for a pre-registered public subset to make a future contamination signal measurable.
 
-I ran tests and I tested the agentic evaluation on five models. Qwen failed in instructions following and didn't print any results when it reached its budget of agentic turns and so it was excluded from the tests (to save API credits on unseccesfull agent). Claude Sonnet 4.6 performed comparable (and sometimes even better) than the flagship model Gemini 3.1 Pro (preview). 
+I evaluated five models. Qwen was excluded early after it failed to follow output instructions and produced no gradable results at the turn budget limit, making further API spend unjustifiable. GPT-5.4 Mini ran into repeated safety-classifier interventions that flagged benign content, which limited its effectiveness in fully autonomous agentic settings.
 
-I tested 
+Examining working strategies revealed that nearly identical task instances can elicit substantially different behaviour from the same model across seeds. On overall performance, Claude Sonnet 4.6 matched — and occasionally exceeded — Gemini 3.1 Pro, though Gemini achieved comparable scores with fewer total tool calls, which could tentatively be read as more efficient planning.
+
+The contamination experiment is now live. I plan to revisit it in roughly a year to see whether contamination is detectable in the results.
+
+Extending the framework to additional domains and tasks, and validating difficulty scaling across more seeds, remains the natural next step — ideally with collaborators who bring domain expertise outside physics.
 
 ## References
 

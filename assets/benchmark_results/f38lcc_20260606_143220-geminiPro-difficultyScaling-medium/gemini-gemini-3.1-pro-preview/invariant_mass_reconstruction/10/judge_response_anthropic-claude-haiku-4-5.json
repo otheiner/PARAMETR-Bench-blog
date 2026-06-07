@@ -1,0 +1,893 @@
+{
+  "judge": "anthropic/claude-haiku-4-5",
+  "metarubrics": [
+    {
+      "name": "Analysis summary",
+      "dimension": "instructions following",
+      "rubrics": [
+        {
+          "criterion": "Did the model provide a summary of the invariant mass reconstructions in the SUMMARY section?",
+          "verdict": "YES"
+        }
+      ]
+    },
+    {
+      "name": "Detector dimensions retrieval",
+      "dimension": "image data extraction",
+      "rubrics": [
+        {
+          "criterion": "Did the model identify that the tracker layer 1 has radius 0.050 m?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model identify that the tracker layer 2 has radius 0.300 m?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model identify that the tracker layer 3 has radius 0.600 m?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model identify that the calorimeter has radius 1.500 m?",
+          "verdict": "YES"
+        }
+      ]
+    },
+    {
+      "name": "Number of events in the list",
+      "dimension": "instructions following",
+      "rubrics": [
+        {
+          "criterion": "Did the model list exactly 1000 events in the INTERMEDIATE RESULTS FOR EVERY EVENT section?",
+          "verdict": "NO"
+        }
+      ]
+    },
+    {
+      "name": "Per-event invariant mass reconstruction",
+      "dimension": "scientific reasoning",
+      "rubrics": [
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 841.0 as 38.72 GeV or value in range [38.62, 38.82] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 956.0 as 65.93 GeV or value in range [65.77, 66.10] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 544.0 as 6.51 GeV or value in range [6.50, 6.53] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 173.0 as 15.90 GeV or value in range [15.86, 15.94] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 759.0 as 6.15 GeV or value in range [6.14, 6.17] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 955.0 as 22.38 GeV or value in range [22.33, 22.44] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 121.0 as 9.77 GeV or value in range [9.74, 9.79] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 230.0 as 10.11 GeV or value in range [10.09, 10.14] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 11.0 as 5.37 GeV or value in range [5.36, 5.38] GeV?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 120.0 as 7.66 GeV or value in range [7.64, 7.67] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 659.0 as 9.15 GeV or value in range [9.13, 9.17] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 419.0 as 17.04 GeV or value in range [17.00, 17.08] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 191.0 as 17.07 GeV or value in range [17.03, 17.12] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 944.0 as 5.17 GeV or value in range [5.15, 5.18] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 392.0 as 7.78 GeV or value in range [7.76, 7.80] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 417.0 as 5.87 GeV or value in range [5.86, 5.89] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 845.0 as 5.45 GeV or value in range [5.44, 5.47] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 814.0 as 7.80 GeV or value in range [7.78, 7.81] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 772.0 as 13.39 GeV or value in range [13.35, 13.42] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 374.0 as 7.72 GeV or value in range [7.70, 7.74] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 982.0 as 19.30 GeV or value in range [19.25, 19.35] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 277.0 as 8.22 GeV or value in range [8.20, 8.24] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 139.0 as 8.20 GeV or value in range [8.18, 8.22] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 218.0 as 5.17 GeV or value in range [5.16, 5.18] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 449.0 as 20.76 GeV or value in range [20.71, 20.81] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 16.0 as 8.02 GeV or value in range [8.00, 8.04] GeV?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 223.0 as 66.20 GeV or value in range [66.03, 66.36] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 922.0 as 25.12 GeV or value in range [25.06, 25.19] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 171.0 as 67.52 GeV or value in range [67.35, 67.69] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 904.0 as 15.76 GeV or value in range [15.72, 15.80] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 381.0 as 8.93 GeV or value in range [8.91, 8.96] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 579.0 as 10.39 GeV or value in range [10.36, 10.41] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 329.0 as 13.37 GeV or value in range [13.34, 13.40] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 610.0 as 8.65 GeV or value in range [8.62, 8.67] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 418.0 as 34.18 GeV or value in range [34.09, 34.26] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 318.0 as 6.75 GeV or value in range [6.74, 6.77] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 334.0 as 19.37 GeV or value in range [19.32, 19.42] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 978.0 as 75.68 GeV or value in range [75.49, 75.87] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 403.0 as 10.57 GeV or value in range [10.54, 10.59] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 940.0 as 32.77 GeV or value in range [32.68, 32.85] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 349.0 as 18.55 GeV or value in range [18.50, 18.60] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 809.0 as 9.11 GeV or value in range [9.09, 9.13] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 934.0 as 81.23 GeV or value in range [81.03, 81.44] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 584.0 as 22.05 GeV or value in range [21.99, 22.10] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 445.0 as 7.86 GeV or value in range [7.84, 7.88] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 890.0 as 8.33 GeV or value in range [8.31, 8.35] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 976.0 as 5.38 GeV or value in range [5.37, 5.40] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 883.0 as 69.96 GeV or value in range [69.79, 70.14] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 539.0 as 67.49 GeV or value in range [67.32, 67.66] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 953.0 as 5.43 GeV or value in range [5.42, 5.45] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 27.0 as 67.72 GeV or value in range [67.55, 67.88] GeV?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 64.0 as 24.95 GeV or value in range [24.89, 25.02] GeV?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 305.0 as 11.85 GeV or value in range [11.82, 11.88] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 442.0 as 5.05 GeV or value in range [5.04, 5.06] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 287.0 as 14.69 GeV or value in range [14.66, 14.73] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 131.0 as 10.52 GeV or value in range [10.49, 10.54] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 475.0 as 8.11 GeV or value in range [8.09, 8.13] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 437.0 as 11.03 GeV or value in range [11.00, 11.06] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 604.0 as 68.55 GeV or value in range [68.38, 68.72] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 22.0 as 6.84 GeV or value in range [6.82, 6.86] GeV?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 649.0 as 5.28 GeV or value in range [5.27, 5.30] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 941.0 as 32.46 GeV or value in range [32.38, 32.54] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 988.0 as 14.68 GeV or value in range [14.64, 14.72] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 935.0 as 20.03 GeV or value in range [19.98, 20.08] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 663.0 as 61.93 GeV or value in range [61.78, 62.09] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 936.0 as 58.25 GeV or value in range [58.10, 58.39] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 525.0 as 68.02 GeV or value in range [67.85, 68.19] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 872.0 as 6.26 GeV or value in range [6.24, 6.27] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 805.0 as 39.59 GeV or value in range [39.50, 39.69] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 415.0 as 5.62 GeV or value in range [5.61, 5.64] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 387.0 as 5.09 GeV or value in range [5.08, 5.10] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 375.0 as 5.06 GeV or value in range [5.05, 5.07] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 482.0 as 6.14 GeV or value in range [6.13, 6.16] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 193.0 as 35.74 GeV or value in range [35.65, 35.83] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 729.0 as 8.04 GeV or value in range [8.02, 8.06] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 248.0 as 10.95 GeV or value in range [10.92, 10.98] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 628.0 as 8.84 GeV or value in range [8.82, 8.86] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 298.0 as 8.87 GeV or value in range [8.85, 8.90] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 448.0 as 6.50 GeV or value in range [6.48, 6.51] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 562.0 as 6.57 GeV or value in range [6.55, 6.59] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 763.0 as 13.73 GeV or value in range [13.70, 13.77] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 271.0 as 68.89 GeV or value in range [68.71, 69.06] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 531.0 as 67.67 GeV or value in range [67.50, 67.83] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 138.0 as 5.52 GeV or value in range [5.51, 5.53] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 325.0 as 68.95 GeV or value in range [68.78, 69.12] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 354.0 as 63.12 GeV or value in range [62.97, 63.28] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 643.0 as 11.55 GeV or value in range [11.52, 11.58] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 634.0 as 16.26 GeV or value in range [16.22, 16.30] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 700.0 as 15.45 GeV or value in range [15.42, 15.49] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 438.0 as 68.26 GeV or value in range [68.09, 68.43] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 529.0 as 5.58 GeV or value in range [5.57, 5.60] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 518.0 as 5.08 GeV or value in range [5.07, 5.09] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 45.0 as 8.36 GeV or value in range [8.34, 8.38] GeV?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 179.0 as 11.65 GeV or value in range [11.62, 11.68] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 625.0 as 7.01 GeV or value in range [6.99, 7.03] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 181.0 as 6.53 GeV or value in range [6.52, 6.55] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 1.0 as 9.37 GeV or value in range [9.34, 9.39] GeV?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 861.0 as 59.69 GeV or value in range [59.55, 59.84] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 304.0 as 9.81 GeV or value in range [9.79, 9.84] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 569.0 as 20.32 GeV or value in range [20.27, 20.37] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 142.0 as 12.22 GeV or value in range [12.18, 12.25] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 735.0 as 9.32 GeV or value in range [9.29, 9.34] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 709.0 as 67.97 GeV or value in range [67.80, 68.14] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 898.0 as 5.18 GeV or value in range [5.17, 5.20] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 726.0 as 11.26 GeV or value in range [11.23, 11.29] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 614.0 as 15.54 GeV or value in range [15.50, 15.58] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 339.0 as 10.87 GeV or value in range [10.84, 10.89] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 473.0 as 5.78 GeV or value in range [5.76, 5.79] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 440.0 as 8.71 GeV or value in range [8.68, 8.73] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 88.0 as 5.01 GeV or value in range [5.00, 5.02] GeV?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 52.0 as 20.14 GeV or value in range [20.09, 20.19] GeV?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 426.0 as 67.52 GeV or value in range [67.35, 67.69] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 75.0 as 6.21 GeV or value in range [6.20, 6.23] GeV?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 703.0 as 21.60 GeV or value in range [21.55, 21.65] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 707.0 as 65.84 GeV or value in range [65.67, 66.00] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 326.0 as 16.92 GeV or value in range [16.88, 16.96] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 701.0 as 67.80 GeV or value in range [67.63, 67.97] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 855.0 as 9.16 GeV or value in range [9.14, 9.18] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 826.0 as 6.54 GeV or value in range [6.53, 6.56] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 43.0 as 7.58 GeV or value in range [7.56, 7.60] GeV?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 654.0 as 6.54 GeV or value in range [6.52, 6.55] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 795.0 as 5.23 GeV or value in range [5.21, 5.24] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 361.0 as 9.32 GeV or value in range [9.30, 9.34] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 177.0 as 9.01 GeV or value in range [8.99, 9.03] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 837.0 as 9.57 GeV or value in range [9.55, 9.60] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 211.0 as 5.23 GeV or value in range [5.22, 5.24] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 68.0 as 7.78 GeV or value in range [7.77, 7.80] GeV?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 704.0 as 25.12 GeV or value in range [25.06, 25.18] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 706.0 as 15.75 GeV or value in range [15.71, 15.79] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 897.0 as 68.66 GeV or value in range [68.49, 68.83] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 195.0 as 68.71 GeV or value in range [68.54, 68.89] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 233.0 as 9.53 GeV or value in range [9.51, 9.55] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 613.0 as 20.35 GeV or value in range [20.30, 20.40] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 723.0 as 16.23 GeV or value in range [16.19, 16.27] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 155.0 as 22.06 GeV or value in range [22.00, 22.11] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 824.0 as 5.31 GeV or value in range [5.30, 5.32] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 828.0 as 8.96 GeV or value in range [8.94, 8.98] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 916.0 as 6.09 GeV or value in range [6.08, 6.11] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 830.0 as 15.50 GeV or value in range [15.47, 15.54] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 92.0 as 10.07 GeV or value in range [10.04, 10.09] GeV?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 601.0 as 28.91 GeV or value in range [28.84, 28.98] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 673.0 as 9.22 GeV or value in range [9.20, 9.25] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 862.0 as 16.39 GeV or value in range [16.35, 16.43] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 196.0 as 11.68 GeV or value in range [11.65, 11.71] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 839.0 as 9.73 GeV or value in range [9.71, 9.76] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 939.0 as 7.79 GeV or value in range [7.77, 7.81] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 612.0 as 7.03 GeV or value in range [7.01, 7.05] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 104.0 as 5.83 GeV or value in range [5.81, 5.84] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 153.0 as 8.48 GeV or value in range [8.46, 8.50] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 280.0 as 21.03 GeV or value in range [20.98, 21.08] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 548.0 as 14.49 GeV or value in range [14.45, 14.52] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 335.0 as 68.28 GeV or value in range [68.11, 68.45] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 793.0 as 20.07 GeV or value in range [20.02, 20.12] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 848.0 as 67.78 GeV or value in range [67.61, 67.95] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 295.0 as 70.43 GeV or value in range [70.25, 70.60] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 901.0 as 64.92 GeV or value in range [64.76, 65.09] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 711.0 as 6.35 GeV or value in range [6.33, 6.37] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 923.0 as 8.97 GeV or value in range [8.95, 9.00] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 443.0 as 22.30 GeV or value in range [22.25, 22.36] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 6.0 as 9.27 GeV or value in range [9.25, 9.30] GeV?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 261.0 as 8.13 GeV or value in range [8.11, 8.15] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 854.0 as 5.44 GeV or value in range [5.43, 5.46] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 172.0 as 65.61 GeV or value in range [65.44, 65.77] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 408.0 as 11.90 GeV or value in range [11.87, 11.93] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 836.0 as 13.53 GeV or value in range [13.50, 13.57] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 444.0 as 14.40 GeV or value in range [14.37, 14.44] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 513.0 as 17.27 GeV or value in range [17.23, 17.31] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 811.0 as 13.16 GeV or value in range [13.13, 13.19] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 679.0 as 10.57 GeV or value in range [10.54, 10.59] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 930.0 as 22.64 GeV or value in range [22.59, 22.70] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 774.0 as 7.20 GeV or value in range [7.18, 7.22] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 85.0 as 6.94 GeV or value in range [6.92, 6.95] GeV?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 250.0 as 67.60 GeV or value in range [67.43, 67.77] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 34.0 as 15.10 GeV or value in range [15.06, 15.14] GeV?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 124.0 as 13.54 GeV or value in range [13.51, 13.58] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 452.0 as 69.05 GeV or value in range [68.87, 69.22] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 739.0 as 10.80 GeV or value in range [10.77, 10.82] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 176.0 as 12.26 GeV or value in range [12.23, 12.29] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 507.0 as 6.38 GeV or value in range [6.36, 6.39] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 411.0 as 22.25 GeV or value in range [22.20, 22.31] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 750.0 as 66.84 GeV or value in range [66.67, 67.01] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 728.0 as 24.23 GeV or value in range [24.17, 24.29] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 602.0 as 5.46 GeV or value in range [5.45, 5.48] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 299.0 as 14.36 GeV or value in range [14.32, 14.40] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 285.0 as 6.77 GeV or value in range [6.76, 6.79] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 222.0 as 43.11 GeV or value in range [43.00, 43.22] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 31.0 as 5.50 GeV or value in range [5.48, 5.51] GeV?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 782.0 as 9.60 GeV or value in range [9.57, 9.62] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 425.0 as 13.24 GeV or value in range [13.21, 13.27] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 300.0 as 13.76 GeV or value in range [13.72, 13.79] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 960.0 as 15.03 GeV or value in range [14.99, 15.07] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 943.0 as 6.17 GeV or value in range [6.15, 6.18] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 378.0 as 67.81 GeV or value in range [67.64, 67.98] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 576.0 as 10.52 GeV or value in range [10.50, 10.55] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 240.0 as 26.73 GeV or value in range [26.66, 26.80] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 274.0 as 10.99 GeV or value in range [10.97, 11.02] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 192.0 as 67.62 GeV or value in range [67.45, 67.79] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 398.0 as 76.63 GeV or value in range [76.43, 76.82] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 450.0 as 7.94 GeV or value in range [7.92, 7.96] GeV?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model reconstruct invariant mass of a parent particle in event 520.0 as 13.28 GeV or value in range [13.25, 13.32] GeV?",
+          "verdict": "NO"
+        }
+      ]
+    },
+    {
+      "name": "Final result existence - mass",
+      "dimension": "instructions following",
+      "rubrics": [
+        {
+          "criterion": "Did the model state the mass of the unknown particle in the FINAL RESULTS section?",
+          "verdict": "YES"
+        }
+      ]
+    },
+    {
+      "name": "Particle mass M",
+      "dimension": "scientific reasoning",
+      "rubrics": [
+        {
+          "criterion": "Did the model estimate the mass of the new particle as 67.80 GeV/c^2, or value in range [67.12, 68.48] GeV/c^2?",
+          "verdict": "YES"
+        }
+      ]
+    },
+    {
+      "name": "Final result existence - decay width",
+      "dimension": "instructions following",
+      "rubrics": [
+        {
+          "criterion": "Did the model state the decay width of the unknown particle in the FINAL RESULTS section?",
+          "verdict": "YES"
+        }
+      ]
+    },
+    {
+      "name": "Decay width",
+      "dimension": "scientific reasoning",
+      "rubrics": [
+        {
+          "criterion": "Did the model estimate the decay width of the new particle as 2.12 GeV/c^2, or value in range [1.06, 3.18] GeV/c^2?",
+          "verdict": "YES"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "run_id": "bsobjd",
+  "model": "deepinfra/Qwen/Qwen3.6-35B-A3B",
+  "judge": "anthropic/claude-haiku-4-5",
+  "difficulty": "hard",
+  "seeds": [
+    10,
+    11,
+    12,
+    13
+  ],
+  "agentic": true,
+  "max_turns": 10,
+  "tasks": [
+    "cepheid_calibration",
+    "hubble_constant",
+    "invariant_mass_reconstruction",
+    "lissajous_figures"
+  ],
+  "git_commit": "a0006ef",
+  "timestamp": "2026-05-29T10:10:37.154896"
+}

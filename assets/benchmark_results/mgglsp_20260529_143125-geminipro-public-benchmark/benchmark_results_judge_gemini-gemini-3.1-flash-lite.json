@@ -1,0 +1,1956 @@
+{
+  "run": {
+    "model": "gemini/gemini-3.1-pro-preview",
+    "judge": "gemini/gemini-3.1-flash-lite",
+    "difficulty": "hard",
+    "seeds": [
+      10,
+      11,
+      12,
+      13
+    ],
+    "git_commit": "c7791b7",
+    "timestamp": "2026-06-05T20:40:47.705347",
+    "agentic": true,
+    "max_turns": 10,
+    "partial": false
+  },
+  "summary": {
+    "success_rate": 0.5347225497073745,
+    "ci_low": 0.4390112353884211,
+    "ci_high": 0.630433864026328,
+    "n_task_runs": 16
+  },
+  "by_task": {
+    "cepheid_calibration": {
+      "n_seeds": 4,
+      "weighted_success_rate": 0.7194577899794097,
+      "metarubrics": [
+        {
+          "name": "Listed Cepheids with data",
+          "dimension": "data handling",
+          "total": 248,
+          "passed": 189,
+          "weight": 2.0,
+          "success_rate": 0.7620967741935484,
+          "ci_low": 0.7053587713561178,
+          "ci_high": 0.8108390008802528
+        },
+        {
+          "name": "Estimated redshifts",
+          "dimension": "image data extraction",
+          "total": 248,
+          "passed": 133,
+          "weight": 8.0,
+          "success_rate": 0.5362903225806451,
+          "ci_low": 0.4741446594306386,
+          "ci_high": 0.5973288782636279
+        },
+        {
+          "name": "Fitted function form",
+          "dimension": "scientific reasoning",
+          "total": 4,
+          "passed": 4,
+          "weight": 1.0,
+          "success_rate": 1.0,
+          "ci_low": 0.5101091635454025,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Estimated 'a'",
+          "dimension": "scientific reasoning",
+          "total": 4,
+          "passed": 3,
+          "weight": 10.0,
+          "success_rate": 0.75,
+          "ci_low": 0.30064184258240184,
+          "ci_high": 0.9544127391902995
+        },
+        {
+          "name": "Estimated 'sigma_a'",
+          "dimension": "scientific reasoning",
+          "total": 4,
+          "passed": 3,
+          "weight": 8.0,
+          "success_rate": 0.75,
+          "ci_low": 0.30064184258240184,
+          "ci_high": 0.9544127391902995
+        },
+        {
+          "name": "Estimated 'b'",
+          "dimension": "scientific reasoning",
+          "total": 4,
+          "passed": 3,
+          "weight": 10.0,
+          "success_rate": 0.75,
+          "ci_low": 0.30064184258240184,
+          "ci_high": 0.9544127391902995
+        },
+        {
+          "name": "Estimated 'sigma_b'",
+          "dimension": "scientific reasoning",
+          "total": 4,
+          "passed": 3,
+          "weight": 8.0,
+          "success_rate": 0.75,
+          "ci_low": 0.30064184258240184,
+          "ci_high": 0.9544127391902995
+        }
+      ]
+    },
+    "hubble_constant": {
+      "n_seeds": 4,
+      "weighted_success_rate": 0.46681974741676235,
+      "metarubrics": [
+        {
+          "name": "Included summary section",
+          "dimension": "instructions following",
+          "total": 4,
+          "passed": 4,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.5101091635454025,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Correct number of galaxies",
+          "dimension": "data handling",
+          "total": 4,
+          "passed": 2,
+          "weight": 2.0,
+          "success_rate": 0.5,
+          "ci_low": 0.15003898915214947,
+          "ci_high": 0.8499610108478506
+        },
+        {
+          "name": "Listed section measured redshifts",
+          "dimension": "instructions following",
+          "total": 4,
+          "passed": 4,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.5101091635454025,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Redshift estimation",
+          "dimension": "image data extraction",
+          "total": 134,
+          "passed": 76,
+          "weight": 10.0,
+          "success_rate": 0.5671641791044776,
+          "ci_low": 0.4825581534110977,
+          "ci_high": 0.648026651436438
+        },
+        {
+          "name": "Fitted function - linear",
+          "dimension": "scientific reasoning",
+          "total": 4,
+          "passed": 4,
+          "weight": 1.0,
+          "success_rate": 1.0,
+          "ci_low": 0.5101091635454025,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Fitted function - zero offset",
+          "dimension": "scientific reasoning",
+          "total": 4,
+          "passed": 0,
+          "weight": 2.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.4898908364545974
+        },
+        {
+          "name": "Included Hubble constant section",
+          "dimension": "instructions following",
+          "total": 4,
+          "passed": 4,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.5101091635454025,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Hubble constant estimation",
+          "dimension": "scientific reasoning",
+          "total": 4,
+          "passed": 1,
+          "weight": 8.0,
+          "success_rate": 0.25,
+          "ci_low": 0.0455872608097006,
+          "ci_high": 0.6993581574175982
+        },
+        {
+          "name": "Uncertainty on Hubble constant",
+          "dimension": "scientific reasoning",
+          "total": 4,
+          "passed": 2,
+          "weight": 8.0,
+          "success_rate": 0.5,
+          "ci_low": 0.15003898915214947,
+          "ci_high": 0.8499610108478506
+        }
+      ]
+    },
+    "invariant_mass_reconstruction": {
+      "n_seeds": 4,
+      "weighted_success_rate": 0.4265625,
+      "metarubrics": [
+        {
+          "name": "Analysis summary",
+          "dimension": "instructions following",
+          "total": 4,
+          "passed": 3,
+          "weight": 0.5,
+          "success_rate": 0.75,
+          "ci_low": 0.30064184258240184,
+          "ci_high": 0.9544127391902995
+        },
+        {
+          "name": "Detector dimensions retrieval",
+          "dimension": "image data extraction",
+          "total": 20,
+          "passed": 20,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.8388748419471804,
+          "ci_high": 0.9999999999999999
+        },
+        {
+          "name": "Number of events in the list",
+          "dimension": "instructions following",
+          "total": 4,
+          "passed": 0,
+          "weight": 1.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.4898908364545974
+        },
+        {
+          "name": "Per-event invariant mass reconstruction",
+          "dimension": "scientific reasoning",
+          "total": 800,
+          "passed": 11,
+          "weight": 5.0,
+          "success_rate": 0.01375,
+          "ci_low": 0.0076948410427695475,
+          "ci_high": 0.024452616067250403
+        },
+        {
+          "name": "Final result existence - mass",
+          "dimension": "instructions following",
+          "total": 4,
+          "passed": 4,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.5101091635454025,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Particle mass M",
+          "dimension": "scientific reasoning",
+          "total": 4,
+          "passed": 2,
+          "weight": 10.0,
+          "success_rate": 0.5,
+          "ci_low": 0.15003898915214947,
+          "ci_high": 0.8499610108478506
+        },
+        {
+          "name": "Final result existence - decay width",
+          "dimension": "instructions following",
+          "total": 4,
+          "passed": 4,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.5101091635454025,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Decay width",
+          "dimension": "scientific reasoning",
+          "total": 4,
+          "passed": 2,
+          "weight": 10.0,
+          "success_rate": 0.5,
+          "ci_low": 0.15003898915214947,
+          "ci_high": 0.8499610108478506
+        }
+      ]
+    },
+    "lissajous_figures": {
+      "n_seeds": 4,
+      "weighted_success_rate": 0.4712081512136898,
+      "metarubrics": [
+        {
+          "name": "Included sections for QA",
+          "dimension": "instructions following",
+          "total": 4,
+          "passed": 4,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.5101091635454025,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Listed faulty supplies",
+          "dimension": "data handling",
+          "total": 48,
+          "passed": 0,
+          "weight": 2.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.07410012966611754
+        },
+        {
+          "name": "Skipped not faulty supplies",
+          "dimension": "data handling",
+          "total": 157,
+          "passed": 131,
+          "weight": 2.0,
+          "success_rate": 0.8343949044585988,
+          "ci_low": 0.7684082995280571,
+          "ci_high": 0.8844084603413861
+        },
+        {
+          "name": "Computed frequency of faulty supply",
+          "dimension": "image data extraction",
+          "total": 48,
+          "passed": 12,
+          "weight": 8.0,
+          "success_rate": 0.25,
+          "ci_low": 0.14920633673797906,
+          "ci_high": 0.38784372809507967
+        },
+        {
+          "name": "Listed batch of supply",
+          "dimension": "data handling",
+          "total": 48,
+          "passed": 30,
+          "weight": 4.0,
+          "success_rate": 0.625,
+          "ci_low": 0.4836276351921526,
+          "ci_high": 0.747847332391318
+        },
+        {
+          "name": "Listed manufacturing machine of supply",
+          "dimension": "data handling",
+          "total": 48,
+          "passed": 32,
+          "weight": 2.0,
+          "success_rate": 0.6666666666666666,
+          "ci_low": 0.5254010970594798,
+          "ci_high": 0.7832321930518142
+        },
+        {
+          "name": "Included sections for management",
+          "dimension": "instructions following",
+          "total": 4,
+          "passed": 4,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.5101091635454025,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Identified faulty machines",
+          "dimension": "data handling",
+          "total": 22,
+          "passed": 13,
+          "weight": 2.0,
+          "success_rate": 0.5909090909090909,
+          "ci_low": 0.38734818476315125,
+          "ci_high": 0.7674418380352814
+        },
+        {
+          "name": "Skipped not faulty machines",
+          "dimension": "data handling",
+          "total": 26,
+          "passed": 15,
+          "weight": 2.0,
+          "success_rate": 0.5769230769230769,
+          "ci_low": 0.389486137465917,
+          "ci_high": 0.7445555668634344
+        }
+      ]
+    }
+  },
+  "by_dimension": {
+    "data handling": {
+      "weighted_success_rate": 0.4942954945607747
+    },
+    "image data extraction": {
+      "weighted_success_rate": 0.4505744843289974
+    },
+    "scientific reasoning": {
+      "weighted_success_rate": 0.5564043209876545
+    },
+    "instructions following": {
+      "weighted_success_rate": 0.775
+    }
+  },
+  "task_results": [
+    {
+      "task": "cepheid_calibration",
+      "seed": 10,
+      "difficulty": "hard",
+      "model": "gemini/gemini-3.1-pro-preview",
+      "judge": "gemini/gemini-3.1-flash-lite",
+      "timestamp": "",
+      "metarubrics": [
+        {
+          "name": "Listed Cepheids with data",
+          "dimension": "data handling",
+          "total": 62,
+          "passed": 61,
+          "weight": 2.0,
+          "success_rate": 0.9838709677419355,
+          "ci_low": 0.9141327973931,
+          "ci_high": 0.9971471328313782
+        },
+        {
+          "name": "Estimated redshifts",
+          "dimension": "image data extraction",
+          "total": 62,
+          "passed": 50,
+          "weight": 8.0,
+          "success_rate": 0.8064516129032258,
+          "ci_low": 0.6914820382117386,
+          "ci_high": 0.8856619175970974
+        },
+        {
+          "name": "Fitted function form",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 1,
+          "weight": 1.0,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Estimated 'a'",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 1,
+          "weight": 10.0,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Estimated 'sigma_a'",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 1,
+          "weight": 8.0,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Estimated 'b'",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 1,
+          "weight": 10.0,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Estimated 'sigma_b'",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 1,
+          "weight": 8.0,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        }
+      ],
+      "aggregate": {
+        "weighted_success_rate": 0.9663692518874399,
+        "ci_low": 0.5959169291014954,
+        "ci_high": 1.0
+      }
+    },
+    {
+      "task": "cepheid_calibration",
+      "seed": 11,
+      "difficulty": "hard",
+      "model": "gemini/gemini-3.1-pro-preview",
+      "judge": "gemini/gemini-3.1-flash-lite",
+      "timestamp": "",
+      "metarubrics": [
+        {
+          "name": "Listed Cepheids with data",
+          "dimension": "data handling",
+          "total": 62,
+          "passed": 5,
+          "weight": 2.0,
+          "success_rate": 0.08064516129032258,
+          "ci_low": 0.03493834698599273,
+          "ci_high": 0.17528571348612615
+        },
+        {
+          "name": "Estimated redshifts",
+          "dimension": "image data extraction",
+          "total": 62,
+          "passed": 0,
+          "weight": 8.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.05834407210137251
+        },
+        {
+          "name": "Fitted function form",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 1,
+          "weight": 1.0,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Estimated 'a'",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 0,
+          "weight": 10.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.7934506856227627
+        },
+        {
+          "name": "Estimated 'sigma_a'",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 0,
+          "weight": 8.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.7934506856227627
+        },
+        {
+          "name": "Estimated 'b'",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 0,
+          "weight": 10.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.7934506856227627
+        },
+        {
+          "name": "Estimated 'sigma_b'",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 0,
+          "weight": 8.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.7934506856227627
+        }
+      ],
+      "aggregate": {
+        "weighted_success_rate": 0.02470830473575841,
+        "ci_low": 0.0,
+        "ci_high": 0.39483297217232954
+      }
+    },
+    {
+      "task": "cepheid_calibration",
+      "seed": 12,
+      "difficulty": "hard",
+      "model": "gemini/gemini-3.1-pro-preview",
+      "judge": "gemini/gemini-3.1-flash-lite",
+      "timestamp": "",
+      "metarubrics": [
+        {
+          "name": "Listed Cepheids with data",
+          "dimension": "data handling",
+          "total": 62,
+          "passed": 62,
+          "weight": 2.0,
+          "success_rate": 1.0,
+          "ci_low": 0.9416559278986274,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Estimated redshifts",
+          "dimension": "image data extraction",
+          "total": 62,
+          "passed": 52,
+          "weight": 8.0,
+          "success_rate": 0.8387096774193549,
+          "ci_low": 0.7279366398602256,
+          "ci_high": 0.9099593112969091
+        },
+        {
+          "name": "Fitted function form",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 1,
+          "weight": 1.0,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Estimated 'a'",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 1,
+          "weight": 10.0,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Estimated 'sigma_a'",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 1,
+          "weight": 8.0,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Estimated 'b'",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 1,
+          "weight": 10.0,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Estimated 'sigma_b'",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 1,
+          "weight": 8.0,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        }
+      ],
+      "aggregate": {
+        "weighted_success_rate": 0.9725463280713795,
+        "ci_low": 0.6021408503453056,
+        "ci_high": 1.0
+      }
+    },
+    {
+      "task": "cepheid_calibration",
+      "seed": 13,
+      "difficulty": "hard",
+      "model": "gemini/gemini-3.1-pro-preview",
+      "judge": "gemini/gemini-3.1-flash-lite",
+      "timestamp": "",
+      "metarubrics": [
+        {
+          "name": "Listed Cepheids with data",
+          "dimension": "data handling",
+          "total": 62,
+          "passed": 61,
+          "weight": 2.0,
+          "success_rate": 0.9838709677419355,
+          "ci_low": 0.9141327973931,
+          "ci_high": 0.9971471328313782
+        },
+        {
+          "name": "Estimated redshifts",
+          "dimension": "image data extraction",
+          "total": 62,
+          "passed": 31,
+          "weight": 8.0,
+          "success_rate": 0.5,
+          "ci_low": 0.37922741194566073,
+          "ci_high": 0.6207725880543392
+        },
+        {
+          "name": "Fitted function form",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 1,
+          "weight": 1.0,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Estimated 'a'",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 1,
+          "weight": 10.0,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Estimated 'sigma_a'",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 1,
+          "weight": 8.0,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Estimated 'b'",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 1,
+          "weight": 10.0,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Estimated 'sigma_b'",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 1,
+          "weight": 8.0,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        }
+      ],
+      "aggregate": {
+        "weighted_success_rate": 0.9142072752230611,
+        "ci_low": 0.5435532475001305,
+        "ci_high": 1.0
+      }
+    },
+    {
+      "task": "hubble_constant",
+      "seed": 10,
+      "difficulty": "hard",
+      "model": "gemini/gemini-3.1-pro-preview",
+      "judge": "gemini/gemini-3.1-flash-lite",
+      "timestamp": "",
+      "metarubrics": [
+        {
+          "name": "Included summary section",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Correct number of galaxies",
+          "dimension": "data handling",
+          "total": 1,
+          "passed": 1,
+          "weight": 2.0,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Listed section measured redshifts",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Redshift estimation",
+          "dimension": "image data extraction",
+          "total": 41,
+          "passed": 16,
+          "weight": 10.0,
+          "success_rate": 0.3902439024390244,
+          "ci_low": 0.25656145060123525,
+          "ci_high": 0.5427314306587621
+        },
+        {
+          "name": "Fitted function - linear",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 1,
+          "weight": 1.0,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Fitted function - zero offset",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 0,
+          "weight": 2.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.7934506856227627
+        },
+        {
+          "name": "Included Hubble constant section",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Hubble constant estimation",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 0,
+          "weight": 8.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.7934506856227627
+        },
+        {
+          "name": "Uncertainty on Hubble constant",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 0,
+          "weight": 8.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.7934506856227627
+        }
+      ],
+      "aggregate": {
+        "weighted_success_rate": 0.25853658536585367,
+        "ci_low": 0.0,
+        "ci_high": 0.6078647794307506
+      }
+    },
+    {
+      "task": "hubble_constant",
+      "seed": 11,
+      "difficulty": "hard",
+      "model": "gemini/gemini-3.1-pro-preview",
+      "judge": "gemini/gemini-3.1-flash-lite",
+      "timestamp": "",
+      "metarubrics": [
+        {
+          "name": "Included summary section",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Correct number of galaxies",
+          "dimension": "data handling",
+          "total": 1,
+          "passed": 0,
+          "weight": 2.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.7934506856227627
+        },
+        {
+          "name": "Listed section measured redshifts",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Redshift estimation",
+          "dimension": "image data extraction",
+          "total": 30,
+          "passed": 1,
+          "weight": 10.0,
+          "success_rate": 0.03333333333333333,
+          "ci_low": 0.005908590381612455,
+          "ci_high": 0.16670390991409176
+        },
+        {
+          "name": "Fitted function - linear",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 1,
+          "weight": 1.0,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Fitted function - zero offset",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 0,
+          "weight": 2.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.7934506856227627
+        },
+        {
+          "name": "Included Hubble constant section",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Hubble constant estimation",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 0,
+          "weight": 8.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.7934506856227627
+        },
+        {
+          "name": "Uncertainty on Hubble constant",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 1,
+          "weight": 8.0,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        }
+      ],
+      "aggregate": {
+        "weighted_success_rate": 0.3333333333333333,
+        "ci_low": 0.0,
+        "ci_high": 0.6809795512438598
+      }
+    },
+    {
+      "task": "hubble_constant",
+      "seed": 12,
+      "difficulty": "hard",
+      "model": "gemini/gemini-3.1-pro-preview",
+      "judge": "gemini/gemini-3.1-flash-lite",
+      "timestamp": "",
+      "metarubrics": [
+        {
+          "name": "Included summary section",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Correct number of galaxies",
+          "dimension": "data handling",
+          "total": 1,
+          "passed": 1,
+          "weight": 2.0,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Listed section measured redshifts",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Redshift estimation",
+          "dimension": "image data extraction",
+          "total": 24,
+          "passed": 24,
+          "weight": 10.0,
+          "success_rate": 1.0,
+          "ci_low": 0.8620237953250198,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Fitted function - linear",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 1,
+          "weight": 1.0,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Fitted function - zero offset",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 0,
+          "weight": 2.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.7934506856227627
+        },
+        {
+          "name": "Included Hubble constant section",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Hubble constant estimation",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 1,
+          "weight": 8.0,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Uncertainty on Hubble constant",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 1,
+          "weight": 8.0,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        }
+      ],
+      "aggregate": {
+        "weighted_success_rate": 0.9384615384615385,
+        "ci_low": 0.5907904153638053,
+        "ci_high": 1.0
+      }
+    },
+    {
+      "task": "hubble_constant",
+      "seed": 13,
+      "difficulty": "hard",
+      "model": "gemini/gemini-3.1-pro-preview",
+      "judge": "gemini/gemini-3.1-flash-lite",
+      "timestamp": "",
+      "metarubrics": [
+        {
+          "name": "Included summary section",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Correct number of galaxies",
+          "dimension": "data handling",
+          "total": 1,
+          "passed": 0,
+          "weight": 2.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.7934506856227627
+        },
+        {
+          "name": "Listed section measured redshifts",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Redshift estimation",
+          "dimension": "image data extraction",
+          "total": 39,
+          "passed": 35,
+          "weight": 10.0,
+          "success_rate": 0.8974358974358975,
+          "ci_low": 0.7642114553714346,
+          "ci_high": 0.9593866865533162
+        },
+        {
+          "name": "Fitted function - linear",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 1,
+          "weight": 1.0,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Fitted function - zero offset",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 0,
+          "weight": 2.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.7934506856227627
+        },
+        {
+          "name": "Included Hubble constant section",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Hubble constant estimation",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 0,
+          "weight": 8.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.7934506856227627
+        },
+        {
+          "name": "Uncertainty on Hubble constant",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 0,
+          "weight": 8.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.7934506856227627
+        }
+      ],
+      "aggregate": {
+        "weighted_success_rate": 0.3530571992110454,
+        "ci_low": 0.005188589577114211,
+        "ci_high": 0.7009258088449766
+      }
+    },
+    {
+      "task": "invariant_mass_reconstruction",
+      "seed": 10,
+      "difficulty": "hard",
+      "model": "gemini/gemini-3.1-pro-preview",
+      "judge": "gemini/gemini-3.1-flash-lite",
+      "timestamp": "",
+      "metarubrics": [
+        {
+          "name": "Analysis summary",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Detector dimensions retrieval",
+          "dimension": "image data extraction",
+          "total": 5,
+          "passed": 5,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.5655175352168252,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Number of events in the list",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 0,
+          "weight": 1.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.7934506856227627
+        },
+        {
+          "name": "Per-event invariant mass reconstruction",
+          "dimension": "scientific reasoning",
+          "total": 200,
+          "passed": 0,
+          "weight": 5.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.01884532637726658
+        },
+        {
+          "name": "Final result existence - mass",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Particle mass M",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 1,
+          "weight": 10.0,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Final result existence - decay width",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Decay width",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 1,
+          "weight": 10.0,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        }
+      ],
+      "aggregate": {
+        "weighted_success_rate": 0.7857142857142857,
+        "ci_low": 0.2992591160426886,
+        "ci_high": 1.0
+      }
+    },
+    {
+      "task": "invariant_mass_reconstruction",
+      "seed": 11,
+      "difficulty": "hard",
+      "model": "gemini/gemini-3.1-pro-preview",
+      "judge": "gemini/gemini-3.1-flash-lite",
+      "timestamp": "",
+      "metarubrics": [
+        {
+          "name": "Analysis summary",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 0,
+          "weight": 0.5,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.7934506856227627
+        },
+        {
+          "name": "Detector dimensions retrieval",
+          "dimension": "image data extraction",
+          "total": 5,
+          "passed": 5,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.5655175352168252,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Number of events in the list",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 0,
+          "weight": 1.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.7934506856227627
+        },
+        {
+          "name": "Per-event invariant mass reconstruction",
+          "dimension": "scientific reasoning",
+          "total": 200,
+          "passed": 2,
+          "weight": 5.0,
+          "success_rate": 0.01,
+          "ci_low": 0.0027466581335444384,
+          "ci_high": 0.03572176171617682
+        },
+        {
+          "name": "Final result existence - mass",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Particle mass M",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 0,
+          "weight": 10.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.7934506856227627
+        },
+        {
+          "name": "Final result existence - decay width",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Decay width",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 1,
+          "weight": 10.0,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        }
+      ],
+      "aggregate": {
+        "weighted_success_rate": 0.41250000000000003,
+        "ci_low": 0.0,
+        "ci_high": 0.8989611693059598
+      }
+    },
+    {
+      "task": "invariant_mass_reconstruction",
+      "seed": 12,
+      "difficulty": "hard",
+      "model": "gemini/gemini-3.1-pro-preview",
+      "judge": "gemini/gemini-3.1-flash-lite",
+      "timestamp": "",
+      "metarubrics": [
+        {
+          "name": "Analysis summary",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Detector dimensions retrieval",
+          "dimension": "image data extraction",
+          "total": 5,
+          "passed": 5,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.5655175352168252,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Number of events in the list",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 0,
+          "weight": 1.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.7934506856227627
+        },
+        {
+          "name": "Per-event invariant mass reconstruction",
+          "dimension": "scientific reasoning",
+          "total": 200,
+          "passed": 2,
+          "weight": 5.0,
+          "success_rate": 0.01,
+          "ci_low": 0.0027466581335444384,
+          "ci_high": 0.03572176171617682
+        },
+        {
+          "name": "Final result existence - mass",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Particle mass M",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 0,
+          "weight": 10.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.7934506856227627
+        },
+        {
+          "name": "Final result existence - decay width",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Decay width",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 0,
+          "weight": 10.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.7934506856227627
+        }
+      ],
+      "aggregate": {
+        "weighted_success_rate": 0.0732142857142857,
+        "ci_low": 0.0,
+        "ci_high": 0.5596754550202454
+      }
+    },
+    {
+      "task": "invariant_mass_reconstruction",
+      "seed": 13,
+      "difficulty": "hard",
+      "model": "gemini/gemini-3.1-pro-preview",
+      "judge": "gemini/gemini-3.1-flash-lite",
+      "timestamp": "",
+      "metarubrics": [
+        {
+          "name": "Analysis summary",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Detector dimensions retrieval",
+          "dimension": "image data extraction",
+          "total": 5,
+          "passed": 5,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.5655175352168252,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Number of events in the list",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 0,
+          "weight": 1.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.7934506856227627
+        },
+        {
+          "name": "Per-event invariant mass reconstruction",
+          "dimension": "scientific reasoning",
+          "total": 200,
+          "passed": 7,
+          "weight": 5.0,
+          "success_rate": 0.035,
+          "ci_low": 0.01705554200856719,
+          "ci_high": 0.07047061152229073
+        },
+        {
+          "name": "Final result existence - mass",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Particle mass M",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 1,
+          "weight": 10.0,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Final result existence - decay width",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Decay width",
+          "dimension": "scientific reasoning",
+          "total": 1,
+          "passed": 0,
+          "weight": 10.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.7934506856227627
+        }
+      ],
+      "aggregate": {
+        "weighted_success_rate": 0.4348214285714286,
+        "ci_low": 0.0,
+        "ci_high": 0.9212970663881934
+      }
+    },
+    {
+      "task": "lissajous_figures",
+      "seed": 10,
+      "difficulty": "hard",
+      "model": "gemini/gemini-3.1-pro-preview",
+      "judge": "gemini/gemini-3.1-flash-lite",
+      "timestamp": "",
+      "metarubrics": [
+        {
+          "name": "Included sections for QA",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Listed faulty supplies",
+          "dimension": "data handling",
+          "total": 15,
+          "passed": 0,
+          "weight": 2.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.20388330103584867
+        },
+        {
+          "name": "Skipped not faulty supplies",
+          "dimension": "data handling",
+          "total": 31,
+          "passed": 30,
+          "weight": 2.0,
+          "success_rate": 0.967741935483871,
+          "ci_low": 0.838058948352751,
+          "ci_high": 0.9942827784745831
+        },
+        {
+          "name": "Computed frequency of faulty supply",
+          "dimension": "image data extraction",
+          "total": 15,
+          "passed": 3,
+          "weight": 8.0,
+          "success_rate": 0.2,
+          "ci_low": 0.07047549346981555,
+          "ci_high": 0.45185448715169363
+        },
+        {
+          "name": "Listed batch of supply",
+          "dimension": "data handling",
+          "total": 15,
+          "passed": 13,
+          "weight": 4.0,
+          "success_rate": 0.8666666666666667,
+          "ci_low": 0.6211801716767763,
+          "ci_high": 0.9626387408969347
+        },
+        {
+          "name": "Listed manufacturing machine of supply",
+          "dimension": "data handling",
+          "total": 15,
+          "passed": 14,
+          "weight": 2.0,
+          "success_rate": 0.9333333333333333,
+          "ci_low": 0.7018347012621997,
+          "ci_high": 0.9881331045067314
+        },
+        {
+          "name": "Included sections for management",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Identified faulty machines",
+          "dimension": "data handling",
+          "total": 6,
+          "passed": 6,
+          "weight": 2.0,
+          "success_rate": 1.0,
+          "ci_low": 0.6096657120978346,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Skipped not faulty machines",
+          "dimension": "data handling",
+          "total": 6,
+          "passed": 0,
+          "weight": 2.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.39033428790216546
+        }
+      ],
+      "aggregate": {
+        "weighted_success_rate": 0.5160355306217859,
+        "ci_low": 0.4152998491740396,
+        "ci_high": 0.6167712120695321
+      }
+    },
+    {
+      "task": "lissajous_figures",
+      "seed": 11,
+      "difficulty": "hard",
+      "model": "gemini/gemini-3.1-pro-preview",
+      "judge": "gemini/gemini-3.1-flash-lite",
+      "timestamp": "",
+      "metarubrics": [
+        {
+          "name": "Included sections for QA",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Listed faulty supplies",
+          "dimension": "data handling",
+          "total": 9,
+          "passed": 0,
+          "weight": 2.0,
+          "success_rate": 0.0,
+          "ci_low": 2.7755575615628914e-17,
+          "ci_high": 0.29914504841954415
+        },
+        {
+          "name": "Skipped not faulty supplies",
+          "dimension": "data handling",
+          "total": 43,
+          "passed": 43,
+          "weight": 2.0,
+          "success_rate": 1.0,
+          "ci_low": 0.9179901967742088,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Computed frequency of faulty supply",
+          "dimension": "image data extraction",
+          "total": 9,
+          "passed": 0,
+          "weight": 8.0,
+          "success_rate": 0.0,
+          "ci_low": 2.7755575615628914e-17,
+          "ci_high": 0.29914504841954415
+        },
+        {
+          "name": "Listed batch of supply",
+          "dimension": "data handling",
+          "total": 9,
+          "passed": 0,
+          "weight": 4.0,
+          "success_rate": 0.0,
+          "ci_low": 2.7755575615628914e-17,
+          "ci_high": 0.29914504841954415
+        },
+        {
+          "name": "Listed manufacturing machine of supply",
+          "dimension": "data handling",
+          "total": 9,
+          "passed": 0,
+          "weight": 2.0,
+          "success_rate": 0.0,
+          "ci_low": 2.7755575615628914e-17,
+          "ci_high": 0.29914504841954415
+        },
+        {
+          "name": "Included sections for management",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Identified faulty machines",
+          "dimension": "data handling",
+          "total": 5,
+          "passed": 0,
+          "weight": 2.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.43448246478317487
+        },
+        {
+          "name": "Skipped not faulty machines",
+          "dimension": "data handling",
+          "total": 7,
+          "passed": 7,
+          "weight": 2.0,
+          "success_rate": 1.0,
+          "ci_low": 0.6456695649333125,
+          "ci_high": 0.9999999999999999
+        }
+      ],
+      "aggregate": {
+        "weighted_success_rate": 0.21739130434782608,
+        "ci_low": 0.11005982422669293,
+        "ci_high": 0.32472278446895925
+      }
+    },
+    {
+      "task": "lissajous_figures",
+      "seed": 12,
+      "difficulty": "hard",
+      "model": "gemini/gemini-3.1-pro-preview",
+      "judge": "gemini/gemini-3.1-flash-lite",
+      "timestamp": "",
+      "metarubrics": [
+        {
+          "name": "Included sections for QA",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Listed faulty supplies",
+          "dimension": "data handling",
+          "total": 19,
+          "passed": 0,
+          "weight": 2.0,
+          "success_rate": 0.0,
+          "ci_low": 1.3877787807814457e-17,
+          "ci_high": 0.16817922405261632
+        },
+        {
+          "name": "Skipped not faulty supplies",
+          "dimension": "data handling",
+          "total": 40,
+          "passed": 15,
+          "weight": 2.0,
+          "success_rate": 0.375,
+          "ci_low": 0.2422297916723327,
+          "ci_high": 0.529675608626989
+        },
+        {
+          "name": "Computed frequency of faulty supply",
+          "dimension": "image data extraction",
+          "total": 19,
+          "passed": 9,
+          "weight": 8.0,
+          "success_rate": 0.47368421052631576,
+          "ci_low": 0.27329805161179566,
+          "ci_high": 0.6829219075488684
+        },
+        {
+          "name": "Listed batch of supply",
+          "dimension": "data handling",
+          "total": 19,
+          "passed": 17,
+          "weight": 4.0,
+          "success_rate": 0.8947368421052632,
+          "ci_low": 0.6860591728889099,
+          "ci_high": 0.9706414397011299
+        },
+        {
+          "name": "Listed manufacturing machine of supply",
+          "dimension": "data handling",
+          "total": 19,
+          "passed": 18,
+          "weight": 2.0,
+          "success_rate": 0.9473684210526315,
+          "ci_low": 0.7536126883310121,
+          "ci_high": 0.9906480059376996
+        },
+        {
+          "name": "Included sections for management",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Identified faulty machines",
+          "dimension": "data handling",
+          "total": 7,
+          "passed": 7,
+          "weight": 2.0,
+          "success_rate": 1.0,
+          "ci_low": 0.6456695649333125,
+          "ci_high": 0.9999999999999999
+        },
+        {
+          "name": "Skipped not faulty machines",
+          "dimension": "data handling",
+          "total": 5,
+          "passed": 0,
+          "weight": 2.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.43448246478317487
+        }
+      ],
+      "aggregate": {
+        "weighted_success_rate": 0.5657894736842105,
+        "ci_low": 0.46631573763788775,
+        "ci_high": 0.6652632097305332
+      }
+    },
+    {
+      "task": "lissajous_figures",
+      "seed": 13,
+      "difficulty": "hard",
+      "model": "gemini/gemini-3.1-pro-preview",
+      "judge": "gemini/gemini-3.1-flash-lite",
+      "timestamp": "",
+      "metarubrics": [
+        {
+          "name": "Included sections for QA",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Listed faulty supplies",
+          "dimension": "data handling",
+          "total": 5,
+          "passed": 0,
+          "weight": 2.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.43448246478317487
+        },
+        {
+          "name": "Skipped not faulty supplies",
+          "dimension": "data handling",
+          "total": 43,
+          "passed": 43,
+          "weight": 2.0,
+          "success_rate": 1.0,
+          "ci_low": 0.9179901967742088,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Computed frequency of faulty supply",
+          "dimension": "image data extraction",
+          "total": 5,
+          "passed": 0,
+          "weight": 8.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.43448246478317487
+        },
+        {
+          "name": "Listed batch of supply",
+          "dimension": "data handling",
+          "total": 5,
+          "passed": 0,
+          "weight": 4.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.43448246478317487
+        },
+        {
+          "name": "Listed manufacturing machine of supply",
+          "dimension": "data handling",
+          "total": 5,
+          "passed": 0,
+          "weight": 2.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.43448246478317487
+        },
+        {
+          "name": "Included sections for management",
+          "dimension": "instructions following",
+          "total": 1,
+          "passed": 1,
+          "weight": 0.5,
+          "success_rate": 1.0,
+          "ci_low": 0.2065493143772374,
+          "ci_high": 1.0
+        },
+        {
+          "name": "Identified faulty machines",
+          "dimension": "data handling",
+          "total": 4,
+          "passed": 0,
+          "weight": 2.0,
+          "success_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.4898908364545974
+        },
+        {
+          "name": "Skipped not faulty machines",
+          "dimension": "data handling",
+          "total": 8,
+          "passed": 8,
+          "weight": 2.0,
+          "success_rate": 1.0,
+          "ci_low": 0.6755924351161198,
+          "ci_high": 1.0
+        }
+      ],
+      "aggregate": {
+        "weighted_success_rate": 0.21739130434782608,
+        "ci_low": 0.06097778268512352,
+        "ci_high": 0.37380482601052867
+      }
+    }
+  ]
+}

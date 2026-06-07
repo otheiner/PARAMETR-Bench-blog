@@ -1,0 +1,22 @@
+{
+  "run_id": "zbkdis",
+  "model": "deepinfra/deepseek-ai/DeepSeek-V4-Pro",
+  "judge": "anthropic/claude-haiku-4-5",
+  "difficulty": "hard",
+  "seeds": [
+    10,
+    11,
+    12,
+    13
+  ],
+  "agentic": true,
+  "max_turns": 10,
+  "tasks": [
+    "cepheid_calibration",
+    "hubble_constant",
+    "invariant_mass_reconstruction",
+    "lissajous_figures"
+  ],
+  "git_commit": "f1f2d0d",
+  "timestamp": "2026-06-05T15:09:22.015981"
+}

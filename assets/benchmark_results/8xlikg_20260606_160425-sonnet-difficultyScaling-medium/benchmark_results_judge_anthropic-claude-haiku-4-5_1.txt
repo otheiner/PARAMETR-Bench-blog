@@ -1,0 +1,212 @@
+==================================================
+BENCHMARK RESULTS
+==================================================
+Model:      anthropic/claude-sonnet-4-6
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: medium
+Seeds:      [10, 11]
+Commit:     c7791b7  |  2026-06-06T19:26:17.968962
+Agentic:    YES  |  Max-turns: 10
+--------------------------------------------------
+Overall score: 76.7%  95% CI: [62.9%, 90.5%]  (657 binary outcomes across 8 task runs)
+
+
+
+==================================================
+TASK RESULTS AGGREGATED (combined across seeds)
+==================================================
+Task:       cepheid_calibration
+Model:      anthropic/claude-sonnet-4-6
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: medium  |  Seeds: [10, 11]
+      - Listed Cepheids with data:                        50/50 (100.0%, 95% CI: [92.9%, 100.0%])  weight: 2.0
+      - Estimated redshifts:                              3/50 (6.0%, 95% CI: [2.1%, 16.2%])  weight: 8.0
+      - Fitted function form:                             2/2 (100.0%, 95% CI: [34.2%, 100.0%])  weight: 1.0
+      - Estimated 'a':                                    2/2 (100.0%, 95% CI: [34.2%, 100.0%])  weight: 10.0
+      - Estimated 'sigma_a':                              2/2 (100.0%, 95% CI: [34.2%, 100.0%])  weight: 8.0
+      - Estimated 'b':                                    2/2 (100.0%, 95% CI: [34.2%, 100.0%])  weight: 10.0
+      - Estimated 'sigma_b':                              2/2 (100.0%, 95% CI: [34.2%, 100.0%])  weight: 8.0
+      ──────────────────────────────────────────────────
+      Weighted total: 84.0%
+Task:       hubble_constant
+Model:      anthropic/claude-sonnet-4-6
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: medium  |  Seeds: [10, 11]
+      - Included summary section:                         2/2 (100.0%, 95% CI: [34.2%, 100.0%])  weight: 0.5
+      - Correct number of galaxies:                       0/2 (0.0%, 95% CI: [0.0%, 65.8%])  weight: 2.0
+      - Listed section measured redshifts:                2/2 (100.0%, 95% CI: [34.2%, 100.0%])  weight: 0.5
+      - Redshift estimation:                              25/38 (65.8%, 95% CI: [49.9%, 78.8%])  weight: 10.0
+      - Fitted function - linear:                         2/2 (100.0%, 95% CI: [34.2%, 100.0%])  weight: 1.0
+      - Fitted function - zero offset:                    2/2 (100.0%, 95% CI: [34.2%, 100.0%])  weight: 2.0
+      - Included Hubble constant section:                 2/2 (100.0%, 95% CI: [34.2%, 100.0%])  weight: 0.5
+      - Hubble constant estimation:                       1/2 (50.0%, 95% CI: [9.5%, 90.5%])  weight: 8.0
+      - Uncertainty on Hubble constant:                   1/2 (50.0%, 95% CI: [9.5%, 90.5%])  weight: 8.0
+      ──────────────────────────────────────────────────
+      Weighted total: 58.7%
+Task:       invariant_mass_reconstruction
+Model:      anthropic/claude-sonnet-4-6
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: medium  |  Seeds: [10, 11]
+      - Analysis summary:                                 1/2 (50.0%, 95% CI: [9.5%, 90.5%])  weight: 0.5
+      - Detector dimensions retrieval:                    8/8 (100.0%, 95% CI: [67.6%, 100.0%])  weight: 0.5
+      - Number of events in the list:                     1/2 (50.0%, 95% CI: [9.5%, 90.5%])  weight: 1.0
+      - Per-event invariant mass reconstruction:          107/400 (26.8%, 95% CI: [22.6%, 31.3%])  weight: 5.0
+      - Final result existence - mass:                    2/2 (100.0%, 95% CI: [34.2%, 100.0%])  weight: 0.5
+      - Particle mass M:                                  2/2 (100.0%, 95% CI: [34.2%, 100.0%])  weight: 10.0
+      - Final result existence - decay width:             2/2 (100.0%, 95% CI: [34.2%, 100.0%])  weight: 0.5
+      - Decay width:                                      2/2 (100.0%, 95% CI: [34.2%, 100.0%])  weight: 10.0
+      ──────────────────────────────────────────────────
+      Weighted total: 84.2%
+Task:       lissajous_figures
+Model:      anthropic/claude-sonnet-4-6
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: medium  |  Seeds: [10, 11]
+      - Included sections for QA:                         2/2 (100.0%, 95% CI: [34.2%, 100.0%])  weight: 0.5
+      - Listed faulty supplies:                           2/7 (28.6%, 95% CI: [8.2%, 64.1%])  weight: 2.0
+      - Skipped not faulty supplies:                      27/31 (87.1%, 95% CI: [71.1%, 94.9%])  weight: 2.0
+      - Computed frequency of faulty supply:              6/7 (85.7%, 95% CI: [48.7%, 97.4%])  weight: 8.0
+      - Listed batch of supply:                           7/7 (100.0%, 95% CI: [64.6%, 100.0%])  weight: 4.0
+      - Listed manufacturing machine of supply:           7/7 (100.0%, 95% CI: [64.6%, 100.0%])  weight: 2.0
+      - Included sections for management:                 2/2 (100.0%, 95% CI: [34.2%, 100.0%])  weight: 0.5
+      - Identified faulty machines:                       5/5 (100.0%, 95% CI: [56.6%, 100.0%])  weight: 2.0
+      - Skipped not faulty machines:                      3/5 (60.0%, 95% CI: [23.1%, 88.2%])  weight: 2.0
+      ──────────────────────────────────────────────────
+      Weighted total: 84.2%
+
+
+
+==================================================
+INDIVIDUAL TASK RESULTS
+==================================================
+Task:       cepheid_calibration
+Model:      anthropic/claude-sonnet-4-6
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: medium  |  Seed: 10
+      - Listed Cepheids with data:                        25/25 (100.0%, 95% CI: [86.7%, 100.0%])
+      - Estimated redshifts:                              0/25 (0.0%, 95% CI: [0.0%, 13.3%])
+      - Fitted function form:                             1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Estimated 'a':                                    1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Estimated 'sigma_a':                              1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Estimated 'b':                                    1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Estimated 'sigma_b':                              1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      ──────────────────────────────────────────────────
+      Weighted total: 83.0%
+
+Task:       cepheid_calibration
+Model:      anthropic/claude-sonnet-4-6
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: medium  |  Seed: 11
+      - Listed Cepheids with data:                        25/25 (100.0%, 95% CI: [86.7%, 100.0%])
+      - Estimated redshifts:                              3/25 (12.0%, 95% CI: [4.2%, 30.0%])
+      - Fitted function form:                             1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Estimated 'a':                                    1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Estimated 'sigma_a':                              1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Estimated 'b':                                    1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Estimated 'sigma_b':                              1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      ──────────────────────────────────────────────────
+      Weighted total: 85.0%
+
+Task:       hubble_constant
+Model:      anthropic/claude-sonnet-4-6
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: medium  |  Seed: 10
+      - Included summary section:                         1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Correct number of galaxies:                       0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Listed section measured redshifts:                1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Redshift estimation:                              23/23 (100.0%, 95% CI: [85.7%, 100.0%])
+      - Fitted function - linear:                         1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Fitted function - zero offset:                    1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Included Hubble constant section:                 1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Hubble constant estimation:                       1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Uncertainty on Hubble constant:                   1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      ──────────────────────────────────────────────────
+      Weighted total: 93.8%
+
+Task:       hubble_constant
+Model:      anthropic/claude-sonnet-4-6
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: medium  |  Seed: 11
+      - Included summary section:                         1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Correct number of galaxies:                       0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Listed section measured redshifts:                1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Redshift estimation:                              2/15 (13.3%, 95% CI: [3.7%, 37.9%])
+      - Fitted function - linear:                         1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Fitted function - zero offset:                    1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Included Hubble constant section:                 1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Hubble constant estimation:                       0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Uncertainty on Hubble constant:                   0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      ──────────────────────────────────────────────────
+      Weighted total: 17.9%
+
+Task:       invariant_mass_reconstruction
+Model:      anthropic/claude-sonnet-4-6
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: medium  |  Seed: 10
+      - Analysis summary:                                 1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Detector dimensions retrieval:                    4/4 (100.0%, 95% CI: [51.0%, 100.0%])
+      - Number of events in the list:                     0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Per-event invariant mass reconstruction:          51/200 (25.5%, 95% CI: [20.0%, 32.0%])
+      - Final result existence - mass:                    1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Particle mass M:                                  1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Final result existence - decay width:             1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Decay width:                                      1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      ──────────────────────────────────────────────────
+      Weighted total: 83.1%
+
+Task:       invariant_mass_reconstruction
+Model:      anthropic/claude-sonnet-4-6
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: medium  |  Seed: 11
+      - Analysis summary:                                 0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Detector dimensions retrieval:                    4/4 (100.0%, 95% CI: [51.0%, 100.0%])
+      - Number of events in the list:                     1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Per-event invariant mass reconstruction:          56/200 (28.0%, 95% CI: [22.2%, 34.6%])
+      - Final result existence - mass:                    1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Particle mass M:                                  1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Final result existence - decay width:             1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Decay width:                                      1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      ──────────────────────────────────────────────────
+      Weighted total: 85.4%
+
+Task:       lissajous_figures
+Model:      anthropic/claude-sonnet-4-6
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: medium  |  Seed: 10
+      - Included sections for QA:                         1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Listed faulty supplies:                           2/2 (100.0%, 95% CI: [34.2%, 100.0%])
+      - Skipped not faulty supplies:                      10/12 (83.3%, 95% CI: [55.2%, 95.3%])
+      - Computed frequency of faulty supply:              1/2 (50.0%, 95% CI: [9.5%, 90.5%])
+      - Listed batch of supply:                           2/2 (100.0%, 95% CI: [34.2%, 100.0%])
+      - Listed manufacturing machine of supply:           2/2 (100.0%, 95% CI: [34.2%, 100.0%])
+      - Included sections for management:                 1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Identified faulty machines:                       2/2 (100.0%, 95% CI: [34.2%, 100.0%])
+      - Skipped not faulty machines:                      2/3 (66.7%, 95% CI: [20.8%, 93.9%])
+      ──────────────────────────────────────────────────
+      Weighted total: 78.3%
+
+Task:       lissajous_figures
+Model:      anthropic/claude-sonnet-4-6
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: medium  |  Seed: 11
+      - Included sections for QA:                         1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Listed faulty supplies:                           0/5 (0.0%, 95% CI: [0.0%, 43.4%])
+      - Skipped not faulty supplies:                      17/19 (89.5%, 95% CI: [68.6%, 97.1%])
+      - Computed frequency of faulty supply:              5/5 (100.0%, 95% CI: [56.6%, 100.0%])
+      - Listed batch of supply:                           5/5 (100.0%, 95% CI: [56.6%, 100.0%])
+      - Listed manufacturing machine of supply:           5/5 (100.0%, 95% CI: [56.6%, 100.0%])
+      - Included sections for management:                 1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Identified faulty machines:                       3/3 (100.0%, 95% CI: [43.9%, 100.0%])
+      - Skipped not faulty machines:                      1/2 (50.0%, 95% CI: [9.5%, 90.5%])
+      ──────────────────────────────────────────────────
+      Weighted total: 86.0%
+
+
+
+
+==================================================
+BY DIMENSION (aggregated across all tasks and seeds)
+==================================================
+  data handling:                 77.2%
+  image data extraction:         47.7%
+  scientific reasoning:          85.6%
+  instructions following:        85.0%

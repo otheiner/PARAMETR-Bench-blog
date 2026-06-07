@@ -1,0 +1,431 @@
+{
+  "judge": "anthropic/claude-haiku-4-5",
+  "metarubrics": [
+    {
+      "name": "Included sections for QA",
+      "dimension": "instructions following",
+      "rubrics": [
+        {
+          "criterion": "Did the model include the DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        }
+      ]
+    },
+    {
+      "name": "Listed faulty supplies",
+      "dimension": "data handling",
+      "rubrics": [
+        {
+          "criterion": "Did the model list supply 43500933 as faulty in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model list supply 61773754 as faulty in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model list supply 31295752 as faulty in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model list supply 54721440 as faulty in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model list supply 55693252 as faulty in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model list supply 36245128 as faulty in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model list supply 77284097 as faulty in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model list supply 78395292 as faulty in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model list supply 80227821 as faulty in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "NO"
+        }
+      ]
+    },
+    {
+      "name": "Skipped not faulty supplies",
+      "dimension": "data handling",
+      "rubrics": [
+        {
+          "criterion": "Did the model not include supply 25536428 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 34038297 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 35218453 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 24734088 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 41544058 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 17427523 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 17623255 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 56655727 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 32714732 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 21945323 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 28625269 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 96726706 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 21809507 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 60047150 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 75371090 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 81750384 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 76311714 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 68393026 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 94120191 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 42630924 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 41862320 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 71500671 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 91284150 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 49138155 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 08955947 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 79120740 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 23806768 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 97082948 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 09876115 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 27545567 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 25477777 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 24890404 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 06722969 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 27230511 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 08218929 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 71224965 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 00266101 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 90297054 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 58232295 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 07764598 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 92875230 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 89787898 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include supply 41638135 in the list of faulty supplies in DATA FOR QUALITY ASSURANCE  section?",
+          "verdict": "YES"
+        }
+      ]
+    },
+    {
+      "name": "Computed frequency of faulty supply",
+      "dimension": "image data extraction",
+      "rubrics": [
+        {
+          "criterion": "Did the model list that supply 43500933 has frequency 66.6666 Hz in DATA FOR QUALITY ASSURANCE section, or an equivalent value when rounded to the closest integer?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model list that supply 61773754 has frequency 90.0 Hz in DATA FOR QUALITY ASSURANCE section, or an equivalent value when rounded to the closest integer?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model list that supply 31295752 has frequency 66.6666 Hz in DATA FOR QUALITY ASSURANCE section, or an equivalent value when rounded to the closest integer?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model list that supply 54721440 has frequency 33.333333 Hz in DATA FOR QUALITY ASSURANCE section, or an equivalent value when rounded to the closest integer?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model list that supply 55693252 has frequency 66.6666 Hz in DATA FOR QUALITY ASSURANCE section, or an equivalent value when rounded to the closest integer?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model list that supply 36245128 has frequency 80.0 Hz in DATA FOR QUALITY ASSURANCE section, or an equivalent value when rounded to the closest integer?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model list that supply 77284097 has frequency 70.0 Hz in DATA FOR QUALITY ASSURANCE section, or an equivalent value when rounded to the closest integer?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model list that supply 78395292 has frequency 66.6666 Hz in DATA FOR QUALITY ASSURANCE section, or an equivalent value when rounded to the closest integer?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model list that supply 80227821 has frequency 80.0 Hz in DATA FOR QUALITY ASSURANCE section, or an equivalent value when rounded to the closest integer?",
+          "verdict": "NO"
+        }
+      ]
+    },
+    {
+      "name": "Listed batch of supply",
+      "dimension": "data handling",
+      "rubrics": [
+        {
+          "criterion": "Did the model list that supply 43500933 was manufactured in batch d in DATA FOR QUALITY ASSURANCE section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list that supply 61773754 was manufactured in batch d in DATA FOR QUALITY ASSURANCE section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list that supply 31295752 was manufactured in batch e in DATA FOR QUALITY ASSURANCE section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list that supply 54721440 was manufactured in batch f in DATA FOR QUALITY ASSURANCE section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list that supply 55693252 was manufactured in batch c in DATA FOR QUALITY ASSURANCE section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list that supply 36245128 was manufactured in batch e in DATA FOR QUALITY ASSURANCE section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list that supply 77284097 was manufactured in batch e in DATA FOR QUALITY ASSURANCE section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list that supply 78395292 was manufactured in batch d in DATA FOR QUALITY ASSURANCE section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list that supply 80227821 was manufactured in batch e in DATA FOR QUALITY ASSURANCE section?",
+          "verdict": "YES"
+        }
+      ]
+    },
+    {
+      "name": "Listed manufacturing machine of supply",
+      "dimension": "data handling",
+      "rubrics": [
+        {
+          "criterion": "Did the model list that supply 43500933 was manufactured by machine Anq8Xs in DATA FOR QUALITY ASSURANCE section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list that supply 61773754 was manufactured by machine CI5CFK in DATA FOR QUALITY ASSURANCE section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list that supply 31295752 was manufactured by machine reVy0x in DATA FOR QUALITY ASSURANCE section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list that supply 54721440 was manufactured by machine r990Rt in DATA FOR QUALITY ASSURANCE section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list that supply 55693252 was manufactured by machine FNXfsf in DATA FOR QUALITY ASSURANCE section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list that supply 36245128 was manufactured by machine CI5CFK in DATA FOR QUALITY ASSURANCE section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list that supply 77284097 was manufactured by machine CI5CFK in DATA FOR QUALITY ASSURANCE section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list that supply 78395292 was manufactured by machine FNXfsf in DATA FOR QUALITY ASSURANCE section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list that supply 80227821 was manufactured by machine r990Rt in DATA FOR QUALITY ASSURANCE section?",
+          "verdict": "YES"
+        }
+      ]
+    },
+    {
+      "name": "Included sections for management",
+      "dimension": "instructions following",
+      "rubrics": [
+        {
+          "criterion": "Did the model include the DATA FOR MANAGEMENT section?",
+          "verdict": "YES"
+        }
+      ]
+    },
+    {
+      "name": "Identified faulty machines",
+      "dimension": "data handling",
+      "rubrics": [
+        {
+          "criterion": "Did the model list machine Anq8Xs as faulty in MACHINES(failure > 10%) in DATA FOR MANAGEMENT section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list machine CI5CFK as faulty in MACHINES(failure > 10%) in DATA FOR MANAGEMENT section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list machine FNXfsf as faulty in MACHINES(failure > 10%) in DATA FOR MANAGEMENT section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list machine r990Rt as faulty in MACHINES(failure > 10%) in DATA FOR MANAGEMENT section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list machine reVy0x as faulty in MACHINES(failure > 10%) in DATA FOR MANAGEMENT section?",
+          "verdict": "YES"
+        }
+      ]
+    },
+    {
+      "name": "Skipped not faulty machines",
+      "dimension": "data handling",
+      "rubrics": [
+        {
+          "criterion": "Did the model not include machine 0an4D8 in the MACHINES(failure > 10%) section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include machine B0GNEP in the MACHINES(failure > 10%) section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include machine IBlTiN in the MACHINES(failure > 10%) section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include machine Qc87OM in the MACHINES(failure > 10%) section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include machine UhpgdX in the MACHINES(failure > 10%) section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include machine aGdlpb in the MACHINES(failure > 10%) section?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model not include machine eNWqfu in the MACHINES(failure > 10%) section?",
+          "verdict": "YES"
+        }
+      ]
+    }
+  ]
+}

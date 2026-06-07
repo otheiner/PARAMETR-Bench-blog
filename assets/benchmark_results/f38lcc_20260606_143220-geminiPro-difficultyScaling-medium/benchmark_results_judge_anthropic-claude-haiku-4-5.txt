@@ -1,0 +1,151 @@
+==================================================
+BENCHMARK RESULTS
+==================================================
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: medium
+Seeds:      [10]
+Commit:     c7791b7  |  2026-06-06T14:50:03.390436
+Agentic:    YES  |  Max-turns: 10
+--------------------------------------------------
+Overall score: 74.2%  95% CI: [54.5%, 93.8%]  (323 binary outcomes across 4 task runs)
+
+
+
+==================================================
+TASK RESULTS AGGREGATED (combined across seeds)
+==================================================
+Task:       cepheid_calibration
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: medium  |  Seeds: [10]
+      - Listed Cepheids with data:                        6/25 (24.0%, 95% CI: [11.5%, 43.4%])  weight: 2.0
+      - Estimated redshifts:                              0/25 (0.0%, 95% CI: [0.0%, 13.3%])  weight: 8.0
+      - Fitted function form:                             1/1 (100.0%, 95% CI: [20.7%, 100.0%])  weight: 1.0
+      - Estimated 'a':                                    0/1 (0.0%, 95% CI: [0.0%, 79.3%])  weight: 10.0
+      - Estimated 'sigma_a':                              1/1 (100.0%, 95% CI: [20.7%, 100.0%])  weight: 8.0
+      - Estimated 'b':                                    1/1 (100.0%, 95% CI: [20.7%, 100.0%])  weight: 10.0
+      - Estimated 'sigma_b':                              1/1 (100.0%, 95% CI: [20.7%, 100.0%])  weight: 8.0
+      ──────────────────────────────────────────────────
+      Weighted total: 58.5%
+Task:       hubble_constant
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: medium  |  Seeds: [10]
+      - Included summary section:                         1/1 (100.0%, 95% CI: [20.7%, 100.0%])  weight: 0.5
+      - Correct number of galaxies:                       1/1 (100.0%, 95% CI: [20.7%, 100.0%])  weight: 2.0
+      - Listed section measured redshifts:                1/1 (100.0%, 95% CI: [20.7%, 100.0%])  weight: 0.5
+      - Redshift estimation:                              20/23 (87.0%, 95% CI: [67.9%, 95.5%])  weight: 10.0
+      - Fitted function - linear:                         1/1 (100.0%, 95% CI: [20.7%, 100.0%])  weight: 1.0
+      - Fitted function - zero offset:                    0/1 (0.0%, 95% CI: [0.0%, 79.3%])  weight: 2.0
+      - Included Hubble constant section:                 1/1 (100.0%, 95% CI: [20.7%, 100.0%])  weight: 0.5
+      - Hubble constant estimation:                       1/1 (100.0%, 95% CI: [20.7%, 100.0%])  weight: 8.0
+      - Uncertainty on Hubble constant:                   1/1 (100.0%, 95% CI: [20.7%, 100.0%])  weight: 8.0
+      ──────────────────────────────────────────────────
+      Weighted total: 89.8%
+Task:       invariant_mass_reconstruction
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: medium  |  Seeds: [10]
+      - Analysis summary:                                 1/1 (100.0%, 95% CI: [20.7%, 100.0%])  weight: 0.5
+      - Detector dimensions retrieval:                    4/4 (100.0%, 95% CI: [51.0%, 100.0%])  weight: 0.5
+      - Number of events in the list:                     0/1 (0.0%, 95% CI: [0.0%, 79.3%])  weight: 1.0
+      - Per-event invariant mass reconstruction:          17/200 (8.5%, 95% CI: [5.4%, 13.2%])  weight: 5.0
+      - Final result existence - mass:                    1/1 (100.0%, 95% CI: [20.7%, 100.0%])  weight: 0.5
+      - Particle mass M:                                  1/1 (100.0%, 95% CI: [20.7%, 100.0%])  weight: 10.0
+      - Final result existence - decay width:             1/1 (100.0%, 95% CI: [20.7%, 100.0%])  weight: 0.5
+      - Decay width:                                      1/1 (100.0%, 95% CI: [20.7%, 100.0%])  weight: 10.0
+      ──────────────────────────────────────────────────
+      Weighted total: 80.1%
+Task:       lissajous_figures
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: medium  |  Seeds: [10]
+      - Included sections for QA:                         1/1 (100.0%, 95% CI: [20.7%, 100.0%])  weight: 0.5
+      - Listed faulty supplies:                           0/2 (0.0%, 95% CI: [0.0%, 65.8%])  weight: 2.0
+      - Skipped not faulty supplies:                      6/12 (50.0%, 95% CI: [25.4%, 74.6%])  weight: 2.0
+      - Computed frequency of faulty supply:              2/2 (100.0%, 95% CI: [34.2%, 100.0%])  weight: 8.0
+      - Listed batch of supply:                           2/2 (100.0%, 95% CI: [34.2%, 100.0%])  weight: 4.0
+      - Listed manufacturing machine of supply:           2/2 (100.0%, 95% CI: [34.2%, 100.0%])  weight: 2.0
+      - Included sections for management:                 1/1 (100.0%, 95% CI: [20.7%, 100.0%])  weight: 0.5
+      - Identified faulty machines:                       1/2 (50.0%, 95% CI: [9.5%, 90.5%])  weight: 2.0
+      - Skipped not faulty machines:                      1/3 (33.3%, 95% CI: [6.1%, 79.2%])  weight: 2.0
+      ──────────────────────────────────────────────────
+      Weighted total: 76.8%
+
+
+
+==================================================
+INDIVIDUAL TASK RESULTS
+==================================================
+Task:       cepheid_calibration
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: medium  |  Seed: 10
+      - Listed Cepheids with data:                        6/25 (24.0%, 95% CI: [11.5%, 43.4%])
+      - Estimated redshifts:                              0/25 (0.0%, 95% CI: [0.0%, 13.3%])
+      - Fitted function form:                             1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Estimated 'a':                                    0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Estimated 'sigma_a':                              1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Estimated 'b':                                    1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Estimated 'sigma_b':                              1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      ──────────────────────────────────────────────────
+      Weighted total: 58.5%
+
+Task:       hubble_constant
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: medium  |  Seed: 10
+      - Included summary section:                         1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Correct number of galaxies:                       1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Listed section measured redshifts:                1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Redshift estimation:                              20/23 (87.0%, 95% CI: [67.9%, 95.5%])
+      - Fitted function - linear:                         1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Fitted function - zero offset:                    0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Included Hubble constant section:                 1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Hubble constant estimation:                       1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Uncertainty on Hubble constant:                   1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      ──────────────────────────────────────────────────
+      Weighted total: 89.8%
+
+Task:       invariant_mass_reconstruction
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: medium  |  Seed: 10
+      - Analysis summary:                                 1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Detector dimensions retrieval:                    4/4 (100.0%, 95% CI: [51.0%, 100.0%])
+      - Number of events in the list:                     0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Per-event invariant mass reconstruction:          17/200 (8.5%, 95% CI: [5.4%, 13.2%])
+      - Final result existence - mass:                    1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Particle mass M:                                  1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Final result existence - decay width:             1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Decay width:                                      1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      ──────────────────────────────────────────────────
+      Weighted total: 80.1%
+
+Task:       lissajous_figures
+Model:      gemini/gemini-3.1-pro-preview
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: medium  |  Seed: 10
+      - Included sections for QA:                         1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Listed faulty supplies:                           0/2 (0.0%, 95% CI: [0.0%, 65.8%])
+      - Skipped not faulty supplies:                      6/12 (50.0%, 95% CI: [25.4%, 74.6%])
+      - Computed frequency of faulty supply:              2/2 (100.0%, 95% CI: [34.2%, 100.0%])
+      - Listed batch of supply:                           2/2 (100.0%, 95% CI: [34.2%, 100.0%])
+      - Listed manufacturing machine of supply:           2/2 (100.0%, 95% CI: [34.2%, 100.0%])
+      - Included sections for management:                 1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Identified faulty machines:                       1/2 (50.0%, 95% CI: [9.5%, 90.5%])
+      - Skipped not faulty machines:                      1/3 (33.3%, 95% CI: [6.1%, 79.2%])
+      ──────────────────────────────────────────────────
+      Weighted total: 76.8%
+
+
+
+
+==================================================
+BY DIMENSION (aggregated across all tasks and seeds)
+==================================================
+  data handling:                 61.9%
+  image data extraction:         64.9%
+  scientific reasoning:          79.5%
+  instructions following:        80.0%

@@ -1,0 +1,22 @@
+{
+  "run_id": "mgglsp",
+  "model": "gemini/gemini-3.1-pro-preview",
+  "judge": "anthropic/claude-haiku-4-5",
+  "difficulty": "hard",
+  "seeds": [
+    10,
+    11,
+    12,
+    13
+  ],
+  "agentic": true,
+  "max_turns": 10,
+  "tasks": [
+    "cepheid_calibration",
+    "hubble_constant",
+    "invariant_mass_reconstruction",
+    "lissajous_figures"
+  ],
+  "git_commit": "f1f2d0d",
+  "timestamp": "2026-05-29T14:31:25.300454"
+}

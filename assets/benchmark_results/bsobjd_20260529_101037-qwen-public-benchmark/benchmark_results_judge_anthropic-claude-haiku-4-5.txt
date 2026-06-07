@@ -1,0 +1,334 @@
+==================================================
+BENCHMARK RESULTS
+==================================================
+Model:      deepinfra/Qwen/Qwen3.6-35B-A3B
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: hard
+Seeds:      [10, 11, 12, 13]
+Commit:     fdd8948  |  2026-05-29T11:57:00.417593
+Agentic:    YES  |  Max-turns: 10
+--------------------------------------------------
+Overall score: 5.3%  95% CI: [0.0%, 14.9%]  (1931 binary outcomes across 16 task runs)
+
+
+
+==================================================
+TASK RESULTS AGGREGATED (combined across seeds)
+==================================================
+Task:       cepheid_calibration
+Model:      deepinfra/Qwen/Qwen3.6-35B-A3B
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: hard  |  Seeds: [10, 11, 12, 13]
+      - Listed Cepheids with data:                        25/248 (10.1%, 95% CI: [6.9%, 14.5%])  weight: 2.0
+      - Estimated redshifts:                              0/248 (0.0%, 95% CI: [0.0%, 1.5%])  weight: 8.0
+      - Fitted function form:                             1/4 (25.0%, 95% CI: [4.6%, 69.9%])  weight: 1.0
+      - Estimated 'a':                                    0/4 (0.0%, 95% CI: [0.0%, 49.0%])  weight: 10.0
+      - Estimated 'sigma_a':                              1/4 (25.0%, 95% CI: [4.6%, 69.9%])  weight: 8.0
+      - Estimated 'b':                                    0/4 (0.0%, 95% CI: [0.0%, 49.0%])  weight: 10.0
+      - Estimated 'sigma_b':                              1/4 (25.0%, 95% CI: [4.6%, 69.9%])  weight: 8.0
+      ──────────────────────────────────────────────────
+      Weighted total: 9.5%
+Task:       hubble_constant
+Model:      deepinfra/Qwen/Qwen3.6-35B-A3B
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: hard  |  Seeds: [10, 11, 12, 13]
+      - Included summary section:                         0/4 (0.0%, 95% CI: [0.0%, 49.0%])  weight: 0.5
+      - Correct number of galaxies:                       0/4 (0.0%, 95% CI: [0.0%, 49.0%])  weight: 2.0
+      - Listed section measured redshifts:                0/4 (0.0%, 95% CI: [0.0%, 49.0%])  weight: 0.5
+      - Redshift estimation:                              0/134 (0.0%, 95% CI: [0.0%, 2.8%])  weight: 10.0
+      - Fitted function - linear:                         0/4 (0.0%, 95% CI: [0.0%, 49.0%])  weight: 1.0
+      - Fitted function - zero offset:                    0/4 (0.0%, 95% CI: [0.0%, 49.0%])  weight: 2.0
+      - Included Hubble constant section:                 0/4 (0.0%, 95% CI: [0.0%, 49.0%])  weight: 0.5
+      - Hubble constant estimation:                       0/4 (0.0%, 95% CI: [0.0%, 49.0%])  weight: 8.0
+      - Uncertainty on Hubble constant:                   0/4 (0.0%, 95% CI: [0.0%, 49.0%])  weight: 8.0
+      ──────────────────────────────────────────────────
+      Weighted total: 0.0%
+Task:       invariant_mass_reconstruction
+Model:      deepinfra/Qwen/Qwen3.6-35B-A3B
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: hard  |  Seeds: [10, 11, 12, 13]
+      - Analysis summary:                                 0/4 (0.0%, 95% CI: [0.0%, 49.0%])  weight: 0.5
+      - Detector dimensions retrieval:                    0/20 (0.0%, 95% CI: [0.0%, 16.1%])  weight: 0.5
+      - Number of events in the list:                     0/4 (0.0%, 95% CI: [0.0%, 49.0%])  weight: 1.0
+      - Per-event invariant mass reconstruction:          0/800 (0.0%, 95% CI: [0.0%, 0.5%])  weight: 5.0
+      - Final result existence - mass:                    0/4 (0.0%, 95% CI: [0.0%, 49.0%])  weight: 0.5
+      - Particle mass M:                                  0/4 (0.0%, 95% CI: [0.0%, 49.0%])  weight: 10.0
+      - Final result existence - decay width:             0/4 (0.0%, 95% CI: [0.0%, 49.0%])  weight: 0.5
+      - Decay width:                                      0/4 (0.0%, 95% CI: [0.0%, 49.0%])  weight: 10.0
+      ──────────────────────────────────────────────────
+      Weighted total: 0.0%
+Task:       lissajous_figures
+Model:      deepinfra/Qwen/Qwen3.6-35B-A3B
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: hard  |  Seeds: [10, 11, 12, 13]
+      - Included sections for QA:                         0/4 (0.0%, 95% CI: [0.0%, 49.0%])  weight: 0.5
+      - Listed faulty supplies:                           0/48 (0.0%, 95% CI: [0.0%, 7.4%])  weight: 2.0
+      - Skipped not faulty supplies:                      126/157 (80.3%, 95% CI: [73.3%, 85.7%])  weight: 2.0
+      - Computed frequency of faulty supply:              0/48 (0.0%, 95% CI: [0.0%, 7.4%])  weight: 8.0
+      - Listed batch of supply:                           0/48 (0.0%, 95% CI: [0.0%, 7.4%])  weight: 4.0
+      - Listed manufacturing machine of supply:           0/48 (0.0%, 95% CI: [0.0%, 7.4%])  weight: 2.0
+      - Included sections for management:                 0/4 (0.0%, 95% CI: [0.0%, 49.0%])  weight: 0.5
+      - Identified faulty machines:                       0/22 (0.0%, 95% CI: [0.0%, 14.9%])  weight: 2.0
+      - Skipped not faulty machines:                      15/26 (57.7%, 95% CI: [38.9%, 74.5%])  weight: 2.0
+      ──────────────────────────────────────────────────
+      Weighted total: 12.0%
+
+
+
+==================================================
+INDIVIDUAL TASK RESULTS
+==================================================
+Task:       cepheid_calibration
+Model:      deepinfra/Qwen/Qwen3.6-35B-A3B
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: hard  |  Seed: 10
+      - Listed Cepheids with data:                        0/62 (0.0%, 95% CI: [0.0%, 5.8%])
+      - Estimated redshifts:                              0/62 (0.0%, 95% CI: [0.0%, 5.8%])
+      - Fitted function form:                             0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Estimated 'a':                                    0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Estimated 'sigma_a':                              0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Estimated 'b':                                    0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Estimated 'sigma_b':                              0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      ──────────────────────────────────────────────────
+      Weighted total: 0.0%
+
+Task:       cepheid_calibration
+Model:      deepinfra/Qwen/Qwen3.6-35B-A3B
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: hard  |  Seed: 11
+      - Listed Cepheids with data:                        25/62 (40.3%, 95% CI: [29.0%, 52.7%])
+      - Estimated redshifts:                              0/62 (0.0%, 95% CI: [0.0%, 5.8%])
+      - Fitted function form:                             1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Estimated 'a':                                    0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Estimated 'sigma_a':                              1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      - Estimated 'b':                                    0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Estimated 'sigma_b':                              1/1 (100.0%, 95% CI: [20.7%, 100.0%])
+      ──────────────────────────────────────────────────
+      Weighted total: 37.9%
+
+Task:       cepheid_calibration
+Model:      deepinfra/Qwen/Qwen3.6-35B-A3B
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: hard  |  Seed: 12
+      - Listed Cepheids with data:                        0/62 (0.0%, 95% CI: [0.0%, 5.8%])
+      - Estimated redshifts:                              0/62 (0.0%, 95% CI: [0.0%, 5.8%])
+      - Fitted function form:                             0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Estimated 'a':                                    0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Estimated 'sigma_a':                              0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Estimated 'b':                                    0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Estimated 'sigma_b':                              0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      ──────────────────────────────────────────────────
+      Weighted total: 0.0%
+
+Task:       cepheid_calibration
+Model:      deepinfra/Qwen/Qwen3.6-35B-A3B
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: hard  |  Seed: 13
+      - Listed Cepheids with data:                        0/62 (0.0%, 95% CI: [0.0%, 5.8%])
+      - Estimated redshifts:                              0/62 (0.0%, 95% CI: [0.0%, 5.8%])
+      - Fitted function form:                             0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Estimated 'a':                                    0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Estimated 'sigma_a':                              0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Estimated 'b':                                    0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Estimated 'sigma_b':                              0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      ──────────────────────────────────────────────────
+      Weighted total: 0.0%
+
+Task:       hubble_constant
+Model:      deepinfra/Qwen/Qwen3.6-35B-A3B
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: hard  |  Seed: 10
+      - Included summary section:                         0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Correct number of galaxies:                       0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Listed section measured redshifts:                0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Redshift estimation:                              0/41 (0.0%, 95% CI: [0.0%, 8.6%])
+      - Fitted function - linear:                         0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Fitted function - zero offset:                    0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Included Hubble constant section:                 0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Hubble constant estimation:                       0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Uncertainty on Hubble constant:                   0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      ──────────────────────────────────────────────────
+      Weighted total: 0.0%
+
+Task:       hubble_constant
+Model:      deepinfra/Qwen/Qwen3.6-35B-A3B
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: hard  |  Seed: 11
+      - Included summary section:                         0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Correct number of galaxies:                       0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Listed section measured redshifts:                0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Redshift estimation:                              0/30 (0.0%, 95% CI: [0.0%, 11.4%])
+      - Fitted function - linear:                         0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Fitted function - zero offset:                    0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Included Hubble constant section:                 0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Hubble constant estimation:                       0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Uncertainty on Hubble constant:                   0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      ──────────────────────────────────────────────────
+      Weighted total: 0.0%
+
+Task:       hubble_constant
+Model:      deepinfra/Qwen/Qwen3.6-35B-A3B
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: hard  |  Seed: 12
+      - Included summary section:                         0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Correct number of galaxies:                       0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Listed section measured redshifts:                0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Redshift estimation:                              0/24 (0.0%, 95% CI: [0.0%, 13.8%])
+      - Fitted function - linear:                         0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Fitted function - zero offset:                    0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Included Hubble constant section:                 0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Hubble constant estimation:                       0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Uncertainty on Hubble constant:                   0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      ──────────────────────────────────────────────────
+      Weighted total: 0.0%
+
+Task:       hubble_constant
+Model:      deepinfra/Qwen/Qwen3.6-35B-A3B
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: hard  |  Seed: 13
+      - Included summary section:                         0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Correct number of galaxies:                       0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Listed section measured redshifts:                0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Redshift estimation:                              0/39 (0.0%, 95% CI: [0.0%, 9.0%])
+      - Fitted function - linear:                         0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Fitted function - zero offset:                    0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Included Hubble constant section:                 0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Hubble constant estimation:                       0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Uncertainty on Hubble constant:                   0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      ──────────────────────────────────────────────────
+      Weighted total: 0.0%
+
+Task:       invariant_mass_reconstruction
+Model:      deepinfra/Qwen/Qwen3.6-35B-A3B
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: hard  |  Seed: 10
+      - Analysis summary:                                 0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Detector dimensions retrieval:                    0/5 (0.0%, 95% CI: [0.0%, 43.4%])
+      - Number of events in the list:                     0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Per-event invariant mass reconstruction:          0/200 (0.0%, 95% CI: [0.0%, 1.9%])
+      - Final result existence - mass:                    0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Particle mass M:                                  0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Final result existence - decay width:             0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Decay width:                                      0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      ──────────────────────────────────────────────────
+      Weighted total: 0.0%
+
+Task:       invariant_mass_reconstruction
+Model:      deepinfra/Qwen/Qwen3.6-35B-A3B
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: hard  |  Seed: 11
+      - Analysis summary:                                 0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Detector dimensions retrieval:                    0/5 (0.0%, 95% CI: [0.0%, 43.4%])
+      - Number of events in the list:                     0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Per-event invariant mass reconstruction:          0/200 (0.0%, 95% CI: [0.0%, 1.9%])
+      - Final result existence - mass:                    0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Particle mass M:                                  0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Final result existence - decay width:             0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Decay width:                                      0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      ──────────────────────────────────────────────────
+      Weighted total: 0.0%
+
+Task:       invariant_mass_reconstruction
+Model:      deepinfra/Qwen/Qwen3.6-35B-A3B
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: hard  |  Seed: 12
+      - Analysis summary:                                 0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Detector dimensions retrieval:                    0/5 (0.0%, 95% CI: [0.0%, 43.4%])
+      - Number of events in the list:                     0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Per-event invariant mass reconstruction:          0/200 (0.0%, 95% CI: [0.0%, 1.9%])
+      - Final result existence - mass:                    0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Particle mass M:                                  0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Final result existence - decay width:             0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Decay width:                                      0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      ──────────────────────────────────────────────────
+      Weighted total: 0.0%
+
+Task:       invariant_mass_reconstruction
+Model:      deepinfra/Qwen/Qwen3.6-35B-A3B
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: hard  |  Seed: 13
+      - Analysis summary:                                 0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Detector dimensions retrieval:                    0/5 (0.0%, 95% CI: [0.0%, 43.4%])
+      - Number of events in the list:                     0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Per-event invariant mass reconstruction:          0/200 (0.0%, 95% CI: [0.0%, 1.9%])
+      - Final result existence - mass:                    0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Particle mass M:                                  0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Final result existence - decay width:             0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Decay width:                                      0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      ──────────────────────────────────────────────────
+      Weighted total: 0.0%
+
+Task:       lissajous_figures
+Model:      deepinfra/Qwen/Qwen3.6-35B-A3B
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: hard  |  Seed: 10
+      - Included sections for QA:                         0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Listed faulty supplies:                           0/15 (0.0%, 95% CI: [0.0%, 20.4%])
+      - Skipped not faulty supplies:                      0/31 (0.0%, 95% CI: [0.0%, 11.0%])
+      - Computed frequency of faulty supply:              0/15 (0.0%, 95% CI: [0.0%, 20.4%])
+      - Listed batch of supply:                           0/15 (0.0%, 95% CI: [0.0%, 20.4%])
+      - Listed manufacturing machine of supply:           0/15 (0.0%, 95% CI: [0.0%, 20.4%])
+      - Included sections for management:                 0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Identified faulty machines:                       0/6 (0.0%, 95% CI: [0.0%, 39.0%])
+      - Skipped not faulty machines:                      0/6 (0.0%, 95% CI: [0.0%, 39.0%])
+      ──────────────────────────────────────────────────
+      Weighted total: 0.0%
+
+Task:       lissajous_figures
+Model:      deepinfra/Qwen/Qwen3.6-35B-A3B
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: hard  |  Seed: 11
+      - Included sections for QA:                         0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Listed faulty supplies:                           0/9 (0.0%, 95% CI: [0.0%, 29.9%])
+      - Skipped not faulty supplies:                      43/43 (100.0%, 95% CI: [91.8%, 100.0%])
+      - Computed frequency of faulty supply:              0/9 (0.0%, 95% CI: [0.0%, 29.9%])
+      - Listed batch of supply:                           0/9 (0.0%, 95% CI: [0.0%, 29.9%])
+      - Listed manufacturing machine of supply:           0/9 (0.0%, 95% CI: [0.0%, 29.9%])
+      - Included sections for management:                 0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Identified faulty machines:                       0/5 (0.0%, 95% CI: [0.0%, 43.4%])
+      - Skipped not faulty machines:                      7/7 (100.0%, 95% CI: [64.6%, 100.0%])
+      ──────────────────────────────────────────────────
+      Weighted total: 17.4%
+
+Task:       lissajous_figures
+Model:      deepinfra/Qwen/Qwen3.6-35B-A3B
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: hard  |  Seed: 12
+      - Included sections for QA:                         0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Listed faulty supplies:                           0/19 (0.0%, 95% CI: [0.0%, 16.8%])
+      - Skipped not faulty supplies:                      40/40 (100.0%, 95% CI: [91.2%, 100.0%])
+      - Computed frequency of faulty supply:              0/19 (0.0%, 95% CI: [0.0%, 16.8%])
+      - Listed batch of supply:                           0/19 (0.0%, 95% CI: [0.0%, 16.8%])
+      - Listed manufacturing machine of supply:           0/19 (0.0%, 95% CI: [0.0%, 16.8%])
+      - Included sections for management:                 0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Identified faulty machines:                       0/7 (0.0%, 95% CI: [0.0%, 35.4%])
+      - Skipped not faulty machines:                      0/5 (0.0%, 95% CI: [0.0%, 43.4%])
+      ──────────────────────────────────────────────────
+      Weighted total: 8.7%
+
+Task:       lissajous_figures
+Model:      deepinfra/Qwen/Qwen3.6-35B-A3B
+Judge:      anthropic/claude-haiku-4-5
+Difficulty: hard  |  Seed: 13
+      - Included sections for QA:                         0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Listed faulty supplies:                           0/5 (0.0%, 95% CI: [0.0%, 43.4%])
+      - Skipped not faulty supplies:                      43/43 (100.0%, 95% CI: [91.8%, 100.0%])
+      - Computed frequency of faulty supply:              0/5 (0.0%, 95% CI: [0.0%, 43.4%])
+      - Listed batch of supply:                           0/5 (0.0%, 95% CI: [0.0%, 43.4%])
+      - Listed manufacturing machine of supply:           0/5 (0.0%, 95% CI: [0.0%, 43.4%])
+      - Included sections for management:                 0/1 (0.0%, 95% CI: [0.0%, 79.3%])
+      - Identified faulty machines:                       0/4 (0.0%, 95% CI: [0.0%, 49.0%])
+      - Skipped not faulty machines:                      8/8 (100.0%, 95% CI: [67.6%, 100.0%])
+      ──────────────────────────────────────────────────
+      Weighted total: 17.4%
+
+
+
+
+==================================================
+BY DIMENSION (aggregated across all tasks and seeds)
+==================================================
+  data handling:                 15.0%
+  image data extraction:         0.0%
+  scientific reasoning:          5.2%
+  instructions following:        0.0%

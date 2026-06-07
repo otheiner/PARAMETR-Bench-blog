@@ -1,0 +1,187 @@
+{
+  "judge": "gemini/gemini-3.1-flash-lite",
+  "metarubrics": [
+    {
+      "name": "Included summary section",
+      "dimension": "instructions following",
+      "rubrics": [
+        {
+          "criterion": "Did the model include SUMMARY section in its response?",
+          "verdict": "YES"
+        }
+      ]
+    },
+    {
+      "name": "Correct number of galaxies",
+      "dimension": "data handling",
+      "rubrics": [
+        {
+          "criterion": "Did the model estimate redshifts of exactly 24 galaxies?",
+          "verdict": "NO"
+        }
+      ]
+    },
+    {
+      "name": "Listed section measured redshifts",
+      "dimension": "instructions following",
+      "rubrics": [
+        {
+          "criterion": "Did the model include REDSHIFTS OF GALAXIES USED IN THE ANALYSIS section in its response?",
+          "verdict": "YES"
+        }
+      ]
+    },
+    {
+      "name": "Redshift estimation",
+      "dimension": "image data extraction",
+      "rubrics": [
+        {
+          "criterion": "Did the model compute that GID052366 has redshift 0.04109, or value strictly inside interval [0.04084 , 0.04134]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model compute that GID083798 has redshift 0.04365, or value strictly inside interval [0.0434 , 0.0439]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model compute that GID134954 has redshift 0.04925, or value strictly inside interval [0.049 , 0.0495]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model compute that GID169152 has redshift 0.02943, or value strictly inside interval [0.02918 , 0.02968]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model compute that GID241360 has redshift 0.03832, or value strictly inside interval [0.03807 , 0.03857]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model compute that GID249487 has redshift 0.03099, or value strictly inside interval [0.03074 , 0.03124]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model compute that GID291135 has redshift 0.02784, or value strictly inside interval [0.02759 , 0.02809]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model compute that GID311795 has redshift 0.01247, or value strictly inside interval [0.01222 , 0.01272]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model compute that GID491771 has redshift 0.03128, or value strictly inside interval [0.03103 , 0.03153]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model compute that GID493507 has redshift 0.047, or value strictly inside interval [0.04675 , 0.04725]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model compute that GID512091 has redshift 0.01888, or value strictly inside interval [0.01863 , 0.01913]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model compute that GID563353 has redshift 0.02363, or value strictly inside interval [0.02338 , 0.02388]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model compute that GID569087 has redshift 0.04588, or value strictly inside interval [0.04563 , 0.04613]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model compute that GID579055 has redshift 0.04659, or value strictly inside interval [0.04634 , 0.04684]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model compute that GID613398 has redshift 0.01177, or value strictly inside interval [0.01152 , 0.01202]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model compute that GID647342 has redshift 0.03972, or value strictly inside interval [0.03947 , 0.03997]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model compute that GID672904 has redshift 0.03553, or value strictly inside interval [0.03528 , 0.03578]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model compute that GID703339 has redshift 0.01224, or value strictly inside interval [0.01199 , 0.01249]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model compute that GID842916 has redshift 0.04887, or value strictly inside interval [0.04862 , 0.04912]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model compute that GID866690 has redshift 0.04676, or value strictly inside interval [0.04651 , 0.04701]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model compute that GID879806 has redshift 0.04017, or value strictly inside interval [0.03992 , 0.04042]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model compute that GID882718 has redshift 0.03281, or value strictly inside interval [0.03256 , 0.03306]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model compute that GID892329 has redshift 0.01767, or value strictly inside interval [0.01742 , 0.01792]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model compute that GID985946 has redshift 0.03729, or value strictly inside interval [0.03704 , 0.03754]?",
+          "verdict": "NO"
+        }
+      ]
+    },
+    {
+      "name": "Fitted function - linear",
+      "dimension": "scientific reasoning",
+      "rubrics": [
+        {
+          "criterion": "Did the model state that it fitted a linear function?",
+          "verdict": "NO"
+        }
+      ]
+    },
+    {
+      "name": "Fitted function - zero offset",
+      "dimension": "scientific reasoning",
+      "rubrics": [
+        {
+          "criterion": "Did the model state that the linear function it fitted has zero offset, or claimed semantically equivalent information?",
+          "verdict": "NO"
+        }
+      ]
+    },
+    {
+      "name": "Included Hubble constant section",
+      "dimension": "instructions following",
+      "rubrics": [
+        {
+          "criterion": "Did the model include HUBBLE CONSTANT section in its response?",
+          "verdict": "YES"
+        }
+      ]
+    },
+    {
+      "name": "Hubble constant estimation",
+      "dimension": "scientific reasoning",
+      "rubrics": [
+        {
+          "criterion": "Did the model compute the Hubble constant as 64.1 km/s/Mpc, or value strictly inside interval [63.8, 64.5] km/s/Mpc?",
+          "verdict": "NO"
+        }
+      ]
+    },
+    {
+      "name": "Uncertainty on Hubble constant",
+      "dimension": "scientific reasoning",
+      "rubrics": [
+        {
+          "criterion": "Did the model compute statistical uncertainty on estimation of Hubble constant as 1.1 km/s/Mpc, or value strictly inside interval [1.0, 1.2] km/s/Mpc?",
+          "verdict": "NO"
+        }
+      ]
+    }
+  ]
+}

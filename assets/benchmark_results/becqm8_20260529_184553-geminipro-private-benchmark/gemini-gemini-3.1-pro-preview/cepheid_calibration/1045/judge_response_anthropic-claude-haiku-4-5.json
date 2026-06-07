@@ -1,0 +1,555 @@
+{
+  "judge": "anthropic/claude-haiku-4-5",
+  "metarubrics": [
+    {
+      "name": "Listed Cepheids with data",
+      "dimension": "data handling",
+      "rubrics": [
+        {
+          "criterion": "Did the model list Cepheid CEPH_01830183 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_01928104 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_04002592 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_04857850 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_04906327 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_06658542 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_06874267 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_08983219 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_09197227 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_11107938 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_11475328 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_14581777 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_14819352 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_17169270 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_17401832 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_21721313 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_23687634 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_24880224 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_25836004 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_26649568 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_27067970 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_28569770 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_29330857 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_32885894 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_35578625 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_35961484 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_36145896 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_41862616 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_43718355 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_46501720 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_47293926 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_49316010 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_53044220 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_53596640 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_60212324 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_61084351 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_64810523 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_65421948 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_65522942 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_68339080 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_69598811 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_69831821 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_71041737 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_71149620 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_73810467 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_73838854 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_73966477 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_77663247 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_78734195 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_79694918 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_80588869 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_81687846 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_83356098 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_84967968 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_87176729 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_88026276 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_89422600 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_93503897 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_98418829 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_98925581 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model list Cepheid CEPH_99114011 in the list of Cepheids with measured redshift?",
+          "verdict": "YES"
+        }
+      ]
+    },
+    {
+      "name": "Estimated redshifts",
+      "dimension": "image data extraction",
+      "rubrics": [
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_01830183 has redshift 0.047992619001892056, or stated value strictly inside the interval [0.04789, 0.04809]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_01928104 has redshift 0.019437456122734398, or stated value strictly inside the interval [0.01934, 0.01954]?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_04002592 has redshift 0.03140446017507396, or stated value strictly inside the interval [0.03130, 0.03150]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_04857850 has redshift 0.03937113404889782, or stated value strictly inside the interval [0.03927, 0.03947]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_04906327 has redshift 0.02432655141011584, or stated value strictly inside the interval [0.02423, 0.02443]?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_06658542 has redshift 0.04481962145757451, or stated value strictly inside the interval [0.04472, 0.04492]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_06874267 has redshift 0.028804726975279162, or stated value strictly inside the interval [0.02870, 0.02890]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_08983219 has redshift 0.035377335387613666, or stated value strictly inside the interval [0.03528, 0.03548]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_09197227 has redshift 0.04140139820869015, or stated value strictly inside the interval [0.04130, 0.04150]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_11107938 has redshift 0.045921914280179825, or stated value strictly inside the interval [0.04582, 0.04602]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_11475328 has redshift 0.02213977319882319, or stated value strictly inside the interval [0.02204, 0.02224]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_14581777 has redshift 0.04558259948788917, or stated value strictly inside the interval [0.04548, 0.04568]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_14819352 has redshift 0.04210777739727668, or stated value strictly inside the interval [0.04201, 0.04221]?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_17169270 has redshift 0.049406635356512296, or stated value strictly inside the interval [0.04931, 0.04951]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_17401832 has redshift 0.02018308641401456, or stated value strictly inside the interval [0.02008, 0.02028]?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_21721313 has redshift 0.0485221706388663, or stated value strictly inside the interval [0.04842, 0.04862]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_23687634 has redshift 0.019070029046053174, or stated value strictly inside the interval [0.01897, 0.01917]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_24880224 has redshift 0.029864283843411266, or stated value strictly inside the interval [0.02976, 0.02996]?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_25836004 has redshift 0.011490826204980353, or stated value strictly inside the interval [0.01139, 0.01159]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_26649568 has redshift 0.014616372202164864, or stated value strictly inside the interval [0.01452, 0.01472]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_27067970 has redshift 0.043300492179385, or stated value strictly inside the interval [0.04320, 0.04340]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_28569770 has redshift 0.028133594462290523, or stated value strictly inside the interval [0.02803, 0.02823]?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_29330857 has redshift 0.04729086908895215, or stated value strictly inside the interval [0.04719, 0.04739]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_32885894 has redshift 0.017633976681640823, or stated value strictly inside the interval [0.01753, 0.01773]?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_35578625 has redshift 0.028394174595889887, or stated value strictly inside the interval [0.02829, 0.02849]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_35961484 has redshift 0.025347958986830368, or stated value strictly inside the interval [0.02525, 0.02545]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_36145896 has redshift 0.03156958130311678, or stated value strictly inside the interval [0.03147, 0.03167]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_41862616 has redshift 0.02032243874442674, or stated value strictly inside the interval [0.02022, 0.02042]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_43718355 has redshift 0.036524505101436115, or stated value strictly inside the interval [0.03642, 0.03662]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_46501720 has redshift 0.0404750393315759, or stated value strictly inside the interval [0.04038, 0.04058]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_47293926 has redshift 0.023082998340873972, or stated value strictly inside the interval [0.02298, 0.02318]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_49316010 has redshift 0.04063242782979786, or stated value strictly inside the interval [0.04053, 0.04073]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_53044220 has redshift 0.013416299012714312, or stated value strictly inside the interval [0.01332, 0.01352]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_53596640 has redshift 0.045971693281846804, or stated value strictly inside the interval [0.04587, 0.04607]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_60212324 has redshift 0.015742450803098024, or stated value strictly inside the interval [0.01564, 0.01584]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_61084351 has redshift 0.01624535920286175, or stated value strictly inside the interval [0.01615, 0.01635]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_64810523 has redshift 0.03447670428173324, or stated value strictly inside the interval [0.03438, 0.03458]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_65421948 has redshift 0.041254790341850214, or stated value strictly inside the interval [0.04115, 0.04135]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_65522942 has redshift 0.028097233691517256, or stated value strictly inside the interval [0.02800, 0.02820]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_68339080 has redshift 0.04259088845595811, or stated value strictly inside the interval [0.04249, 0.04269]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_69598811 has redshift 0.0317593190467775, or stated value strictly inside the interval [0.03166, 0.03186]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_69831821 has redshift 0.04303289593066093, or stated value strictly inside the interval [0.04293, 0.04313]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_71041737 has redshift 0.029747764142611134, or stated value strictly inside the interval [0.02965, 0.02985]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_71149620 has redshift 0.026058688145627496, or stated value strictly inside the interval [0.02596, 0.02616]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_73810467 has redshift 0.04183837485446151, or stated value strictly inside the interval [0.04174, 0.04194]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_73838854 has redshift 0.04396387419153426, or stated value strictly inside the interval [0.04386, 0.04406]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_73966477 has redshift 0.04166224634849777, or stated value strictly inside the interval [0.04156, 0.04176]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_77663247 has redshift 0.04455876810841354, or stated value strictly inside the interval [0.04446, 0.04466]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_78734195 has redshift 0.01945364999911838, or stated value strictly inside the interval [0.01935, 0.01955]?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_79694918 has redshift 0.03137886555315298, or stated value strictly inside the interval [0.03128, 0.03148]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_80588869 has redshift 0.031047255026407317, or stated value strictly inside the interval [0.03095, 0.03115]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_81687846 has redshift 0.020717968297129456, or stated value strictly inside the interval [0.02062, 0.02082]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_83356098 has redshift 0.0359604667935694, or stated value strictly inside the interval [0.03586, 0.03606]?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_84967968 has redshift 0.047811673223975754, or stated value strictly inside the interval [0.04771, 0.04791]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_87176729 has redshift 0.015047133539210313, or stated value strictly inside the interval [0.01495, 0.01515]?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_88026276 has redshift 0.031048662432106834, or stated value strictly inside the interval [0.03095, 0.03115]?",
+          "verdict": "NO"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_89422600 has redshift 0.013219150320970464, or stated value strictly inside the interval [0.01312, 0.01332]?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_93503897 has redshift 0.04341402778568183, or stated value strictly inside the interval [0.04331, 0.04351]?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_98418829 has redshift 0.04315975533189366, or stated value strictly inside the interval [0.04306, 0.04326]?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_98925581 has redshift 0.04240167982779045, or stated value strictly inside the interval [0.04230, 0.04250]?",
+          "verdict": "YES"
+        },
+        {
+          "criterion": "Did the model estimate that galaxy containing Cepheid variable CEPH_99114011 has redshift 0.045807930803838305, or stated value strictly inside the interval [0.04571, 0.04591]?",
+          "verdict": "YES"
+        }
+      ]
+    },
+    {
+      "name": "Fitted function form",
+      "dimension": "scientific reasoning",
+      "rubrics": [
+        {
+          "criterion": "Did the model fit into the data linear function with offset and the slope as free parameters?",
+          "verdict": "YES"
+        }
+      ]
+    },
+    {
+      "name": "Estimated 'a'",
+      "dimension": "scientific reasoning",
+      "rubrics": [
+        {
+          "criterion": "Did the model estimate parameter 'a' as -2.28, or value strictly inside interval [-2.78, -1.78]?",
+          "verdict": "YES"
+        }
+      ]
+    },
+    {
+      "name": "Estimated 'sigma_a'",
+      "dimension": "scientific reasoning",
+      "rubrics": [
+        {
+          "criterion": "Did the model estimate uncertainty of parameter 'a' as 0.17, or value strictly inside interval [0.00, 0.67]?",
+          "verdict": "YES"
+        }
+      ]
+    },
+    {
+      "name": "Estimated 'b'",
+      "dimension": "scientific reasoning",
+      "rubrics": [
+        {
+          "criterion": "Did the model estimate parameter 'b' as -4.05, or value strictly inside interval [-4.55, -3.55]?",
+          "verdict": "YES"
+        }
+      ]
+    },
+    {
+      "name": "Estimated 'sigma_b'",
+      "dimension": "scientific reasoning",
+      "rubrics": [
+        {
+          "criterion": "Did the model estimate uncertainty of parameter 'b' as 0.13, or value strictly inside interval [0.00, 0.63]?",
+          "verdict": "YES"
+        }
+      ]
+    }
+  ]
+}
