@@ -346,6 +346,18 @@ Qwen is excluded because it ignored the agentic turn budget and, when prompted o
 
 Evaluating GPT-5.4 mini required multiple restarts. OpenAI's safety classifier repeatedly flagged the model's own outputs as potentially harmful mid-run, terminating the agentic loop. Resuming from the same point in the conversation was generally not flagged again, so all tests were eventually completed — but only with repeated human intervention. This seems to be a practical limitation for using GPT-5.4 mini (but likely all GPT models hosted by OpenAI) in unattended agentic pipelines, particularly in scientific contexts where generated code and data can superficially resemble harmful content.
 
+### Tools Use
+
+The figures above tell us how well agents performed on the tasks, but reveal nothing about their working strategies. This section aims to shed light on the different approaches taken by each agent.
+
+Models can issue multiple simultaneous tool calls within a single agentic turn. The figure below shows (click to zoom in) the distribution of tool calls across the task instances presented above. White numbers indicate the total number of calls for a given tool, and the colour fraction corresponds to that tool's share of all tool calls in the given task instance.
+
+ {% include gallery.html 
+  type="justified" 
+  images="/assets/images/PARAMETR-Bench/tool_usage_public.png > Model results accross public seeds [10, 11, 12, 13] and tasks used in the evaluation.;
+      "%}
+
+
   
 
 ### Judge Reliability
@@ -359,6 +371,12 @@ LLM-as-judge remains one of the weaker links in the evaluation chain. The main r
 
 
 ### Difficulty Scaling
+
+Task difficulty is controlled by generator-level parameters specific to each task, covering effects such as noise, dataset size, the distribution of simulated quantities, and the tolerance applied when checking results. The difficulty levels are designed so that a human solver would find the easy setting more tractable than the hard one. This assumed scaling needed empirical validation.
+
+The plot below shows difficulty scaling across the four tasks evaluated on two seeds (10, 11) with 10 agentic turns, using only the two most capable models to assess scaling qualitatively while keeping token costs low. Since the main results in this section use the hard difficulty exclusively, this plot is primarily a demonstration of the framework's parametric difficulty mechanism.
+
+The scaling works to a degree — both models score lowest on hard — but the easy and medium scores are inverted relative to expectation. There are two possible explanations: the difficulty scaling designed for humans may not transfer directly to LLMs, or the results are dominated by statistical variance and the expected ordering would emerge with more seeds. There is also a structural effect. The harder difficulties come with larger datasets, which is more forgiving of individual mistakes since errors are diluted across more data points. At easier difficulties, a single wrong answer carries more weight because the metarubric weights are preserved across difficulty levels regardless of dataset size. Calibrating the difficulty scaling for LLMs specifically is left for future work.
 
 {% include gallery.html 
   type="justified" 
@@ -391,6 +409,8 @@ The measurement comes from the comparison between two seed sets evaluated on the
 
 - A **public seed set**, published now along with the corresponding generated input data on [Hugging Face](https://huggingface.co/datasets/otheiner/PARAMETR-Bench).
 - A **private seed set**, drawn from the same generator distribution at the same difficulty levels but withheld from publication.
+
+<a>
 
 {% include gallery.html 
   type="justified" 
@@ -427,7 +447,7 @@ PARAMETR-Bench is presented as a methodology and proof of concept rather than a 
 
 **Producing statistically meaningful results is expensive.** Reliably quantifying the variance of a model's responses requires running evaluations across many seeds — and increasing the sample size, while reducing statistical uncertainty, scales the cost of API calls proportionally. As an independent researcher running this framework as a curiosity project, I have chosen to prioritize a modest seed count that keeps costs manageable while still providing indicative results. Reducing statistical uncertainty further would require spending significantly more on inference tokens for diminishing marginal gains.
 
-**Difficulty levels are assumed.** Each task can be generated at three difficulty levels: `easy`, `medium`, and `hard`. These levels are defined by increasing dataset size, stronger noise effects, and the inclusion of edge cases that a human solver would consider more challenging. While it is reasonable to assume that similar difficulty scaling applies to LLMs, this remains an assumption until confirmed empirically — the validity of the parametric difficulty scaling is empirically demonstrated by the experimental results presented in this post.
+**Difficulty levels are partially validated.** Each task can be generated at three difficulty levels: `easy`, `medium`, and `hard`, defined by increasing dataset size, stronger noise, and edge cases that a human solver would find more demanding. The results presented here show that both tested models score lowest on hard, confirming the scaling works in that direction. However, the easy and medium scores are inverted relative to expectation, suggesting that difficulty scaling designed for humans does not transfer directly to LLMs — or that two seeds are insufficient to resolve the ordering statistically. Further calibration is left for future work.
 
 **Procedural generation suits some scientific tasks better than others.** The framework works naturally for tasks with a parametric structure — number of events, noise levels, true values of physical constants, and dataset size. Many forms of scientific reasoning, such as deciding which experiment to run next or recognizing that a model assumption is wrong, do not factorize this way. PARAMETR-Bench measures a specific slice of scientific competence — multi-step quantitative analysis with well-defined ground truth — and is not intended as a general measure of scientific reasoning.
 
@@ -435,7 +455,11 @@ PARAMETR-Bench is presented as a methodology and proof of concept rather than a 
 
 ## Conclusion
 
-<div style="color:red; font-weight:bold;">Disclaimer: This section will be added soon.</div>
+I started this project as a personal endeavour in LLM evaluation which grew into something bigger. PARAMETR-Bench is a working implementation of procedural benchmarking framework for evaluation of LLM agents on scientific tasks. It introduces a novel concept of metarubric (or concept I haven't seen elsewhere at least) which addresses the problem of rubric drifts on procedurally generated tasks. Even if this concept cannot be appliet ot every procedural task generation with LLM-as-judge, it is concept that is simple enough and could be possibly used by other evaluation work.
+
+I ran tests and I tested the agentic evaluation on five models. Qwen failed in instructions following and didn't print any results when it reached its budget of agentic turns and so it was excluded from the tests (to save API credits on unseccesfull agent). Claude Sonnet 4.6 performed comparable (and sometimes even better) than the flagship model Gemini 3.1 Pro (preview). Considering that Sonnet is cheaper to run 
+
+I tested 
 
 ## References
 
