@@ -354,10 +354,14 @@ Models can issue multiple simultaneous tool calls within a single agentic turn. 
 
  {% include gallery.html 
   type="justified" 
-  images="/assets/images/PARAMETR-Bench/tool_usage_public.png > Model results accross public seeds [10, 11, 12, 13] and tasks used in the evaluation.;
+  images="/assets/images/PARAMETR-Bench/tool_usage_public.png > Model agentic tool use accross public seeds [10, 11, 12, 13] and tasks used in the evaluation. All tasks had limit of 10 agentic turns in which multiple parallel tool calls can be executed.;
       "%}
 
+The first interesting observation is that even though task instances across seeds are very similar — comparable amounts of data and the same noise effects — models sometimes adopted a different strategy on one seed compared to the others. For example, Sonnet did not use the `run_command` (bash) tool on seed 13 of the `cepheid_calibration` task. Even more striking is the 48 `view_image` calls on seed 13 of `lissajous_figures`, which is completely different from the model behaviour on seeds 10 and 11.
 
+A particularly surprising case is Gemini's strategy on `invariant_mass_reconstruction` for seed 11: the model never called `view_image`, despite the task including an image from which detector geometry must be read. Closer inspection of the model output revealed that Gemini reverse-engineered the detector geometry directly from the data — a approach that would rarely be viable in practice, but is entirely valid here because the task explicitly states a simplification that makes it tractable.
+
+Also noteworthy is DeepSeek's heavier reliance on `view_image` compared to the other models, suggesting it leaned more on its vision capabilities where other models turned to Python for image analysis.
   
 
 ### Judge Reliability
