@@ -281,7 +281,7 @@ Two minimal working examples follow. These tasks are simple and require no physi
 
 *Note: Presented results come from the end of May 2026 and were produced by the code at commit [`c7791b7`](https://github.com/otheiner/PARAMETR-Bench/tree/c7791b7b5e5a4d1acb4db35fed3257800b06d1f3).*
 
-The following results cover four models: **Claude Sonnet 4.6**, **Gemini 3.1 Pro preview**, **GPT-5.4 Mini**, and **DeepSeek V4 Pro**. Qwen 3.6-235B-A22B was excluded for the reason described below. Claude Haiku 4.5 served as the primary judge, with Gemini 3.1 Flash Lite as a reference judge for cross-family validation. Each model was evaluated in two runs — a public and a private seed set — each comprising 4 seeds across 4 tasks, yielding approximately 1900 binary rubric criteria per run per model.
+The following results cover four models with their default thinking level: **Claude Sonnet 4.6** (no thinking), **Gemini 3.1 Pro preview** (thinking on by default - high), **GPT-5.4 Mini** (no thinking), and **DeepSeek V4 Pro** (thinking on by default). Qwen 3.6-235B-A22B was excluded for the reason described below. Claude Haiku 4.5 served as the primary judge, with Gemini 3.1 Flash Lite as a reference judge for cross-family validation. Each model was evaluated in two runs — a public and a private seed set — each comprising 4 seeds across 4 tasks, yielding approximately 1900 binary rubric criteria per run per model.
  
 Since the tasks require tool use and multi-step reasoning, non-agentic evaluation produces no meaningful signal. All results presented here use agentic mode.
 
@@ -342,7 +342,7 @@ Following table shows a detailed breakdown of the model scores on individual see
 
 **Observations**
 
-Qwen is excluded because it ignored the agentic turn budget and, when prompted on the final turn to report its findings, continued one more agentic turn and producing an empty answer.
+Qwen is excluded because it ignored the agentic turn budget and, when prompted on the final turn to report its findings, continued one more agentic turn and produced an empty answer.
 
 Evaluating GPT-5.4 mini required multiple restarts. OpenAI's safety classifier repeatedly flagged the model's own outputs as potentially harmful mid-run, terminating the agentic loop. Resuming from the same point in the conversation was generally not flagged again, so all tests were eventually completed — but only with repeated human intervention. This seems to be a practical limitation for using GPT-5.4 mini (but likely all GPT models hosted by OpenAI) in unattended agentic pipelines, particularly in scientific contexts where generated code and data can superficially resemble harmful content.
 
