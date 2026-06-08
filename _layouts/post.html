@@ -14,6 +14,60 @@ layout: base
 
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
+  <!-- STICKY TOC BAR -->
+  <div id="sticky-toc" style="
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #e8e8e8;
+    color: #333;
+    padding: 12px 20px;
+    font-size: 15px;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    border-radius: 0 0 6px 6px;
+    box-sizing: border-box;
+  ">
+    <div id="sticky-toc-links" style="white-space: nowrap; flex: 1;">
+      <a href="#motivation" style="color:#666; margin: 0 8px;">Motivation</a>
+      <a href="#tackling-dataset-contamination-and-rubric-drift" style="color:#666; margin: 0 8px;">Contamination</a>
+      <a href="#how-parametr-bench-works" style="color:#666; margin: 0 8px;">How it works</a>
+      <a href="#tasks-included-in-parametr-bench" style="color:#666; margin: 0 8px;">Tasks</a>
+      <a href="#results" style="color:#666; margin: 0 8px;">Results</a>
+      <a href="#related-work" style="color:#666; margin: 0 8px;">Related work</a>
+      <a href="#limitations-and-whats-next" style="color:#666; margin: 0 8px;">Limitations</a>
+      <a href="#conclusion" style="color:#666; margin: 0 8px;">Conclusion</a>
+    </div>
+    <button id="sticky-toc-btn" style="
+      display: none;
+      background: none;
+      margin-left: auto;
+      border: 1px solid #999;
+      color: #333;
+      padding: 3px 12px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 13px;
+      font-family: inherit;
+    ">&#9776; TOC</button>
+  </div>
+
+  <!-- Dropdown: separate fixed element so it isn't clipped by the bar -->
+  <div id="sticky-toc-dropdown" style="
+    display: none;
+    position: fixed;
+    background: #e8e8e8;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border-radius: 0 0 6px 6px;
+    padding: 6px 0;
+    min-width: 180px;
+    z-index: 1001;
+    font-size: 13px;
+  "></div>
+
   <header class="post-header">
     {%- if page.image_heading -%}
       <img src="{{- page.image_heading | relative_url -}}" alt="" class="featured-image-post">
@@ -44,6 +98,114 @@ layout: base
         pre.parentElement.replaceChild(div, pre);
       });
       mermaid.run();
+    });
+  </script>
+
+  <script>
+    // Set this to match your theme's max content width
+    var CONTENT_MAX_WIDTH = 800;
+
+    var sections = [
+      'motivation',
+      'tackling-dataset-contamination-and-rubric-drift',
+      'how-parametr-bench-works',
+      'tasks-included-in-parametr-bench',
+      'results',
+      'related-work',
+      'limitations-and-whats-next',
+      'conclusion'
+    ];
+
+    function checkTocMode() {
+      var linksDiv = document.getElementById('sticky-toc-links');
+      var btn      = document.getElementById('sticky-toc-btn');
+      var dropdown = document.getElementById('sticky-toc-dropdown');
+      var compact  = window.innerWidth < CONTENT_MAX_WIDTH;
+      linksDiv.style.display = compact ? 'none' : '';
+      btn.style.display      = compact ? 'inline-block' : 'none';
+      if (!compact) dropdown.style.display = 'none';
+    }
+
+    function syncTocWidth() {
+      var article = document.querySelector('article.post');
+      var bar     = document.getElementById('sticky-toc');
+      if (!article || !bar) return;
+      var rect    = article.getBoundingClientRect();
+      bar.style.left  = rect.left + 'px';
+      bar.style.width = rect.width + 'px';
+    }
+
+    function updateActiveSection() {
+      var scrollPos = window.scrollY + 60;
+      var current   = sections[0];
+      sections.forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el && el.offsetTop <= scrollPos) current = id;
+      });
+      ['#sticky-toc-links a', '#sticky-toc-dropdown a'].forEach(function(sel) {
+        document.querySelectorAll(sel).forEach(function(a) {
+          a.style.color = '#666'; a.style.fontWeight = 'normal';
+        });
+        var active = document.querySelector(sel.replace('a', 'a[href="#' + current + '"]'));
+        if (active) { active.style.color = '#111'; active.style.fontWeight = 'bold'; }
+      });
+    }
+
+    // Add this function
+    function buildDropdown() {
+      var dropdown = document.getElementById('sticky-toc-dropdown');
+      if (dropdown.children.length > 0) return; // only build once
+      document.querySelectorAll('#sticky-toc-links a').forEach(function(link) {
+        var a = document.createElement('a');
+        a.href = link.getAttribute('href');
+        a.textContent = link.textContent;
+        a.style.cssText = 'display:block; padding:7px 20px; color:#666; text-decoration:none;';
+        a.addEventListener('click', function() {
+          document.getElementById('sticky-toc-dropdown').style.display = 'none';
+        });
+        dropdown.appendChild(a);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      syncTocWidth();
+      checkTocMode();
+      buildDropdown(); // ← add this
+
+    });
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+      syncTocWidth();
+      checkTocMode();
+
+      document.getElementById('sticky-toc-btn').addEventListener('click', function(e) {
+        e.stopPropagation();
+        var dd  = document.getElementById('sticky-toc-dropdown');
+        var bar = document.getElementById('sticky-toc');
+        if (dd.style.display === 'none') {
+          var r = bar.getBoundingClientRect();
+          dd.style.top  = r.bottom + 'px';
+          dd.style.left = r.left + 'px';
+          dd.style.display = 'block';
+        } else {
+          dd.style.display = 'none';
+        }
+      });
+
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('#sticky-toc-btn') && !e.target.closest('#sticky-toc-dropdown')) {
+          document.getElementById('sticky-toc-dropdown').style.display = 'none';
+        }
+      });
+    });
+
+    window.addEventListener('resize', function() { syncTocWidth(); checkTocMode(); });
+
+    window.addEventListener('scroll', function() {
+      var bar = document.getElementById('sticky-toc');
+      bar.style.display = window.scrollY > 300 ? 'flex' : 'none';
+      updateActiveSection();
     });
   </script>
 </article>

@@ -24,18 +24,18 @@ PARAMETR-Bench, presented in this article, connects these three threads. It star
 
 ## Motivation
 
-PARAMETR-Bench grew out of my work on RLHF platforms, where I'm paid to create original multimodal physics problems for LLMs. Tasks have to hit specific difficulty thresholds, and crafting a multimodal task only to discover it's too easy is an expensive mistake. I started looking for a way to tune difficulty quickly, and ended up writing most of my tasks as small data generators in Jupyter notebooks: re-run the notebook to get new data, tweak parameters to add noise or scale up the dataset, and the same task becomes harder in seconds.
+PARAMETR-Bench[^parametrbench] grew out of my work on RLHF platforms, where I'm paid to create original multimodal physics problems for LLMs. Tasks have to hit specific difficulty thresholds, and crafting a multimodal task only to discover it's too easy is an expensive mistake. I started looking for a way to tune difficulty quickly, and ended up writing most of my tasks as small data generators in Jupyter notebooks: re-run the notebook to get new data, tweak parameters to add noise or scale up the dataset, and the same task becomes harder in seconds.
 From there, I got curious about the other side — could I send these tasks to LLMs and evaluate the results automatically? I built a few tasks for myself and started building PARAMETR-Bench around them.
 
-*Note: To be clear, the tasks in PARAMETR-Bench are not the ones I've submitted to platforms - those are subject to IP agreements. The tasks here are my work done specifically for this framework, and are built around the same workflow I use on RLHF platforms.*
+*Note: To be clear, the tasks in the PARAMETR-Bench are not the ones I've submitted to platforms - those are subject to IP agreements. The tasks here are my work done specifically for this framework, and are built around the same workflow I use on RLHF platforms.*
 
 ## Tackling Dataset Contamination and Rubric Drift
 
 Traditional benchmarks rely on fixed test sets that are becoming contaminated or saturated. Common solutions are hiding test sets or constantly adding new questions. These approaches either sacrifice benchmark transparency or require unsustainable effort.
 
-Procedural generation is a third approach that solves leakage by creating fresh instances every run. But it introduces a new problem. Tasks where the answer is a single number can be graded easily but more complex tasks, such as multi-step scientific analyses, that need detailed grading criteria (rubrics) are trickier. Keeping rubrics aligned with dynamically generated data is challenging.
+Procedural generation is a third approach that solves leakage by creating fresh instances every run. But it introduces a new problem. Tasks where the answer is a single number can be graded easily, but more complex tasks, such as multi-step scientific analyses, that need detailed grading criteria (rubrics) are trickier. Keeping rubrics aligned with dynamically generated data is challenging.
 
-[PARAMETR-Bench](https://github.com/otheiner/PARAMETR-Bench/) addresses this. It combines a procedural task generator, a sandboxed environment for AI agents, and an evaluation harness with LLM-as-judge. Crucially, it uses the same generating process that creates the task data to also instantiate the rubrics. [**Metarubrics**](#metarubrics-and-rubrics) are a novel (and surprisingly simple) methodological concept I haven't seen elsewhere that mitigates contamination and prevents rubric drift by construction. Note that the term differs from the educational assessment usage, where 'metarubric' refers to a rubric for evaluating other rubrics. The framework is not restricted to physics - physics is just where my expertise happens to lie - and the PARAMETR-Bench is a proof of concept that might grow in the future into other domains.
+[PARAMETR-Bench](https://github.com/otheiner/PARAMETR-Bench/) addresses this. It combines a procedural task generator, a sandboxed environment for AI agents, and an evaluation harness with LLM-as-judge. Crucially, it uses the same generating process that creates the task data to also instantiate the rubrics. [**Metarubrics**](#metarubrics-and-rubrics) are a novel (and surprisingly simple) methodological concept I haven't seen elsewhere that mitigates contamination and prevents rubric drift by construction. Note that the term differs from the educational assessment usage, where 'metarubric' refers to a rubric for evaluating other rubrics. The framework is not restricted to physics - physics is just where my expertise happens to lie - and PARAMETR-Bench is a proof of concept that might grow in the future into other domains.
 
 ## How PARAMETR-Bench Works
 
@@ -230,9 +230,7 @@ This indirect approach is not always sufficient (some failure modes are invarian
 
 Since PARAMETR-Bench can generate many instances of one task at approximately the same difficulty, it allows treating the LLM as a statistical black box — probing its behavior across multiple trials rather than relying on a single evaluation. Even when the model temperature is set to zero, responses can vary due to non-determinism in sampling and infrastructure. This variance is difficult to quantify from a single experiment, but running multiple seeds across the same task and difficulty level makes it measurable.
 
-Each evaluation sequence proceeds as follows. The model receives the task definition, the multimodal input data, and an agentic prompt. In agentic mode, it interacts with the Docker sandbox through the available tools — running Python scripts, reading files, viewing images — and iterates until it produces a final response or the maximum number of turns is reached. Models are tested with their default parameters, but those that support reasoning also keep their thought thread in between the agentic turns. In non-agentic mode, the full input is embedded in a single prompt and the model responds in one turn.
-
-The model's response is then passed to an LLM-as-judge alongside the populated rubrics and a judge prompt. The judge grades each rubric criterion independently, producing a binary pass or fail for each. These grades are aggregated into a weighted score for the sequence, where each metarubric's weight reflects the relative importance of the corresponding analytical step. Rubrics are grouped into categories — such as scientific reasoning, numerical computation, and data extraction — allowing the aggregate score to be decomposed into per-category pass rates, which makes it possible to identify where a model fails rather than just whether it fails.
+Each evaluation sequence runs as described above. Models are tested with their default parameters; those that support reasoning also keep their thought thread between agentic turns. The judge's binary grades are aggregated into a weighted score for the sequence, where each metarubric's weight reflects the relative importance of the corresponding analytical step. Rubrics are grouped into four categories — scientific reasoning, data handling, image data extraction, instructions following — allowing the aggregate score to be decomposed into per-category pass rates, which makes it possible to identify where a model fails rather than just whether it fails.
 
 All model responses are stored automatically alongside their rubric grades and metadata, so they can be re-analyzed in the future — for example, to study failure modes or to re-grade with an improved judge — without re-running the experiments.
 
@@ -240,11 +238,11 @@ Across multiple seeds at the same difficulty level, per-task pass rates and thei
 
 ## Tasks Included in PARAMETR-Bench
 
-Tasks in the PARAMETR-Bench have a few common features:
+Tasks in PARAMETR-Bench have a few common features:
 
 1. They are motivated by real science. Some of the tasks are inspired by the Nobel-prize level discoveries that revolutionized fields such as cosmology or particle physics (though the framework is not restricted only to physics).
-2. Multi-step nature - tasks consist of multiple steps combining scientific reasoning, data exploration, python code implementation.
-3. Data used as an input are multimodal (images, tables, text files)
+2. Multi-step nature - tasks consist of multiple steps combining scientific reasoning, data exploration, and Python code implementation.
+3. Input data are multimodal (images, tables, text files)
 4. Adversarial by nature and designed to challenge models in things I noticed to be difficult.
 
 Currently, there are four complex physics tasks and two minimal working example tasks in the repository to demonstrate the framework on the simplest cases. These minimal working examples are by default not included when running the whole benchmark, unless the user specifies them. The following paragraphs briefly describe tasks currently included in the framework. For more details, check [Hugging Face Space](https://huggingface.co/spaces/otheiner/PARAMETR-Bench_demo) or `tasks` folder in [GitHub repo](https://github.com/otheiner/PARAMETR-Bench/). 
@@ -270,7 +268,7 @@ Currently, there are four complex physics tasks and two minimal working example 
           /assets/images/PARAMETR-Bench/lissajous.png > Lissajous figure generated in one of the tasks. Here the ratio of lobes is 3:5.;
       "%}
 
-Two minimal working examples follow. These tasks are simple and require no physics knowledge, so a potential contributor from a different field can examine the framework without having to understand the physics tasks. Both tasks have names prefixed with an underscore - by convention, tasks in PARAMETR-Bench whose names start with `_` are minimal working examples and are not included in the default benchmark evaluation, but they remain in the repository for demonstration and debugging. Even though both tasks are deliberately simple, they reveal interesting LLM failure modes. They're useful both as framework demonstrations and as small empirical probes of what current models still struggle with.
+Two minimal working examples follow. These tasks are simple and require no physics knowledge, so a potential contributor from a different field can examine the framework without having to understand the physics tasks. Both tasks have names prefixed with an underscore - by convention, tasks in the PARAMETR-Bench whose names start with `_` are minimal working examples and are not included in the default benchmark evaluation, but they remain in the repository for demonstration and debugging. Even though both tasks are deliberately simple, they reveal interesting LLM failure modes. They're useful both as framework demonstrations and as small empirical probes of what current models still struggle with.
 
   - [`_count_circles`](https://github.com/otheiner/PARAMETR-Bench/blob/main/tasks/_count_circles/prompt.md): The model receives several images of black circles on a white background and is asked to count the circles in each, then compute the average. With few circles per image, most vision models handle this easily; with many circles per image, even capable models start to miscount, making this a useful illustration of when agentic evaluation outperforms direct visual reasoning.
   
@@ -281,7 +279,7 @@ Two minimal working examples follow. These tasks are simple and require no physi
 
 *Note: Presented results come from the end of May 2026 and were produced by the code at commit [`c7791b7`](https://github.com/otheiner/PARAMETR-Bench/tree/c7791b7b5e5a4d1acb4db35fed3257800b06d1f3).*
 
-The following results cover four models with their default thinking level: **Claude Sonnet 4.6** (no thinking), **Gemini 3.1 Pro preview** (thinking on by default - high), **GPT-5.4 Mini** (no thinking), and **DeepSeek V4 Pro** (thinking on by default). Qwen 3.6-235B-A22B was excluded for the reason described below. Claude Haiku 4.5 served as the primary judge, with Gemini 3.1 Flash Lite as a reference judge for cross-family validation. Each model was evaluated in two runs — a public and a private seed set — each comprising 4 seeds across 4 tasks, yielding approximately 1900 binary rubric criteria per run per model.
+The following results cover four models with their default thinking levels: **Claude Sonnet 4.6** (no thinking), **Gemini 3.1 Pro preview** (thinking on by default - high), **GPT-5.4 Mini** (no thinking), and **DeepSeek V4 Pro** (thinking on by default). Qwen 3.6-235B-A22B was excluded for the reason described below. Claude Haiku 4.5 served as the primary judge, with Gemini 3.1 Flash Lite as a reference judge for cross-family validation. Each model was evaluated in two runs — a public and a private seed set — each comprising 4 seeds across 4 tasks, yielding approximately 1900 binary rubric criteria per run per model.
  
 Since the tasks require tool use and multi-step reasoning, non-agentic evaluation produces no meaningful signal. All results presented here use agentic mode.
 
@@ -333,7 +331,7 @@ The following chart shows results for four models. Scores are weighted averages 
   images="/assets/images/PARAMETR-Bench/benchmark_results_public_judge_haiku-4-5.png > Model performance on tasks seeded by the public seed set [10, 11, 12, 13] on hard difficulty.;
       "%}
 
-Following table shows a detailed breakdown of the model scores on individual seeded instances of the tasks in the benchmark. 
+The following table shows a detailed breakdown of the model scores on individual seeded instances of the tasks in the benchmark. 
 
  {% include gallery.html 
   type="justified" 
@@ -350,7 +348,7 @@ Evaluating GPT-5.4 mini required multiple restarts. OpenAI's safety classifier r
 
 The figures above tell us how well agents performed on the tasks, but reveal nothing about their working strategies. This section aims to shed light on the different approaches taken by each agent.
 
-Models can issue multiple simultaneous tool calls within a single agentic turn. The figure below shows the aggregated number of tool calls across all task instances in the test. The statistics comes from the same results as I present in the main result section.
+Models can issue multiple simultaneous tool calls within a single agentic turn. The figure below shows the aggregated number of tool calls across all task instances in the test. The statistics come from the same results as I present in the main evaluation section.
 
  {% include gallery.html 
   type="justified" 
@@ -358,7 +356,7 @@ Models can issue multiple simultaneous tool calls within a single agentic turn. 
   images="/assets/images/PARAMETR-Bench/tool_usage_aggregated.png > Aggregated model tool use across public seeds [10, 11, 12, 13] and hard difficulty. All tasks had a limit of maximum of 10 agentic turns, where multiple parallel tool calls can be made within one turn.;
       "%}
 
-Notably, Gemini 3.1 Pro achieved results comparable to Claude Sonnet 4.6 with a significantly smaller total number of tool calls. Claude Sonnet 4.6 and DeepSeek V4 Pro also show a nearly identical aggregated tool-call count, yet DeepSeek performed considerably worse. That said, Sonnet's count is inflated by the 48 `view_image` calls on seed 13 of `lissajous_figures`. This can be seen from the next figure showing more detailed breakdown - the distribution of tool calls across the task instances presented above. White numbers indicate the total number of calls for a given tool, and the colour fraction corresponds to that tool's share of all tool calls in the given task instance.
+Notably, Gemini 3.1 Pro achieved results comparable to Claude Sonnet 4.6 with a significantly smaller total number of tool calls. Claude Sonnet 4.6 and DeepSeek V4 Pro also show a nearly identical aggregated tool-call count, yet DeepSeek performed considerably worse. That said, Sonnet's count is inflated by the 48 `view_image` calls on seed 13 of `lissajous_figures`. This can be seen from the next figure showing a more detailed breakdown - the distribution of tool calls across the task instances presented above. White numbers indicate the total number of calls for a given tool, and the colour fraction corresponds to that tool's share of all tool calls in the given task instance.
 
  {% include gallery.html 
   type="justified" 
@@ -369,7 +367,7 @@ Even though task instances across seeds are nearly identical — comparable data
 
 A particularly surprising case is Gemini's strategy on `invariant_mass_reconstruction` for seed 11: the model never called `view_image`, despite the task including an image from which detector geometry is supposed to be read. Closer inspection of the model output revealed that Gemini reverse-engineered the detector geometry directly from the data — an approach that would rarely be viable in practice, but is entirely valid here because the task explicitly states a simplification that makes it tractable. I hadn't considered this approach at all when designing the task!
 
-Also noteworthy is DeepSeek's heavier reliance on `view_image` compared to the other models, suggesting it leaned more on its vision capabilities where other models turned to Python for image analysis. From all models DeepSeek had the worst score from tested models (excluding Qwen).
+Also noteworthy is DeepSeek's heavier reliance on `view_image` compared to the other models, suggesting it leaned more on its vision capabilities where other models turned to Python for image analysis. Of all tested models, DeepSeek had the worst score (excluding Qwen).
   
 
 ### Judge Reliability
@@ -378,7 +376,7 @@ LLM-as-judge remains one of the weaker links in the evaluation chain. The main r
 
 {% include gallery.html 
   type="justified" 
-  images="/assets/images/PARAMETR-Bench/benchmark_results_haiku_gemini.png > Comperison of grading results obtained by two different judges.;
+  images="/assets/images/PARAMETR-Bench/benchmark_results_haiku_gemini.png > Comparison of grading results obtained by two different judges.;
       "%}
 
 
@@ -399,9 +397,9 @@ The scaling works to a degree — both models score lowest on hard — but the e
 
 ### Model Capabilities by Dimensions
 
-Rubric criteria are split into four dimensions: data handling, image data extraction, scientific reasoning, instruction following and each model was also evaluated accross these dimentions by grouping weighted rubrics from these dimensions together. Each dimension is evaluated independently, so if the model would fullfill all rubrics from one dimension, it would score 100% dimension, but it wouldn't influence scores in other dimensions.
+Rubric criteria are split into four dimensions: data handling, image data extraction, scientific reasoning, instruction following, and each model was also evaluated across these dimensions by grouping weighted rubrics from these dimensions together. Each dimension is evaluated independently, so if the model would fulfil all rubrics from one dimension, it would score 100% in that dimension, but it wouldn't influence scores in other dimensions.
 
-It is important to say that even though these dimensions test different capabilities, they are not entirely independent. Rubric criteria that are dependent on previous steps that failed, will also likely fail. For this reason, results in the following histogram should be only viewed as an approximate qualitative analysis.
+It is important to say that even though these dimensions test different capabilities, they are not entirely independent. Rubric criteria that depend on previous steps that failed will also likely fail. For this reason, results in the following histogram should be only viewed as an approximate qualitative analysis.
 
 {% include gallery.html 
   type="justified" 
@@ -409,11 +407,11 @@ It is important to say that even though these dimensions test different capabili
   images="/assets/images/PARAMETR-Bench/benchmark_results_dimensions_judge_haiku-4-5.png > Comparison of model performance across four dimensions.;
       "%}
 
-Even if these results give us only approximate idea about model performance, it can be seen that models scored the lowest in the image data extraction. The image extractions step is usually early in the analysis because it requires extracting data for the further analysis. For this reason, this step is in the presented tasks usually mostly independent of others. On the other hand, scientific reasoning also covers rubrics checking for the correctness of the final result and that is what renders these scores lower.
+Even if these results give us only an approximate idea about model performance, it can be seen that all models scored lowest in image data extraction. The image extraction step is usually early in the analysis because it requires extracting data for further analysis. For this reason, image extraction is in the presented tasks usually mostly independent of others. On the other hand, scientific reasoning also covers rubrics checking for the correctness of the final result and that is what renders these scores lower.
 
 ### A Long-Running Contamination Experiment
 
-The seeded-generation design provides a theoretical contamination resistance - but a theoretical property is not an empirical one. To actually test whether contamination is detectable in practice, the published evaluation set needs to leak into model training data, and then I need a way to measure that it leaked.
+The seeded-generation design provides theoretical contamination resistance - but a theoretical property is not an empirical one. To actually test whether contamination is detectable in practice, the published evaluation set needs to leak into model training data, and then I need a way to measure that it leaked.
 
 I cannot force a leak to happen, but I can make it as likely as possible. The strategy is to publish the public seed set together with results now, and to wait several months until the next generation of models is trained on web data crawled in the meantime. Unlike most benchmarks - which try to mitigate the risk of dataset leakage - I am deliberately maximizing the probability of leakage for a specific, pre-registered subset of seeds.
 
@@ -478,6 +476,8 @@ The contamination experiment is now live. I plan to revisit it in roughly a year
 Extending the framework to additional domains and tasks, and validating difficulty scaling across more seeds, remains the natural next step — ideally with collaborators who bring domain expertise outside physics.
 
 ## References
+
+[^parametrbench]: PARAMETR-Bench: GitHub [repo](https://github.com/otheiner/PARAMETR-Bench)
 
 [^dyval]: Zhu, K., et al. (2023). *DyVal: Dynamic Evaluation of Large Language Models for Reasoning Tasks*. [arXiv:2309.17167](https://arxiv.org/abs/2309.17167).
 
