@@ -26,6 +26,8 @@ layout: base
     font-size: 15px;
     z-index: 1000;
     display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
     align-items: center;
     box-shadow: 0 2px 5px rgba(0,0,0,0.15);
     border-radius: 0 0 6px 6px;
@@ -52,7 +54,7 @@ layout: base
       border-radius: 4px;
       font-size: 13px;
       font-family: inherit;
-    ">&#9776; TOC</button>
+    "><img src="{{ '/assets/images/book.png' | relative_url }}" alt="TOC" style="height: 18px; vertical-align: middle;"></button>
   </div>
 
   <!-- Dropdown: separate fixed element so it isn't clipped by the bar -->
@@ -151,17 +153,31 @@ layout: base
       });
     }
 
-    // Add this function
+    var hideTimer = null;
+    var fadeTimer = null;
+
+    function isDropdownOpen() {
+      return document.getElementById('sticky-toc-dropdown').style.display !== 'none';
+    }
+
+    function closeTocBar() {
+      var bar = document.getElementById('sticky-toc');
+      bar.style.opacity = '0';
+      clearTimeout(fadeTimer);
+      fadeTimer = setTimeout(function() { bar.style.display = 'none'; }, 400);
+    }
+
     function buildDropdown() {
       var dropdown = document.getElementById('sticky-toc-dropdown');
-      if (dropdown.children.length > 0) return; // only build once
+      if (dropdown.children.length > 0) return;
       document.querySelectorAll('#sticky-toc-links a').forEach(function(link) {
         var a = document.createElement('a');
         a.href = link.getAttribute('href');
         a.textContent = link.textContent;
         a.style.cssText = 'display:block; padding:7px 20px; color:#666; text-decoration:none;';
         a.addEventListener('click', function() {
-          document.getElementById('sticky-toc-dropdown').style.display = 'none';
+          dropdown.style.display = 'none';
+          closeTocBar();
         });
         dropdown.appendChild(a);
       });
@@ -170,26 +186,25 @@ layout: base
     document.addEventListener('DOMContentLoaded', function() {
       syncTocWidth();
       checkTocMode();
-      buildDropdown(); // ← add this
-
-    });
-
-
-    document.addEventListener('DOMContentLoaded', function() {
-      syncTocWidth();
-      checkTocMode();
+      buildDropdown();
 
       document.getElementById('sticky-toc-btn').addEventListener('click', function(e) {
         e.stopPropagation();
         var dd  = document.getElementById('sticky-toc-dropdown');
         var bar = document.getElementById('sticky-toc');
         if (dd.style.display === 'none') {
-          var r = bar.getBoundingClientRect();
-          dd.style.top  = r.bottom + 'px';
-          dd.style.left = r.left + 'px';
+          var barR = bar.getBoundingClientRect();
+          dd.style.top   = barR.bottom + 'px';
+          dd.style.right = (window.innerWidth - barR.right) + 'px';
+          dd.style.left  = 'auto';
           dd.style.display = 'block';
+          // keep bar visible while dropdown is open
+          clearTimeout(hideTimer);
+          clearTimeout(fadeTimer);
+          bar.style.opacity = '1';
         } else {
           dd.style.display = 'none';
+          closeTocBar();
         }
       });
 
@@ -204,8 +219,21 @@ layout: base
 
     window.addEventListener('scroll', function() {
       var bar = document.getElementById('sticky-toc');
-      bar.style.display = window.scrollY > 300 ? 'flex' : 'none';
+      if (window.scrollY > 100) {
+        clearTimeout(fadeTimer);
+        bar.style.display = 'flex';
+        syncTocWidth();
+        checkTocMode();
+        requestAnimationFrame(function() { bar.style.opacity = '1'; });
+      }
       updateActiveSection();
+      if (!isDropdownOpen()) {
+        clearTimeout(hideTimer);
+        hideTimer = setTimeout(function() {
+          bar.style.opacity = '0';
+          fadeTimer = setTimeout(function() { bar.style.display = 'none'; }, 400);
+        }, 2000);
+      }
     });
   </script>
 </article>
