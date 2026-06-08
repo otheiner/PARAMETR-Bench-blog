@@ -14,7 +14,18 @@ image_heading: /assets/images/PARAMETR-Bench/heading.png
 Problem design is a long thread in my background. As a high school student, I twice represented the Czech Republic at the International Olympiad on Astronomy and Astrophysics (IOAA), winning bronze medals in 2013 and 2014. Since starting university, I've been an organizer of the Czech Astronomy Olympiad, writing competition problems for students.
 
 PARAMETR-Bench, presented in this article, connects these three threads. It started as a curiosity project, but grew into something I think is worth sharing. Despite the "Bench" in the name, my aim is not to build yet another benchmark, but to show my work and present a few interesting ideas I came across along the way. I welcome any comments, and I'm open to discussion - just [reach out](https://otheiner.github.io/#contact).
+
+<details style="margin: 1.5em 0; border: 1px solid #ccc; border-radius: 6px; padding: 0; background: #f9f9f9;">
+  <summary style="cursor: pointer; padding: 12px 16px; font-weight: bold; font-size: 1.05em; list-style: none; display: flex; align-items: center; gap: 8px;">
+    <span style="font-size: 1.2em;">📋</span> TLDR (click to expand)
+  </summary>
+  <div style="padding: 0 16px 14px 16px; font-size: 0.97em; line-height: 1.6;">
+    <p>PARAMETR-Bench is a procedurally generated benchmarking framework for evaluating AI agents on multi-step scientific data analysis tasks. Each task instance is produced by a seeded generator, so every run yields fresh input data — addressing the dataset contamination and saturation problems that affect static benchmarks. The key methodological contribution is <strong>metarubrics</strong>: rubric templates that are auto-populated by the same generator that produces the task data, so grading criteria stay aligned with the ground truth without any manual effort per run.</p>
+    <p>The initial evaluation covers four frontier models — Claude Sonnet 4.6, Gemini 3.1 Pro (preview), GPT-5.4 Mini, and DeepSeek V4 Pro — with the first two scoring highest. The evaluation also revealed distinct tool-use strategies: Gemini matched or exceeded Claude while issuing significantly fewer tool calls, and all models struggled most with image data extraction. DeepSeek relied most heavily on its vision capabilities, while the other models favoured Python-based image analysis. Judge reliability was probed by cross-family validation with no detectable same-family bias. The blog post also describes an ongoing contamination experiment: the public seed set and its generated data are deliberately published to maximize the chance of future training exposure, with a held-out private seed set serving as the control — the first contamination signal cannot arrive until a new model generation has been trained.</p>
+  </div>
+</details>
 </div>
+
 
 ## Table of Contents
 {:.no_toc}
