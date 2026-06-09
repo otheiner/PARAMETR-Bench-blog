@@ -5,8 +5,9 @@ description: "PARAMETR-Bench: A Framework for Procedural Scientific Tasks with A
 image_heading: /assets/images/PARAMETR-Bench/heading.png
 ---
 [![DOI](https://github.com/user-attachments/assets/799b8ec5-cc08-4e1b-a182-4e784fa78244)](https://doi.org/10.5281/zenodo.20076421)
-[![DOI](https://img.shields.io/badge/%F0%9F%A4%97-Hugging%20Face-yellow?style=flat)](https://huggingface.co/spaces/otheiner/PARAMETR-Bench_demo)
-[![DOI](https://img.shields.io/badge/GitHub-otheiner/PARAMETR--Bench-black?style=flat&logo=github)](https://github.com/otheiner/PARAMETR-Bench)
+[![Github](https://img.shields.io/badge/GitHub-otheiner/PARAMETR--Bench-black?style=flat&logo=github)](https://github.com/otheiner/PARAMETR-Bench)
+[![HF-space](https://img.shields.io/badge/%F0%9F%A4%97-Hugging%20Face/space-yellow?style=flat)](https://huggingface.co/spaces/otheiner/PARAMETR-Bench_demo)
+[![HF-dataset](https://img.shields.io/badge/%F0%9F%A4%97-Hugging%20Face/dataset-yellow?style=flat)](https://huggingface.co/datasets/otheiner/PARAMETR-Bench)
 
 <div class="intro-note" markdown="1">
 **Quick introduction:** I'm a particle physicist with a PhD from the University of Geneva during which I conducted research at CERN. There, I searched for new elementary particles, contributed to the Athena software framework (the 5M+ line C++/Python codebase used across the ATLAS experiment, one of the largest scientific collaborations in the world), and to the FASER experiment's trigger and data acquisition system.  More recently, I've been working on reinforcement learning from human feedback (RLHF) platforms, designing physics evaluation tasks for frontier large language models.
